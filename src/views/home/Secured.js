@@ -42,7 +42,7 @@ const Secured = () => {
           on 1st trial or walk away! More than 10k+ Transactions
         </Text>
       </Box>
-      <Box d="flex" px={5} justifyContent="space-around">
+      <Box d="flex" flexWrap="wrap" px={5} justifyContent="space-around">
         <Box className={classes.gridItem}>
           {/* <Laptop height="50px" /> */}
           <Text className={classes.count}>152</Text>

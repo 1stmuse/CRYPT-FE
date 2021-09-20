@@ -13,7 +13,7 @@ const useStyles = createUseStyles({
     backgroundColor: colors.ash,
   },
   gridItem: {
-    width: "300px",
+    maxWidth: "300px",
     minHeight: "250px",
     borderRadius: "10px",
     display: "flex",
@@ -21,6 +21,7 @@ const useStyles = createUseStyles({
     alignItems: "center",
     border: `1px solid ${colors.primary}`,
     padding: "10px 15px",
+    marginBottom: "20px",
   },
   girdItemText: {
     textAlign: "center",
@@ -35,7 +36,7 @@ const useStyles = createUseStyles({
 const WeAre = () => {
   const classes = useStyles();
   return (
-    <Box className={classes.main} h="100vh">
+    <Box className={classes.main} minH="100vh">
       <Box w="80%">
         <Text textAlign="center" fontSize="5xl">
           Who we are?
@@ -53,7 +54,13 @@ const WeAre = () => {
             Take on the market with our powerful platforms
           </Text>
 
-          <Box d="flex" mb={5} justifyContent="space-around" mt={10}>
+          <Box
+            d="flex"
+            flexWrap="wrap"
+            mb={5}
+            justifyContent="space-around"
+            mt={10}
+          >
             <Bounce delay={100}>
               <Box className={classes.gridItem}>
                 <Text my={3}>Secured</Text>

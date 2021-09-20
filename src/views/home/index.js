@@ -8,6 +8,8 @@ import Button from "../../components/Button";
 import Services from "./Services";
 import Secured from "./Secured";
 import WeAre from "./WeAre";
+import Reviews from "./Reviews";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
@@ -30,7 +32,7 @@ const Home = () => {
           justifyContent="space-between"
           zIndex="100"
         >
-          <Box w="50%" mt="20px">
+          <Box id="top" w="50%" mt="20px">
             <Text fontSize="5xl" color="white" textTransform="uppercase">
               Don’t just buy Bitcoin, here you can loan IT.
             </Text>
@@ -50,6 +52,8 @@ const Home = () => {
       <Services />
       <Secured />
       <WeAre />
+      <Reviews />
+      <Footer />
     </Box>
   );
 };

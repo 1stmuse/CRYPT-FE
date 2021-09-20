@@ -54,7 +54,7 @@ const Services = () => {
           </Box>
         </Box>
       </Box>
-      <Box d="flex" px={5} justifyContent="space-around">
+      <Box d="flex" flexWrap="wrap" px={5} justifyContent="space-around">
         <Bounce delay={100}>
           <Box className={classes.gridItem}>
             <Laptop height="50px" />
