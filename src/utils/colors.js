@@ -4,4 +4,6 @@ export default {
   secondary: "#222425",
   white: "#fff",
   brown: "#8e8da5",
+  deepBlue: "#2d2b51",
+  ash: "#f1f1f1",
 };

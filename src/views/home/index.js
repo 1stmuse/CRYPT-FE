@@ -6,6 +6,8 @@ import bg from "../../assets/bctBg.jpg";
 import img from "../../assets/btc-vallet.png";
 import Button from "../../components/Button";
 import Services from "./Services";
+import Secured from "./Secured";
+import WeAre from "./WeAre";
 
 const Home = () => {
   return (
@@ -46,6 +48,8 @@ const Home = () => {
         </Box>
       </Box>
       <Services />
+      <Secured />
+      <WeAre />
     </Box>
   );
 };
