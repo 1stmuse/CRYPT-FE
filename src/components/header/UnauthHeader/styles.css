@@ -1,0 +1,24 @@
+.headerDefault {
+  height: 100px;
+  position: fixed;
+  display: flex;
+  right: 0;
+  left: 0;
+  justify-content: space-between;
+  transition: 0.8s;
+  align-items: center;
+  z-index: 1000;
+}
+
+.header {
+  height: 100px;
+  position: fixed;
+  display: flex;
+  right: 0;
+  left: 0;
+  justify-content: space-between;
+  background-color: #222425;
+  transition: 0.8s;
+  align-items: center;
+  z-index: 1000;
+}
