@@ -8,6 +8,7 @@ import { ReactComponent as Time } from "../../assets/time.svg";
 import { ReactComponent as Column } from "../../assets/column.svg";
 import { createUseStyles } from "react-jss";
 import Bounce from "react-reveal/Bounce";
+import { useHistory } from "react-router-dom";
 
 const styles = createUseStyles({
   gridItem: {
@@ -24,6 +25,7 @@ const styles = createUseStyles({
 });
 
 const Services = () => {
+  const history = useHistory();
   const classes = styles();
   return (
     <Box minH="130vh" px="36">
@@ -48,7 +50,12 @@ const Services = () => {
               System and Agile Software Development, and others.
             </Text>
 
-            <Button type="primary" borderRadius="20px" mt={5}>
+            <Button
+              type="primary"
+              borderRadius="20px"
+              mt={5}
+              onClick={() => history.push("signup")}
+            >
               CREATE ACCOUNT
             </Button>
           </Box>

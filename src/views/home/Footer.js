@@ -15,7 +15,11 @@ const useStyles = createUseStyles({
 const Footer = () => {
   const classes = useStyles();
   return (
-    <Box className={classes.main} minH="40vh">
+    <Box
+      className={classes.main}
+      minH="40vh"
+      borderTop={`1px solid ${colors.brown}`}
+    >
       {/* <Box>
         <Box>
           <Text>Contact Info</Text>

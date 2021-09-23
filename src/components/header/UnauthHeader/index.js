@@ -1,6 +1,7 @@
 import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import { createUseStyles } from "react-jss";
+import { useHistory } from "react-router-dom";
 import "./styles.css";
 
 const useStyles = createUseStyles({
@@ -13,6 +14,7 @@ const useStyles = createUseStyles({
 
 const UnauthHeader = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [scrollPosition, setScrollPosition] = React.useState(0);
   const handleScroll = () => {
     const position = window.pageYOffset;
@@ -51,10 +53,14 @@ const UnauthHeader = () => {
         <Box className={classes.nav}>
           <Text style={headerTextColor}>Services</Text>
         </Box>
-        <Box className={classes.nav} bg="#3fc535">
+        <Box
+          className={classes.nav}
+          onClick={() => history.push("login")}
+          bg="#3fc535"
+        >
           <Text style={headerTextColor}>Login</Text>
         </Box>
-        <Box className={classes.nav}>
+        <Box className={classes.nav} onClick={() => history.push("signup")}>
           <Text style={headerTextColor}>Sign Up</Text>
         </Box>
       </Box>

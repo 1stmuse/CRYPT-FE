@@ -11,7 +11,7 @@ import WeAre from "./WeAre";
 import Reviews from "./Reviews";
 import Footer from "./Footer";
 
-const Home = () => {
+const Home = ({ history }) => {
   return (
     <Box minH="150vh">
       <Box position="relative" h="100vh" bgImg={bg} d="flex" px="28">
@@ -40,7 +40,11 @@ const Home = () => {
               CryptBliz is the easiest place to buy, sell and earn
               cryptocurrency. Sign up and start earning today.
             </Text>
-            <Button type="primary" mt="55px">
+            <Button
+              type="primary"
+              mt="55px"
+              onClick={() => history.push("signup")}
+            >
               GET STARTED
             </Button>
           </Box>
