@@ -2,7 +2,6 @@ import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import bg from "../assets/bctBg.jpg";
 import { Formik } from "formik";
-import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import colors from "../utils/colors";
 import Button from "../components/Button";
