@@ -18,7 +18,7 @@ const Market = () => {
 
   const getData = () => {
     fetch(
-      `https://api.nomics.com/v1/currencies/ticker?key=8e0604fa91a8c1b3967fa2faae6c362efb307d45&ids=BTC,ETH,XRP,LTC,ADA&interval=1d&per-page=50&page=1"`
+      `https://thingproxy.freeboard.io/fetch/http://api.nomics.com/v1/currencies/ticker?key=8e0604fa91a8c1b3967fa2faae6c362efb307d45&ids=BTC,ETH,XRP,LTC,ADA&interval=1d&per-page=50&page=1"`
     )
       .then((res) => res.json())
       .then((data) => setData(data))
@@ -48,7 +48,7 @@ const Market = () => {
             {data.map((ob, ind) => (
               <Tr key={ind}>
                 <Td d="flex" alignItems="center">
-                  <Image he="30px" width="30px" src={ob.logo_url} />
+                  <Image he="30px" width="30px" mr="5px" src={ob.logo_url} />
                   <Text>{ob.name}</Text>
                 </Td>
                 <Td>${Math.trunc(ob.price).toLocaleString()} </Td>
