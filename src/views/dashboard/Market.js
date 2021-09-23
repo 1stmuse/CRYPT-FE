@@ -18,7 +18,12 @@ const Market = () => {
 
   const getData = () => {
     fetch(
-      `https://thingproxy.freeboard.io/fetch/http://api.nomics.com/v1/currencies/ticker?key=8e0604fa91a8c1b3967fa2faae6c362efb307d45&ids=BTC,ETH,XRP,LTC,ADA&interval=1d&per-page=50&page=1"`
+      `https://thingproxy.freeboard.io/fetch/http://api.nomics.com/v1/currencies/ticker?key=8e0604fa91a8c1b3967fa2faae6c362efb307d45&ids=BTC,ETH,XRP,LTC,ADA&interval=1d&per-page=50&page=1"`,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "https://crypy-blis-demo.netlify.app/",
+        },
+      }
     )
       .then((res) => res.json())
       .then((data) => setData(data))
