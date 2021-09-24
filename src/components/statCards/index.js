@@ -7,8 +7,8 @@ const useStyles = createUseStyles({
   stat: {
     padding: "8px",
     paddingLeft: "20px",
-    width: "200px",
-    height: "100px",
+    // width: "200px",
+    // height: "100px",
     flexDirection: "column",
     alignItems: "flex-start !important",
     /* justify-content: space-around !important; */
@@ -21,7 +21,7 @@ const useStyles = createUseStyles({
 const StatCard = ({ text, amount, icon, color }) => {
   const classes = useStyles();
   return (
-    <Box className={classes.stat}>
+    <Box className={classes.stat} w="200px">
       <Text mb="10%">{text} </Text>
       <Box className="stat-numb">
         <Text color={color}> {amount} </Text>

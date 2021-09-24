@@ -7,9 +7,8 @@ const Btc = () => {
   const [type, setType] = React.useState("buy");
   return (
     <Box w="100%" mt="5" px="5">
-      <Box w="70%">
+      <Box w="150px">
         <Select
-          placeholder="Select transaction type"
           onChange={(val) => setType(val.currentTarget.value)}
           defaultValue="buy"
         >

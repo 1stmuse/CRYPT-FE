@@ -8,10 +8,11 @@ import Login from "./views/Login";
 import Register from "./views/Register";
 import { Box, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import AdminDash from "./views/admin";
 // import { userReducer } from "./redux/reducer";
 
 function App() {
-  const token = useSelector((state) => state.user.token);
+  const { token, admin } = useSelector((state) => state.user);
 
   const isAuth = () => {
     if (token === null || token === undefined) {
@@ -19,6 +20,8 @@ function App() {
     }
     return true;
   };
+
+  console.log(admin);
 
   return (
     <BrowserRouter>
@@ -36,6 +39,7 @@ function App() {
           isAuth={isAuth()}
           component={Register}
         />
+        {admin && <Route path="/admin" exact component={AdminDash} />}
         <AuthedRoute isAuth={isAuth()} component={Layout} />
         <Route
           path={"*"}

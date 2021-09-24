@@ -5,7 +5,9 @@ import Header from "../header";
 import { Switch, Route } from "react-router-dom";
 import Dashboard from "../../views/dashboard";
 import Transaction from "../../views/Transaction";
+import Trade from "../../views/Trade";
 import colors from "../../utils/colors";
+import Borrow from "../../views/borrow";
 
 const Layout = () => {
   return (
@@ -36,6 +38,8 @@ const Layout = () => {
         <Switch>
           <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/transaction" exact component={Transaction} />
+          <Route path="/trade" exact component={Trade} />
+          <Route path="/borrow" exact component={Borrow} />
         </Switch>
       </Box>
     </Box>

@@ -3,6 +3,7 @@ const initialState = {
     firstname: "",
     lastname: "",
     token: null,
+    admin: true,
   },
 };
 

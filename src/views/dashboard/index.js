@@ -7,6 +7,7 @@ import dec from "../../assets/decrease.svg";
 import StatCard from "../../components/statCards";
 import welcome from "../../assets/welcome.svg";
 import Market from "./Market";
+import TransactionTable from "./TransactionTable";
 
 const useStyles = createUseStyles({
   tab: {
@@ -48,7 +49,7 @@ const Dashboard = () => {
             mt="5px"
           >
             <StatCard text="Failed Transactions" amount="0" icon={inc} />
-            <StatCard text="Returning Clients" amount="46" icon={dec} />
+            <StatCard text="Debt Owed" amount="46" icon={dec} />
           </Box>
         </Box>
         <Box
@@ -73,6 +74,7 @@ const Dashboard = () => {
         </Box>
       </Box>
       <Market />
+      <TransactionTable />
     </Box>
   );
 };
