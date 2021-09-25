@@ -19,12 +19,7 @@ const Market = () => {
 
   const getData = () => {
     fetch(
-      `https://api.nomics.com/v1/currencies/ticker?key=8e0604fa91a8c1b3967fa2faae6c362efb307d45&ids=BTC,ETH,XRP,LTC,ADA&interval=1d&per-page=50&page=1"`,
-      {
-        headers: {
-          Origin: "https://crypy-blis-demo.netlify.app/",
-        },
-      }
+      `https://api.nomics.com/v1/currencies/ticker?key=8e0604fa91a8c1b3967fa2faae6c362efb307d45&ids=BTC,ETH,XRP,LTC,ADA&interval=1d&per-page=50&page=1`
     )
       .then((res) => res.json())
       .then((data) => setData(data))
@@ -40,9 +35,9 @@ const Market = () => {
       <Text fontSize="2xl" color={colors.deepBlue}>
         Market
       </Text>
-      <Link href="https://nomics.com">
+      <a href="https://nomics.com">
         Crypto Market Cap & Pricing Data Provided By Nomics
-      </Link>
+      </a>
       <Box mt="5">
         <Table variant="simple" bg="white">
           <Thead>
