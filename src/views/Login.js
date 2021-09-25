@@ -8,6 +8,7 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import { createUseStyles } from "react-jss";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 const useStyles = createUseStyles({
   labels: {
@@ -19,10 +20,37 @@ const useStyles = createUseStyles({
 const Login = ({ history }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const [error, setError] = React.useState("");
   // const history = useHistory();
   const submit = (values) => {
-    dispatch({ type: "LOGIN", payload: "dffygfhgh" });
-    history.push("dashboard");
+    fetch("http://localhost:8000/api/user/login", {
+      headers: {
+        "content-type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(values),
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        if (!res.error) {
+          console.log(res);
+          dispatch({
+            type: "LOGIN",
+            payload: {
+              firstname: res.data.user.firstname,
+              lastname: res.data.user.lastname,
+              isAdmin: res.data.user.isAdmin,
+              token: res.data.token,
+              id: res.data.user._id,
+            },
+          });
+          history.push("dashboard");
+        } else {
+          setError(res.message);
+          setTimeout(() => setError(""), 1000);
+        }
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <Box
@@ -70,6 +98,11 @@ const Login = ({ history }) => {
           >
             {({ values, handleSubmit, isSubmitting }) => (
               <Box>
+                {error && (
+                  <Text color="red" mb="1.5">
+                    {error}
+                  </Text>
+                )}
                 <Box mb="5">
                   <Text className={classes.labels}>Email</Text>
 

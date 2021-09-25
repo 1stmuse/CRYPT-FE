@@ -19,11 +19,16 @@ const useStyles = createUseStyles({
 
 const Header = () => {
   const classes = useStyles();
-  const [active, setActive] = React.useState(0);
   const history = useHistory();
 
-  const routeClick = (route, num) => {
-    setActive(num);
+  const locate = (route) => {
+    if (history.location.pathname.split("/").includes(route)) {
+      return true;
+    }
+    return false;
+  };
+
+  const routeClick = (route) => {
     history.push(route);
   };
   return (
@@ -65,29 +70,39 @@ const Header = () => {
       >
         <Text
           className={classes.tab}
-          borderBottom={active === 0 ? `4px solid ${colors.primary}` : null}
-          onClick={() => routeClick("dashboard", 0)}
+          borderBottom={
+            locate("dashboard") === true ? `4px solid ${colors.primary}` : null
+          }
+          onClick={() => routeClick("dashboard")}
         >
           Dashboard
         </Text>
         <Text
           className={classes.tab}
-          borderBottom={active === 1 ? `4px solid ${colors.primary}` : null}
-          onClick={() => routeClick("transaction", 1)}
+          borderBottom={
+            locate("transaction") === true
+              ? `4px solid ${colors.primary}`
+              : null
+          }
+          onClick={() => routeClick("transaction")}
         >
           Transaction
         </Text>
         <Text
-          borderBottom={active === 2 ? `4px solid ${colors.primary}` : null}
+          borderBottom={
+            locate("trade") === true ? `4px solid ${colors.primary}` : null
+          }
           className={classes.tab}
-          onClick={() => routeClick("trade", 2)}
+          onClick={() => routeClick("trade")}
         >
           Trade
         </Text>
         <Text
-          borderBottom={active === 3 ? `4px solid ${colors.primary}` : null}
+          borderBottom={
+            locate("borrow") === true ? `4px solid ${colors.primary}` : null
+          }
           className={classes.tab}
-          onClick={() => routeClick("borrow", 3)}
+          onClick={() => routeClick("borrow")}
         >
           Borrow
         </Text>

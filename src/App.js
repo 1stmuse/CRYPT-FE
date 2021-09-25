@@ -12,35 +12,28 @@ import AdminDash from "./views/admin";
 // import { userReducer } from "./redux/reducer";
 
 function App() {
-  const { token, admin } = useSelector((state) => state.user);
+  const { token, isAdmin } = useSelector((state) => state.user);
 
-  const isAuth = () => {
+  const isAuth = React.useMemo(() => {
     if (token === null || token === undefined) {
       return false;
     }
     return true;
-  };
-
-  console.log(admin);
+  }, [token]);
 
   return (
     <BrowserRouter>
       <Switch>
-        <UnauthedRoute path="/" exact isAuth={isAuth()} component={Home} />
-        <UnauthedRoute
-          path="/login"
-          exact
-          isAuth={isAuth()}
-          component={Login}
-        />
+        <UnauthedRoute path="/" exact isAuth={isAuth} component={Home} />
+        <UnauthedRoute path="/login" exact isAuth={isAuth} component={Login} />
         <UnauthedRoute
           path="/signup"
           exact
-          isAuth={isAuth()}
+          isAuth={isAuth}
           component={Register}
         />
-        {admin && <Route path="/admin" exact component={AdminDash} />}
-        <AuthedRoute isAuth={isAuth()} component={Layout} />
+        {isAdmin && <Route path="/admin" exact component={AdminDash} />}
+        <AuthedRoute isAuth={isAuth} component={Layout} />
         <Route
           path={"*"}
           exact

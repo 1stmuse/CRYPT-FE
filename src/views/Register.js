@@ -19,8 +19,43 @@ const useStyles = createUseStyles({
 const Register = () => {
   const classes = useStyles();
   const history = useHistory();
-  const submit = (values) => {
-    console.log(values);
+  const [error, setError] = React.useState("");
+  const submit = (values, action) => {
+    if (values.password !== values.confirm_password) {
+      setError("password do not match");
+      setTimeout(() => setError(""), 1000);
+      return;
+    }
+
+    const payload = {
+      firstname: values.firstname,
+      lastname: values.lastname,
+      password: values.password,
+      email: values.email,
+    };
+    // console.log(payload);
+    fetch("http://localhost:8000/api/user/register", {
+      headers: {
+        "content-type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(payload),
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        if (!res.error) {
+          console.log(res);
+          action.resetForm();
+          history.push("login");
+
+          // dispatch({ type: "LOGIN", payload: "dffygfhgh" });
+          // history.push("dashboard");
+        } else {
+          setError(res.message);
+          setTimeout(() => setError(""), 1000);
+        }
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <Box
@@ -81,6 +116,11 @@ const Register = () => {
           >
             {({ values, handleSubmit, isSubmitting }) => (
               <Box>
+                {error && (
+                  <Text color="red" mb="1.5">
+                    {error}
+                  </Text>
+                )}
                 <Box mb="5">
                   <Text className={classes.labels}>First name</Text>
 

@@ -10,6 +10,7 @@ import Button from "../../components/Button";
 import * as yup from "yup";
 import ImageUploader from "../../components/ImageUploader";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const useStyles = createUseStyles({
   labels: {
@@ -20,6 +21,8 @@ const useStyles = createUseStyles({
 
 const BuyBtc = () => {
   const classes = useStyles();
+  const [type, setType] = React.useState("USD");
+  const { token, id } = useSelector((state) => state.user);
   const [loading, setLoading] = React.useState(false);
 
   const upLoad = async (files, fieldValue) => {
@@ -30,17 +33,47 @@ const BuyBtc = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/muse1/image/upload",
-        data,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+        `https://freeimage.host/6d207e02198a847aa98d0a2a901485a5/${file}&format=json`
+        // data,
+        // {
+        //   headers: { "Content-Type": "multipart/form-data" },
+        // }
       );
-      fieldValue("image", res.data.url);
+      // fieldValue("image", res.data.url);
+      console.log(res);
       setLoading(false);
     } catch (error) {
       console.log("erro");
     }
+  };
+
+  const submit = (values, actions) => {
+    const payload = {
+      image: "dhfgudfudfdf",
+      btc_amount: values.btc,
+      cash_amount: values.amount,
+      userId: id,
+      type: "Buy BTC",
+      currency: type,
+    };
+
+    fetch("http://localhost:8000/api/transactions", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "POST",
+      body: JSON.stringify(payload),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        actions.resetForm();
+      })
+      .catch((err) => {
+        console.log(err);
+        actions.resetForm();
+      });
   };
 
   return (
@@ -56,9 +89,9 @@ const BuyBtc = () => {
             .string()
             .required("you are required to input your BTC address"),
           amount: yup.number().moreThan(0, "must input a value greater than 0"),
-          image: yup.string().required(),
+          image: yup.string(),
         })}
-        onSubmit={(val) => console.log(val)}
+        onSubmit={submit}
       >
         {({ values, handleSubmit, setFieldValue }) => (
           <Box>
@@ -72,8 +105,8 @@ const BuyBtc = () => {
                         mr="5px"
                         w="100px"
                         // placeholder="Select transaction type"
-                        //   onChange={(val) => setType(val.currentTarget.value)}
-                        defaultValue="USD"
+                        onChange={(val) => setType(val.currentTarget.value)}
+                        defaultValue={type}
                       >
                         <option value="USD">USD</option>
                         <option value="NGN">NGN</option>

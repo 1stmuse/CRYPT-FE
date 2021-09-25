@@ -1,38 +1,63 @@
-import {
-  Box,
-  Text,
-  Table,
-  Thead,
-  Th,
-  Tr,
-  Tbody,
-  Td,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Text, Table, Thead, Th, Tr, Tbody, Td } from "@chakra-ui/react";
 import React from "react";
-import { observerMode } from "react-reveal/globals";
 import colors from "../../utils/colors";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import { createUseStyles } from "react-jss";
+
+const useStyles = createUseStyles({
+  status: {
+    maxWidth: "100px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "5px",
+    paddingTop: "3px",
+    paddingBottom: "3px",
+    color: "white",
+    fontWeight: "bold",
+  },
+});
 
 const TransactionTable = () => {
+  const classes = useStyles();
   const [data, setData] = React.useState([]);
 
-  // const getData = () => {
-  //   fetch(
-  //     `https://api.nomics.com/v1/currencies/ticker?key=8e0604fa91a8c1b3967fa2faae6c362efb307d45&ids=BTC,ETH,XRP,LTC,ADA&interval=1d&per-page=50&page=1"`,
-  //     {
-  //       headers: {
-  //         Origin: "https://crypy-blis-demo.netlify.app/",
-  //       },
-  //     }
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data))
-  //     .catch((err) => console.log(err));
-  // };
+  const { token, id } = useSelector((state) => state.user);
 
-  // React.useEffect(() => {
-  //   getData();
-  // }, []);
+  const bg = (status) => {
+    let style;
+    switch (status.toLowerCase()) {
+      case "pending":
+        style = "yellow";
+        break;
+      case "failed":
+        style = "red";
+        break;
+      case "settled":
+        style = colors.primary;
+        break;
+      default:
+        style = "null";
+        break;
+    }
+    return style;
+  };
+
+  const getData = () => {
+    fetch(`http://localhost:8000/api/transactions/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setData(data.data.transactions))
+      .catch((err) => console.log(err));
+  };
+
+  React.useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Box mt="12">
@@ -44,22 +69,24 @@ const TransactionTable = () => {
           <Thead>
             <Tr>
               <Th>Date</Th>
-              <Th>Description</Th>
+              <Th>Status</Th>
               <Th>Type</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((ob, ind) => (
+            {data.slice(0, 5).map((ob, ind) => (
               <Tr key={ind}>
-                <Td d="flex" alignItems="center">
-                  <Image he="30px" width="30px" mr="5px" src={ob.logo_url} />
-                  <Text>{ob.name}</Text>
+                <Td>
+                  <Text>{moment(ob.createdAt).format("D MMM YYYY")}</Text>
                 </Td>
-                <Td>${Math.trunc(ob.price).toLocaleString()} </Td>
-                <Td color={ob["1d"].price_change_pct < 0 ? "red" : "green"}>
-                  {ob["1d"].price_change_pct}%
+                <Td>
+                  <Text className={classes.status} bg={bg(ob.status)}>
+                    {ob.status}
+                  </Text>
                 </Td>
-                <Td> ${Math.trunc(ob.high).toLocaleString()} </Td>
+                <Td>
+                  <Text>{ob.type}</Text>
+                </Td>
               </Tr>
             ))}
           </Tbody>

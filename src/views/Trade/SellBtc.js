@@ -8,6 +8,7 @@ import Button from "../../components/Button";
 import { ReactComponent as Delete } from "../../assets/delete-icon.svg";
 import { ReactComponent as UploadIcon } from "../../assets/upload.svg";
 import ImageUploader from "../../components/ImageUploader";
+import { useSelector } from "react-redux";
 import * as yup from "yup";
 import axios from "axios";
 
@@ -20,6 +21,8 @@ const useStyles = createUseStyles({
 
 const SellBtc = () => {
   const classes = useStyles();
+  const [type, setType] = React.useState("USD");
+  const { token, id } = useSelector((state) => state.user);
   const [loading, setLoading] = React.useState(false);
 
   const upLoad = async (files, fieldValue) => {
@@ -42,6 +45,36 @@ const SellBtc = () => {
       console.log("erro");
     }
   };
+
+  const submit = (values, actions) => {
+    const payload = {
+      image: "dhfgudfudfdf",
+      btc_amount: "0.00453",
+      cash_amount: values.amount,
+      userId: id,
+      type: "Sell BTC",
+      currency: type,
+    };
+
+    fetch("http://localhost:8000/api/transactions", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "POST",
+      body: JSON.stringify(payload),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        actions.resetForm();
+      })
+      .catch((err) => {
+        console.log(err);
+        actions.resetForm();
+      });
+  };
+
   return (
     <Box mt="5">
       <Formik
@@ -57,9 +90,9 @@ const SellBtc = () => {
           account: yup
             .string()
             .required("account number field cannot be left blanck"),
-          image: yup.string().required(),
+          image: yup.string(),
         })}
-        onSubmit={(val) => console.log(val)}
+        onSubmit={submit}
       >
         {({ values, handleSubmit, setFieldValue }) => (
           <Box>
@@ -73,8 +106,8 @@ const SellBtc = () => {
                         mr="5px"
                         w="100px"
                         // placeholder="Select transaction type"
-                        //   onChange={(val) => setType(val.currentTarget.value)}
-                        defaultValue="USD"
+                        onChange={(val) => setType(val.currentTarget.value)}
+                        defaultValue={type}
                       >
                         <option value="USD">USD</option>
                         <option value="NGN">NGN</option>
@@ -124,7 +157,7 @@ const SellBtc = () => {
                       <Input
                         type="text"
                         color={colors.deepBlue}
-                        name="acount"
+                        name="account"
                         value={values.account}
                       />
                     </Box>

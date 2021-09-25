@@ -8,6 +8,7 @@ import {
   Tbody,
   Td,
   Image,
+  Link,
 } from "@chakra-ui/react";
 import React from "react";
 import { observerMode } from "react-reveal/globals";
@@ -39,7 +40,10 @@ const Market = () => {
       <Text fontSize="2xl" color={colors.deepBlue}>
         Market
       </Text>
-      <Box>
+      <Link href="https://nomics.com">
+        Crypto Market Cap & Pricing Data Provided By Nomics
+      </Link>
+      <Box mt="5">
         <Table variant="simple" bg="white">
           <Thead>
             <Tr>

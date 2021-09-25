@@ -36,7 +36,7 @@ const Layout = () => {
       {/* </Box> */}
       <Box h="100%" w="80%" pt="70px" mx="auto">
         <Switch>
-          <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/transaction" exact component={Transaction} />
           <Route path="/trade" exact component={Trade} />
           <Route path="/borrow" exact component={Borrow} />

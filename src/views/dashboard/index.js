@@ -23,7 +23,7 @@ const Dashboard = () => {
   const classes = useStyles();
   const [active, setActive] = React.useState(0);
   return (
-    <Box width="100%" mb="20">
+    <Box width="100%" pb="20">
       <Box mt="10" d="flex" justifyContent="space-between">
         <Box mr="12">
           <Text fontSize="2xl" color={colors.deepBlue}>

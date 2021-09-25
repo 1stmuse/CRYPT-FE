@@ -3,7 +3,8 @@ const initialState = {
     firstname: "",
     lastname: "",
     token: null,
-    admin: true,
+    isAdmin: false,
+    id: "",
   },
 };
 
@@ -13,8 +14,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         user: {
-          ...state.user,
-          token: action.payload,
+          ...action.payload,
         },
       };
     //   break;
