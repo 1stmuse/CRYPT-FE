@@ -14,7 +14,7 @@ const Trade = () => {
           get started now
         </Text>
       </Box>
-      <Box bg="white" borderRadius="15px" py="5" mt="5">
+      <Box bg="white" maxW="70%" borderRadius="15px" py="5" mt="5">
         <Btc />
       </Box>
     </Box>

@@ -1,5 +1,5 @@
 import { Box, Text, Select, CircularProgress } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import Input from "../../components/Input";
 import colors from "../../utils/colors";
@@ -11,6 +11,7 @@ import * as yup from "yup";
 import ImageUploader from "../../components/ImageUploader";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { io } from "socket.io-client";
 
 const useStyles = createUseStyles({
   labels: {
@@ -25,6 +26,31 @@ const BuyBtc = () => {
   const { token, id } = useSelector((state) => state.user);
   const [loading, setLoading] = React.useState(false);
 
+  const [socket, setSocket] = useState(null);
+
+  const socketInit = () => {
+    const newSock = io("http://localhost:8000", {
+      query: {
+        id: token,
+      },
+    });
+
+    newSock.on("connected", (message) => {
+      console.log(message);
+      alert("success", "connected");
+    });
+
+    newSock.on("disconnection", () => {
+      setSocket(null);
+      alert("error", "socket disconnected");
+    });
+
+    setSocket(newSock);
+  };
+  useEffect(() => {
+    socketInit();
+  }, [token]);
+
   const upLoad = async (files, fieldValue) => {
     const data = new FormData();
     const file = files[0];
@@ -33,14 +59,13 @@ const BuyBtc = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        `https://freeimage.host/6d207e02198a847aa98d0a2a901485a5/${file}&format=json`
-        // data,
-        // {
-        //   headers: { "Content-Type": "multipart/form-data" },
-        // }
+        "https://api.cloudinary.com/v1_1/muse1/image/upload",
+        data,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
-      // fieldValue("image", res.data.url);
-      console.log(res);
+      fieldValue("image", res.data.url);
       setLoading(false);
     } catch (error) {
       console.log("erro");
@@ -49,7 +74,7 @@ const BuyBtc = () => {
 
   const submit = (values, actions) => {
     const payload = {
-      image: "dhfgudfudfdf",
+      image: values.image,
       btc_amount: values.btc,
       cash_amount: values.amount,
       userId: id,
@@ -67,6 +92,7 @@ const BuyBtc = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        socket.emit("create-transaction", payload);
         console.log(data);
         actions.resetForm();
       })
@@ -97,39 +123,37 @@ const BuyBtc = () => {
           <Box>
             <Box d="flex">
               <Box mr="16">
-                <Box d="flex" alignItems="center">
-                  <Box mr="5">
-                    <Text className={classes.labels}>cash value</Text>
-                    <Box d="flex">
-                      <Select
-                        mr="5px"
-                        w="100px"
-                        // placeholder="Select transaction type"
-                        onChange={(val) => setType(val.currentTarget.value)}
-                        defaultValue={type}
-                      >
-                        <option value="USD">USD</option>
-                        <option value="NGN">NGN</option>
-                      </Select>
-                      <Input
-                        type="text"
-                        value={values.amount}
-                        color={colors.deepBlue}
-                        name="amount"
-                      />
-                    </Box>
-                  </Box>
-                  <Box>
-                    <Text className={classes.labels}>BTC uquivalent</Text>
-                    <Text
-                      py="1.5"
-                      pl="1.5"
-                      borderRadius="5px"
-                      border={`1px solid ${colors.ash}`}
+                <Box mr="5">
+                  <Text className={classes.labels}>cash value</Text>
+                  <Box d="flex">
+                    <Select
+                      mr="5px"
+                      w="100px"
+                      // placeholder="Select transaction type"
+                      onChange={(val) => setType(val.currentTarget.value)}
+                      defaultValue={type}
                     >
-                      000.000
-                    </Text>
+                      <option value="USD">USD</option>
+                      <option value="NGN">NGN</option>
+                    </Select>
+                    <Input
+                      type="text"
+                      value={values.amount}
+                      color={colors.deepBlue}
+                      name="amount"
+                    />
                   </Box>
+                </Box>
+                <Box mt="1.5">
+                  <Text className={classes.labels}>BTC uquivalent</Text>
+                  <Text
+                    py="1.5"
+                    pl="1.5"
+                    borderRadius="5px"
+                    border={`1px solid ${colors.ash}`}
+                  >
+                    000.000
+                  </Text>
                 </Box>
                 <Box mt="5" w="60%">
                   <Text className={classes.labels}>Your BTC address</Text>

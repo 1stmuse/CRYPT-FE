@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Layout from "./components/layout";
 import Home from "./views/home";
 import UnauthedRoute from "./route/UnauthedRoute";
 import AuthedRoute from "./route/AuthedRoute";
@@ -9,31 +8,29 @@ import Register from "./views/Register";
 import { Box, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import AdminDash from "./views/admin";
-// import { userReducer } from "./redux/reducer";
+import Application from "./route/Application";
 
 function App() {
-  const { token, isAdmin } = useSelector((state) => state.user);
+  const { isAdmin } = useSelector((state) => state.user);
 
-  const isAuth = React.useMemo(() => {
-    if (token === null || token === undefined) {
-      return false;
-    }
+  const admin = React.useMemo(() => {
+    if (!isAdmin) return false;
     return true;
-  }, [token]);
+  }, [isAdmin]);
 
   return (
     <BrowserRouter>
       <Switch>
-        <UnauthedRoute path="/" exact isAuth={isAuth} component={Home} />
-        <UnauthedRoute path="/login" exact isAuth={isAuth} component={Login} />
+        <UnauthedRoute path="/home" exact component={Home} />
+        <UnauthedRoute path="/login" exact component={Login} />
         <UnauthedRoute
           path="/signup"
           exact
-          isAuth={isAuth}
+          // isAuth={isAuth}
           component={Register}
         />
-        {isAdmin && <Route path="/admin" exact component={AdminDash} />}
-        <AuthedRoute isAuth={isAuth} component={Layout} />
+        {admin && <Route path="/admin" exact component={AdminDash} />}
+        <AuthedRoute component={Application} />
         <Route
           path={"*"}
           exact

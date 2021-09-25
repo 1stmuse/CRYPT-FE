@@ -6,7 +6,11 @@ const AuthedRoute = ({ component: Comp, isAuth, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isAuth === true ? <Comp {...props} /> : <Redirect to="/login" />
+        localStorage.getItem("token") ? (
+          <Comp {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );

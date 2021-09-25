@@ -33,7 +33,6 @@ const Login = ({ history }) => {
       .then((data) => data.json())
       .then((res) => {
         if (!res.error) {
-          console.log(res);
           dispatch({
             type: "LOGIN",
             payload: {
@@ -44,6 +43,11 @@ const Login = ({ history }) => {
               id: res.data.user._id,
             },
           });
+          localStorage.setItem("token", res.data.token);
+          if (res.data.user.isAdmin) {
+            history.push("/admin");
+            return;
+          }
           history.push("dashboard");
         } else {
           setError(res.message);

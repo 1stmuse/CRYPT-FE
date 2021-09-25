@@ -8,6 +8,7 @@ import StatCard from "../../components/statCards";
 import welcome from "../../assets/welcome.svg";
 import Market from "./Market";
 import TransactionTable from "./TransactionTable";
+import { io } from "socket.io-client";
 
 const useStyles = createUseStyles({
   tab: {
@@ -22,6 +23,7 @@ const useStyles = createUseStyles({
 const Dashboard = () => {
   const classes = useStyles();
   const [active, setActive] = React.useState(0);
+
   return (
     <Box width="100%" pb="20">
       <Box mt="10" d="flex" justifyContent="space-between">

@@ -9,7 +9,7 @@ import Trade from "../../views/Trade";
 import colors from "../../utils/colors";
 import Borrow from "../../views/borrow";
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
     <Box
       bg={colors.ash}
@@ -35,12 +35,7 @@ const Layout = () => {
       <Header />
       {/* </Box> */}
       <Box h="100%" w="80%" pt="70px" mx="auto">
-        <Switch>
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/transaction" exact component={Transaction} />
-          <Route path="/trade" exact component={Trade} />
-          <Route path="/borrow" exact component={Borrow} />
-        </Switch>
+        {children}
       </Box>
     </Box>
   );

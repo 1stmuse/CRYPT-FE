@@ -6,7 +6,11 @@ const UnauthedRoute = ({ component: Comp, isAuth, ...rest }) => {
     <Route
       {...rest}
       render={(prop) =>
-        isAuth === false ? <Comp {...prop} /> : <Redirect to="/dashboard" />
+        !localStorage.getItem("token") ? (
+          <Comp {...prop} />
+        ) : (
+          <Redirect to="/dashboard" />
+        )
       }
     />
   );

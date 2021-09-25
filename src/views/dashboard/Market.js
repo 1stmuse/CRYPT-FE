@@ -19,7 +19,7 @@ const Market = () => {
 
   const getData = () => {
     fetch(
-      `https://api.nomics.com/v1/currencies/ticker?key=8e0604fa91a8c1b3967fa2faae6c362efb307d45&ids=BTC,ETH,XRP,LTC,ADA&interval=1d&per-page=50&page=1`
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Ccardano%2Cripple%2Ctether&order=market_cap_desc&per_page=20&page=1&sparkline=false&price_change_percentage=24h`
     )
       .then((res) => res.json())
       .then((data) => setData(data))
@@ -35,9 +35,9 @@ const Market = () => {
       <Text fontSize="2xl" color={colors.deepBlue}>
         Market
       </Text>
-      <a href="https://nomics.com">
+      {/* <a href="https://nomics.com">
         Crypto Market Cap & Pricing Data Provided By Nomics
-      </a>
+      </a> */}
       <Box mt="5">
         <Table variant="simple" bg="white">
           <Thead>
@@ -52,14 +52,18 @@ const Market = () => {
             {data.map((ob, ind) => (
               <Tr key={ind}>
                 <Td d="flex" alignItems="center">
-                  <Image he="30px" width="30px" mr="5px" src={ob.logo_url} />
+                  <Image he="30px" width="30px" mr="5px" src={ob.image} />
                   <Text>{ob.name}</Text>
                 </Td>
-                <Td>${Math.trunc(ob.price).toLocaleString()} </Td>
-                <Td color={ob["1d"].price_change_pct < 0 ? "red" : "green"}>
-                  {ob["1d"].price_change_pct}%
+                <Td>${Math.trunc(ob.current_price).toLocaleString()} </Td>
+                <Td
+                  color={
+                    ob["price_change_percentage_24h"] < 0 ? "red" : "green"
+                  }
+                >
+                  {ob["price_change_percentage_24h"]}%
                 </Td>
-                <Td> ${Math.trunc(ob.high).toLocaleString()} </Td>
+                <Td> ${Math.trunc(ob.ath).toLocaleString()} </Td>
               </Tr>
             ))}
             {/* <Tr>
