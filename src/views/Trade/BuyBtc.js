@@ -20,36 +20,11 @@ const useStyles = createUseStyles({
   },
 });
 
-const BuyBtc = () => {
+const BuyBtc = ({ socket }) => {
   const classes = useStyles();
   const [type, setType] = React.useState("USD");
   const { token, id } = useSelector((state) => state.user);
   const [loading, setLoading] = React.useState(false);
-
-  const [socket, setSocket] = useState(null);
-
-  const socketInit = () => {
-    const newSock = io("http://localhost:8000", {
-      query: {
-        id: token,
-      },
-    });
-
-    newSock.on("connected", (message) => {
-      console.log(message);
-      alert("success", "connected");
-    });
-
-    newSock.on("disconnection", () => {
-      setSocket(null);
-      alert("error", "socket disconnected");
-    });
-
-    setSocket(newSock);
-  };
-  useEffect(() => {
-    socketInit();
-  }, [token]);
 
   const upLoad = async (files, fieldValue) => {
     const data = new FormData();

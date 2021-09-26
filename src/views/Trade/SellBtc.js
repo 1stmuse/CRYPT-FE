@@ -19,7 +19,8 @@ const useStyles = createUseStyles({
   },
 });
 
-const SellBtc = () => {
+const SellBtc = ({ socket }) => {
+  // console.log(socket);
   const classes = useStyles();
   const [type, setType] = React.useState("USD");
   const { token, id } = useSelector((state) => state.user);
@@ -90,7 +91,7 @@ const SellBtc = () => {
           account: yup
             .string()
             .required("account number field cannot be left blanck"),
-          image: yup.string(),
+          image: yup.string().required(),
         })}
         onSubmit={submit}
       >

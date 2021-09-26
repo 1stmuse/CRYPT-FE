@@ -2,12 +2,8 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 import SideNav from "../sidenav";
 import Header from "../header";
-import { Switch, Route } from "react-router-dom";
-import Dashboard from "../../views/dashboard";
-import Transaction from "../../views/Transaction";
-import Trade from "../../views/Trade";
+
 import colors from "../../utils/colors";
-import Borrow from "../../views/borrow";
 
 const Layout = ({ children }) => {
   return (

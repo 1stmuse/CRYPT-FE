@@ -25,7 +25,7 @@ const Button = ({ clasname, children, type, ...rest }) => {
   }
 
   return (
-    <CButton className={clasname} {...style} {...rest}>
+    <CButton className={clasname} color="white" {...style} {...rest}>
       {children}
     </CButton>
   );

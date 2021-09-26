@@ -1,11 +1,8 @@
 import { Box, Text, Table, Thead, Th, Tr, Tbody, Td } from "@chakra-ui/react";
 import React from "react";
 import colors from "../../utils/colors";
-import { useSelector } from "react-redux";
 import moment from "moment";
 import { createUseStyles } from "react-jss";
-import { useModal } from "../../hooks/usemodal";
-import TransactionInfo from "../../components/TransactionInfo";
 
 const useStyles = createUseStyles({
   status: {
@@ -21,9 +18,8 @@ const useStyles = createUseStyles({
   },
 });
 
-const TransactionTable = ({ data = [] }) => {
+const Trans = ({ data = [] }) => {
   const classes = useStyles();
-  const { show } = useModal();
 
   const bg = (status) => {
     let style;
@@ -44,19 +40,10 @@ const TransactionTable = ({ data = [] }) => {
     return style;
   };
 
-  const showInfo = (data) => {
-    show({
-      component: <TransactionInfo data={data} />,
-    });
-  };
-
   return (
-    <Box mt="12">
-      <Text fontSize="2xl" color={colors.deepBlue}>
-        Top Transactions
-      </Text>
-      <Box minH="200px" bg="white">
-        <Table variant="simple" bg="white">
+    <Box>
+      <Box bg="white" w="100%">
+        <Table variant="simple" bg="white" w="100%">
           <Thead>
             <Tr>
               <Th>Date</Th>
@@ -66,7 +53,7 @@ const TransactionTable = ({ data = [] }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {data.slice(0, 5).map((ob, ind) => (
+            {data.map((ob, ind) => (
               <Tr key={ind}>
                 <Td>
                   <Text>{moment(ob.createdAt).format("D MMM YYYY")}</Text>
@@ -77,14 +64,9 @@ const TransactionTable = ({ data = [] }) => {
                   </Text>
                 </Td>
                 <Td>
-                  <Text>{ob.type}</Text>
+                  <Text>{ob.type.toUpperCase()}</Text>
                 </Td>
-                <Td
-                  d="flex"
-                  alignItems="center"
-                  cursor="pointer"
-                  onClick={() => showInfo(ob)}
-                >
+                <Td d="flex" alignItems="center" cursor="pointer">
                   <Text
                     color="red.600"
                     className="fa fa-eye"
@@ -103,6 +85,7 @@ const TransactionTable = ({ data = [] }) => {
             justifyContent="center"
             alignItems="center"
             minH="150px"
+            width="100%"
           >
             <Text>There are currently no transaction to display</Text>
           </Box>
@@ -112,4 +95,4 @@ const TransactionTable = ({ data = [] }) => {
   );
 };
 
-export default TransactionTable;
+export default Trans;

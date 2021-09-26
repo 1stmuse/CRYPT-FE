@@ -23,40 +23,38 @@ const Login = ({ history }) => {
   const [error, setError] = React.useState("");
   // const history = useHistory();
   const submit = (values) => {
-    localStorage.setItem("token", "hjshddh");
-    history.push("dashboard");
-    // fetch("http://localhost:8000/api/user/login", {
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   method: "POST",
-    //   body: JSON.stringify(values),
-    // })
-    //   .then((data) => data.json())
-    //   .then((res) => {
-    //     if (!res.error) {
-    //       dispatch({
-    //         type: "LOGIN",
-    //         payload: {
-    //           firstname: res.data.user.firstname,
-    //           lastname: res.data.user.lastname,
-    //           isAdmin: res.data.user.isAdmin,
-    //           token: res.data.token,
-    //           id: res.data.user._id,
-    //         },
-    //       });
-    //       localStorage.setItem("token", res.data.token);
-    //       if (res.data.user.isAdmin) {
-    //         history.push("/admin");
-    //         return;
-    //       }
-    //       history.push("dashboard");
-    //     } else {
-    //       setError(res.message);
-    //       setTimeout(() => setError(""), 1000);
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
+    fetch("http://localhost:8000/api/user/login", {
+      headers: {
+        "content-type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(values),
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        if (!res.error) {
+          dispatch({
+            type: "LOGIN",
+            payload: {
+              firstname: res.data.user.firstname,
+              lastname: res.data.user.lastname,
+              isAdmin: res.data.user.isAdmin,
+              token: res.data.token,
+              id: res.data.user._id,
+            },
+          });
+          localStorage.setItem("token", res.data.token);
+          if (res.data.user.isAdmin) {
+            history.push("/admin");
+            return;
+          }
+          history.push("dashboard");
+        } else {
+          setError(res.message);
+          setTimeout(() => setError(""), 1000);
+        }
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <Box

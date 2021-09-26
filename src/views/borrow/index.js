@@ -15,7 +15,7 @@ const Borrow = () => {
           always
         </Text>
       </Box>
-      <Box bg="white" borderRadius="15px" py="5" mt="5" px="5">
+      <Box bg="white" maxW="70%" borderRadius="15px" py="5" mt="5" px="5">
         <LoanCash />
       </Box>
     </Box>

@@ -21,7 +21,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <UnauthedRoute path="/home" exact component={Home} />
+        <UnauthedRoute path="/" exact component={Home} />
         <UnauthedRoute path="/login" exact component={Login} />
         <UnauthedRoute
           path="/signup"

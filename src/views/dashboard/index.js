@@ -8,7 +8,7 @@ import StatCard from "../../components/statCards";
 import welcome from "../../assets/welcome.svg";
 import Market from "./Market";
 import TransactionTable from "./TransactionTable";
-import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
 
 const useStyles = createUseStyles({
   tab: {
@@ -23,6 +23,23 @@ const useStyles = createUseStyles({
 const Dashboard = () => {
   const classes = useStyles();
   const [active, setActive] = React.useState(0);
+  const [data, setData] = React.useState([]);
+  const { token, id } = useSelector((state) => state.user);
+
+  const getData = () => {
+    fetch(`http://localhost:8000/api/transactions/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setData(data.data.transactions))
+      .catch((err) => console.log(err));
+  };
+
+  React.useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Box width="100%" pb="20">
@@ -76,7 +93,7 @@ const Dashboard = () => {
         </Box>
       </Box>
       <Market />
-      <TransactionTable />
+      <TransactionTable data={data} />
     </Box>
   );
 };

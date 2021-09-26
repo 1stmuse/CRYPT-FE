@@ -4,17 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
-import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { userReducer } from "./redux/reducer";
 import { store } from "./redux/store";
+import ModalWrapper from "./modal/context";
 
 // const store = createStore(userReducer);
 
 ReactDOM.render(
   <ChakraProvider>
     <Provider store={store}>
-      <App />
+      <ModalWrapper>
+        <App />
+      </ModalWrapper>
     </Provider>
   </ChakraProvider>,
   document.getElementById("root")

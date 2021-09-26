@@ -3,7 +3,7 @@ import React from "react";
 import StatCard from "../../components/statCards";
 import colors from "../../utils/colors";
 
-const Transaction = () => {
+const Transactions = () => {
   return (
     <Box mt="10">
       <Text fontSize="2xl" color={colors.deepBlue}>
@@ -36,4 +36,4 @@ const Transaction = () => {
   );
 };
 
-export default Transaction;
+export default Transactions;

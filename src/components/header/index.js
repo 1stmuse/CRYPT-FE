@@ -80,11 +80,11 @@ const Header = () => {
         <Text
           className={classes.tab}
           borderBottom={
-            locate("transaction") === true
+            locate("transactions") === true
               ? `4px solid ${colors.primary}`
               : null
           }
-          onClick={() => routeClick("transaction")}
+          onClick={() => routeClick("transactions")}
         >
           Transaction
         </Text>
