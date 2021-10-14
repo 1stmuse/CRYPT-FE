@@ -42,17 +42,22 @@ const Footer = () => {
       <Box>
         <Box>
           <Box d="flex" alignItems="center">
-            <Text fontSize="7xl" mr={10}>
+            <Text fontSize="7xl" mr={10} color={colors.deepBlue}>
               CRYPTBLIS
             </Text>
-            <Box d="flex" width="200px" justifyContent="space-around">
+            <Box
+              d="flex"
+              color={colors.deepBlue}
+              width="200px"
+              justifyContent="space-around"
+            >
               <Text className="fa fa-twitter fa-2x" aria-hidden="true" />
               <Text className="fa fa-facebook fa-2x" aria-hidden="true" />
               <Text className="fa fa-instagram fa-2x" aria-hidden="true" />
             </Box>
           </Box>
           <Box>
-            <Text>
+            <Text color={colors.deepBlue}>
               Made with ❤ in Nigeria © 2021 CryptBlis, ApS. All rights reserved.
             </Text>
           </Box>

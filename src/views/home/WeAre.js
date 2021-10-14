@@ -19,7 +19,7 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    border: `1px solid ${colors.primary}`,
+    border: `1px solid blueviolet`,
     padding: "10px 15px",
     marginBottom: "20px",
   },
@@ -63,7 +63,9 @@ const WeAre = () => {
           >
             <Bounce delay={100}>
               <Box className={classes.gridItem}>
-                <Text my={3}>Secured</Text>
+                <Text color={colors.deepBlue} my={3}>
+                  Secured
+                </Text>
                 <Box>
                   <Text className={classes.girdItemText}>
                     By having multiple brokerage accounts, you can take
@@ -77,7 +79,9 @@ const WeAre = () => {
             </Bounce>
             <Bounce delay={200}>
               <Box className={classes.gridItem}>
-                <Text my={3}>Convinience</Text>
+                <Text color={colors.deepBlue} my={3}>
+                  Convinience
+                </Text>
                 <Box>
                   <Text className={classes.girdItemText}>
                     Trade from the comfort of your home. Have the feel of
@@ -88,7 +92,7 @@ const WeAre = () => {
             </Bounce>
             <Bounce delay={300}>
               <Box className={classes.gridItem}>
-                <Text textAlign="center" my={3}>
+                <Text color={colors.deepBlue} textAlign="center" my={3}>
                   Expert Research Recommendations
                 </Text>
                 <Box>

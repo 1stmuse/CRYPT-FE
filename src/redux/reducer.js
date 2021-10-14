@@ -1,3 +1,5 @@
+import { combineReducers } from "redux";
+
 const initialState = {
   user: {
     firstname: "",
@@ -6,6 +8,24 @@ const initialState = {
     isAdmin: false,
     id: "",
   },
+};
+
+const navState = {
+  open: false,
+};
+
+export const navReducer = (state = navState, action) => {
+  switch (action.type) {
+    case "TOGGLE_NAV":
+      return {
+        ...state,
+        open: !state.open,
+      };
+
+    default:
+      return state;
+    // break;
+  }
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -26,10 +46,16 @@ export const userReducer = (state = initialState, action) => {
           token: "",
         },
       };
-    //   break;
 
     default:
       return state;
     //   break;
   }
 };
+
+const rootReducer = combineReducers({
+  user: userReducer,
+  nav: navReducer,
+});
+
+export default rootReducer;

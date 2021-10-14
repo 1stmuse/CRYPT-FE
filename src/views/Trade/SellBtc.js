@@ -1,5 +1,11 @@
-import { Box, Text, Select, CircularProgress } from "@chakra-ui/react";
-import React from "react";
+import {
+  Box,
+  Text,
+  Select,
+  CircularProgress,
+  useMediaQuery,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import Input from "../../components/Input";
 import colors from "../../utils/colors";
@@ -11,6 +17,8 @@ import ImageUploader from "../../components/ImageUploader";
 import { useSelector } from "react-redux";
 import * as yup from "yup";
 import axios from "axios";
+import { useDebouncedCallback } from "use-debounce";
+import Alert from "../../utils/Alert";
 
 const useStyles = createUseStyles({
   labels: {
@@ -19,22 +27,42 @@ const useStyles = createUseStyles({
   },
 });
 
-const SellBtc = ({ socket }) => {
+const SellBtc = ({ socket, adminInfo }) => {
   // console.log(socket);
+  const [isMobile] = useMediaQuery(["(max-width: 800px)"]);
   const classes = useStyles();
   const [type, setType] = React.useState("USD");
-  const { token, id } = useSelector((state) => state.user);
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
   const [loading, setLoading] = React.useState(false);
+  const [btcValue, setBtcValue] = useState(0);
+
+  const debounce = useDebouncedCallback((value) => {
+    const val = parseInt(value);
+    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${type}
+    `)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.bitcoin.usd);
+        if (type === "USD") {
+          setBtcValue(val / data.bitcoin.usd);
+        } else {
+          setBtcValue(val / data.bitcoin.ngn);
+        }
+      })
+      .catch((err) => Alert("error", "check your internet settings"));
+    // console.log(value);
+  }, 1000);
 
   const upLoad = async (files, fieldValue) => {
     const data = new FormData();
     const file = files[0];
     data.append("file", file);
-    data.append("upload_preset", "muse_img");
+    data.append("upload_preset", "cryptblis");
     setLoading(true);
     try {
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/muse1/image/upload",
+        "https://api.cloudinary.com/v1_1/dehqfoyep/image/upload",
         data,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -43,21 +71,21 @@ const SellBtc = ({ socket }) => {
       fieldValue("image", res.data.url);
       setLoading(false);
     } catch (error) {
-      console.log("erro");
+      Alert("error", error.message);
     }
   };
 
   const submit = (values, actions) => {
     const payload = {
-      image: "dhfgudfudfdf",
-      btc_amount: "0.00453",
+      image: values.image,
+      btc_amount: btcValue,
       cash_amount: values.amount,
       userId: id,
       type: "Sell BTC",
       currency: type,
     };
 
-    fetch("http://localhost:8000/api/transactions", {
+    fetch("https://cryptblis.herokuapp.com/api/transactions", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -67,11 +95,20 @@ const SellBtc = ({ socket }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (!data.error) {
+          socket.emit("Sell-BTC", {
+            ...payload,
+            account_name: values.bank,
+            account_number: values.account,
+          });
+        }
+        Alert("success", "Transaction initiated");
+        setBtcValue(0);
         actions.resetForm();
       })
       .catch((err) => {
-        console.log(err);
+        Alert("error", err.message);
+        setBtcValue(0);
         actions.resetForm();
       });
   };
@@ -80,7 +117,7 @@ const SellBtc = ({ socket }) => {
     <Box mt="5">
       <Formik
         initialValues={{
-          amount: 0,
+          amount: "",
           bank: "",
           account: "",
           image: "",
@@ -97,31 +134,40 @@ const SellBtc = ({ socket }) => {
       >
         {({ values, handleSubmit, setFieldValue }) => (
           <Box>
-            <Box d="flex">
-              <Box mr="16">
-                <Box d="flex" alignItems="center">
-                  <Box mr="20">
+            <Box d="flex" flexDir={isMobile ? "column" : "row"}>
+              <Box mr={!isMobile && "16"}>
+                <Box>
+                  <Box>
                     <Text className={classes.labels}>cash value</Text>
                     <Box d="flex">
                       <Select
                         mr="5px"
-                        w="100px"
+                        w={isMobile ? "150px" : "100px"}
                         // placeholder="Select transaction type"
-                        onChange={(val) => setType(val.currentTarget.value)}
+                        onChange={(val) => {
+                          setType(val.currentTarget.value);
+                          setFieldValue("amount", "");
+                        }}
                         defaultValue={type}
                       >
                         <option value="USD">USD</option>
                         <option value="NGN">NGN</option>
                       </Select>
-                      <Input
-                        type="text"
-                        value={values.amount}
-                        color={colors.deepBlue}
-                        name="amount"
-                      />
+                      <Box flexGrow="1">
+                        <Input
+                          type="text"
+                          value={values.amount}
+                          color={colors.deepBlue}
+                          name="amount"
+                          onChange={(e) => {
+                            setFieldValue("amount", e.target.value);
+                            debounce(e.target.value);
+                          }}
+                        />
+                      </Box>
                     </Box>
                   </Box>
-                  <Box>
+                  <Box mt="1.5">
                     <Text className={classes.labels}>BTC uquivalent</Text>
                     <Text
                       py="1.5"
@@ -129,13 +175,15 @@ const SellBtc = ({ socket }) => {
                       borderRadius="5px"
                       border={`1px solid ${colors.ash}`}
                     >
-                      000.000
+                      {btcValue}
                     </Text>
                   </Box>
                 </Box>
                 <Box mt="5" w="60%">
                   <Text className={classes.labels}>CRYPTBLIS BTC address</Text>
-                  <Text className={classes.labels}>097gr45444555</Text>
+                  <Text className={classes.labels}>
+                    {adminInfo.btc_address}
+                  </Text>
                 </Box>
                 <Box mt="5">
                   <Text className={classes.labels}>Your account details</Text>
@@ -144,28 +192,32 @@ const SellBtc = ({ socket }) => {
                       <Text minW="150px" className={classes.labels}>
                         Bank
                       </Text>
-                      <Input
-                        type="text"
-                        color={colors.deepBlue}
-                        name="bank"
-                        value={values.bank}
-                      />
+                      <Box flexGrow="1">
+                        <Input
+                          type="text"
+                          color={colors.deepBlue}
+                          name="bank"
+                          value={values.bank}
+                        />
+                      </Box>
                     </Box>
                     <Box d="flex" alignItems="center" mt="3">
                       <Text minW="150px" className={classes.labels}>
                         Account Number
                       </Text>
-                      <Input
-                        type="text"
-                        color={colors.deepBlue}
-                        name="account"
-                        value={values.account}
-                      />
+                      <Box flexGrow="1">
+                        <Input
+                          type="text"
+                          color={colors.deepBlue}
+                          name="account"
+                          value={values.account}
+                        />
+                      </Box>
                     </Box>
                   </Box>
                 </Box>
               </Box>
-              <Box>
+              <Box mt={isMobile && "5"} w="260px">
                 <Text>Upload prove of payment</Text>
                 {values.image === "" ? (
                   <ImageUploader
@@ -252,11 +304,16 @@ const SellBtc = ({ socket }) => {
               </Box>
             </Box>
             <Box mt="5">
-              <Button onClick={handleSubmit} width="100px" type="primary">
-                Next
+              <Button
+                disabled={values.image === ""}
+                onClick={handleSubmit}
+                width="100px"
+                type="primary"
+              >
+                SEND
               </Button>
             </Box>
-            <Box mt={4} w="50%">
+            <Box mt={4} w={isMobile ? "85%" : "50%"}>
               <Text>NOTE:</Text>
               <Text className={classes.labels}>
                 Clicking next implies that you have tranfered the stated BTC

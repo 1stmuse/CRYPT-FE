@@ -1,6 +1,12 @@
-import { Box, Text, Select, CircularProgress } from "@chakra-ui/react";
-import React from "react";
-import { Formik, yupToFormErrors } from "formik";
+import {
+  Box,
+  Text,
+  Select,
+  CircularProgress,
+  useMediaQuery,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Formik } from "formik";
 import Input from "../../components/Input";
 import colors from "../../utils/colors";
 import { createUseStyles } from "react-jss";
@@ -9,8 +15,9 @@ import { ReactComponent as Delete } from "../../assets/delete-icon.svg";
 import { ReactComponent as UploadIcon } from "../../assets/upload.svg";
 import ImageUploader from "../../components/ImageUploader";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDebouncedCallback } from "use-debounce";
 import * as yup from "yup";
+import Alert from "../../utils/Alert";
 
 const useStyles = createUseStyles({
   labels: {
@@ -19,21 +26,40 @@ const useStyles = createUseStyles({
   },
 });
 
-const LoanCash = () => {
+const LoanCash = ({ socket }) => {
   const classes = useStyles();
-  const { token, id } = useSelector((state) => state.user);
+  const [isMobile] = useMediaQuery(["(max-width: 800px)"]);
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
   const [type, setType] = React.useState("USD");
   const [loading, setLoading] = React.useState(false);
+  const [btcValue, setBtcValue] = useState(0);
+
+  const debounce = useDebouncedCallback((value) => {
+    const val = parseInt(value);
+    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${type}
+    `)
+      .then((res) => res.json())
+      .then((data) => {
+        if (type === "USD") {
+          setBtcValue(val / data.bitcoin.usd);
+        } else {
+          setBtcValue(val / data.bitcoin.ngn);
+        }
+      })
+      .catch((err) => Alert("error", "check your internet settings"));
+    // console.log(value);
+  }, 1000);
 
   const upLoad = async (files, fieldValue) => {
     const data = new FormData();
     const file = files[0];
     data.append("file", file);
-    data.append("upload_preset", "muse_img");
+    data.append("upload_preset", "cryptblis");
     setLoading(true);
     try {
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/muse1/image/upload",
+        "https://api.cloudinary.com/v1_1/dehqfoyep/image/upload",
         data,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -42,21 +68,21 @@ const LoanCash = () => {
       fieldValue("image", res.data.url);
       setLoading(false);
     } catch (error) {
-      console.log("erro");
+      Alert("error", error.message);
     }
   };
 
   const submit = (values, actions) => {
     const payload = {
-      image: "dhfgudfudfdf",
-      btc_amount: "0.00453",
+      image: values.image,
+      btc_amount: btcValue,
       cash_amount: values.amount,
       userId: id,
-      type: "Sell BTC",
+      type: "Loan",
       currency: type,
     };
 
-    fetch("http://localhost:8000/api/transactions", {
+    fetch("https://cryptblis.herokuapp.com/api/transactions", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -66,11 +92,19 @@ const LoanCash = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (!data.error) {
+          socket.emit("Loan", {
+            ...payload,
+            account_name: values.bank,
+            account_number: values.account,
+          });
+        }
+        Alert("success", "Transaction initiated");
         actions.resetForm();
+        setBtcValue(0);
       })
       .catch((err) => {
-        console.log(err);
+        Alert("error", err.message);
         actions.resetForm();
       });
   };
@@ -79,7 +113,7 @@ const LoanCash = () => {
     <Box mt="5">
       <Formik
         initialValues={{
-          amount: 0,
+          amount: "",
           bank: "",
           account: "",
           image: "",
@@ -90,20 +124,20 @@ const LoanCash = () => {
           account: yup
             .string()
             .required("account number field cannot be left blanck"),
-          image: yup.string().required(),
+          image: yup.string(),
         })}
-        onSubmit={(val) => console.log(val)}
+        onSubmit={submit}
       >
         {({ values, handleSubmit, setFieldValue }) => (
           <Box>
-            <Box d="flex">
-              <Box>
-                <Box mr="20">
+            <Box d="flex" flexDir={isMobile ? "column" : "row"}>
+              <Box w={isMobile ? "100%" : "35%"} mr={!isMobile && "10"}>
+                <Box>
                   <Text className={classes.labels}>Amount to borrow</Text>
                   <Box d="flex">
                     <Select
                       mr="5px"
-                      w="100px"
+                      w={isMobile ? "150px" : "100px"}
                       // placeholder="Select transaction type"
                       onChange={(val) => setType(val.currentTarget.value)}
                       defaultValue="USD"
@@ -111,24 +145,31 @@ const LoanCash = () => {
                       <option value="USD">USD</option>
                       <option value="NGN">NGN</option>
                     </Select>
-                    <Input
-                      type="text"
-                      value={values.amount}
-                      color={colors.deepBlue}
-                      name="amount"
-                    />
+                    <Box flexGrow="1">
+                      <Input
+                        type="text"
+                        // width={isMobile && "250px"}
+                        value={values.amount}
+                        color={colors.deepBlue}
+                        name="amount"
+                        onChange={(e) => {
+                          setFieldValue("amount", e.target.value);
+                          debounce(e.target.value);
+                        }}
+                      />
+                    </Box>
                   </Box>
                 </Box>
-                <Box>
+                <Box mt="1.5">
                   <Text className={classes.labels}>Collateral BTC</Text>
                   <Text
                     py="1.5"
                     pl="1.5"
                     borderRadius="5px"
-                    maxW="350px"
+                    width="100%"
                     border={`1px solid ${colors.ash}`}
                   >
-                    000.000
+                    {btcValue}
                   </Text>
                 </Box>
 
@@ -157,7 +198,7 @@ const LoanCash = () => {
                       <Input
                         type="text"
                         color={colors.deepBlue}
-                        name="acount"
+                        name="account"
                         value={values.account}
                       />
                     </Box>
@@ -165,7 +206,7 @@ const LoanCash = () => {
                 </Box>
               </Box>
 
-              <Box>
+              <Box mt={isMobile && "5"} w="260px">
                 <Text>Upload prove of payment</Text>
                 {values.image === "" ? (
                   <ImageUploader
@@ -253,16 +294,21 @@ const LoanCash = () => {
             </Box>
 
             <Box mt="5">
-              <Button onClick={handleSubmit} width="100px" type="primary">
-                Next
+              <Button
+                disabled={values.image === ""}
+                onClick={handleSubmit}
+                width="100px"
+                type="primary"
+              >
+                SEND
               </Button>
             </Box>
-            <Box mt={4}>
+            <Box mt={4} w={isMobile ? "85%" : "50%"}>
               <Text>NOTE:</Text>
               <Text className={classes.labels}>
                 Clicking next implies that you have tranfered the stated BTC
-                collateral into CRYTBLIS BTC address and you are ready to upload
-                prove of transfer
+                collateral into CRYTBLIS BTC address and you are waiting
+                confirmation and payment from CRYPTBLIS
               </Text>
             </Box>
           </Box>

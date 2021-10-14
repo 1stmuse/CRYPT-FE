@@ -5,6 +5,7 @@ import Transaction from "../views/Transactions";
 import Trade from "../views/Trade";
 import Borrow from "../views/borrow";
 import Layout from "../components/layout";
+import Repay from "../views/repay";
 
 const Application = () => {
   return (
@@ -14,6 +15,7 @@ const Application = () => {
         <Route path="/transactions" exact component={Transaction} />
         <Route path="/trade" exact component={Trade} />
         <Route path="/borrow" exact component={Borrow} />
+        <Route path="/repay" exact component={Repay} />
       </Switch>
     </Layout>
   );

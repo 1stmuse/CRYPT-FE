@@ -3,6 +3,7 @@ import React from "react";
 import { createUseStyles } from "react-jss";
 import { useHistory } from "react-router-dom";
 import "./styles.css";
+import colors from "../../../utils/colors";
 
 const useStyles = createUseStyles({
   nav: {
@@ -37,7 +38,7 @@ const UnauthHeader = () => {
 
   return (
     <Box className={scrollPosition > 2 ? "header" : "headerDefault"} px={20}>
-      <Text fontStyle="italic" fontWeight="bold" fontSize={22} color="white">
+      <Text fontStyle="italic" fontWeight="bold" color="white" fontSize={22}>
         CRYPTBLIS
       </Text>
       <Box
@@ -56,7 +57,7 @@ const UnauthHeader = () => {
         <Box
           className={classes.nav}
           onClick={() => history.push("login")}
-          bg="#3fc535"
+          bg="blueviolet"
         >
           <Text style={headerTextColor}>Login</Text>
         </Box>

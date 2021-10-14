@@ -8,6 +8,7 @@ import colors from "../utils/colors";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { createUseStyles } from "react-jss";
+import Alert from "../utils/Alert";
 
 const useStyles = createUseStyles({
   labels: {
@@ -20,7 +21,7 @@ const Register = () => {
   const classes = useStyles();
   const history = useHistory();
   const [error, setError] = React.useState("");
-  const submit = (values, action) => {
+  const submit = (values, actions) => {
     if (values.password !== values.confirm_password) {
       setError("password do not match");
       setTimeout(() => setError(""), 1000);
@@ -34,7 +35,7 @@ const Register = () => {
       email: values.email,
     };
     // console.log(payload);
-    fetch("http://localhost:8000/api/user/register", {
+    fetch("https://cryptblis.herokuapp.com/api/user/register", {
       headers: {
         "content-type": "application/json",
       },
@@ -45,7 +46,7 @@ const Register = () => {
       .then((res) => {
         if (!res.error) {
           console.log(res);
-          action.resetForm();
+          actions.resetForm();
           history.push("login");
 
           // dispatch({ type: "LOGIN", payload: "dffygfhgh" });
@@ -55,7 +56,10 @@ const Register = () => {
           setTimeout(() => setError(""), 1000);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        Alert("error", err.message);
+        actions.resetForm();
+      });
   };
   return (
     <Box
@@ -179,11 +183,11 @@ const Register = () => {
           </Formik>
         </Box>
         <Box d="flex">
-          <Text color={colors.deepBlue} mr="10px">
+          <Text color={colors.brown} mr="10px">
             Already have an account
           </Text>
           <Text
-            color={colors.primary}
+            color={colors.deepBlue}
             cursor="pointer"
             onClick={() => history.push("login")}
           >

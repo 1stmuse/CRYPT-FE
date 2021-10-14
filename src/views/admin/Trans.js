@@ -1,8 +1,12 @@
 import { Box, Text, Table, Thead, Th, Tr, Tbody, Td } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import colors from "../../utils/colors";
 import moment from "moment";
 import { createUseStyles } from "react-jss";
+import { useModal } from "../../hooks/usemodal";
+import TransInfo from "./transInfo";
+import io from "socket.io-client";
+import Alert from "../../utils/Alert";
 
 const useStyles = createUseStyles({
   status: {
@@ -20,12 +24,45 @@ const useStyles = createUseStyles({
 
 const Trans = ({ data = [] }) => {
   const classes = useStyles();
+  const { show } = useModal();
+  const [socket, setSocket] = useState(null);
+  const token = localStorage.getItem("token");
+
+  const socketInit = () => {
+    const newSock = io("https://cryptblis.herokuapp.com", {
+      query: {
+        id: token,
+      },
+    });
+
+    newSock.on("connected", (message) => {
+      console.log(message);
+      Alert("success", "connected");
+    });
+
+    newSock.on("disconnection", () => {
+      setSocket(null);
+      Alert("error", "socket disconnected");
+    });
+
+    setSocket(newSock);
+  };
+  useEffect(() => {
+    // console.log("leaked");
+    socketInit();
+  }, []);
+
+  const showInfo = (data) => {
+    show({
+      component: <TransInfo data={data} socket={socket} />,
+    });
+  };
 
   const bg = (status) => {
     let style;
     switch (status.toLowerCase()) {
       case "pending":
-        style = "yellow";
+        style = "orange";
         break;
       case "failed":
         style = "red";
@@ -66,14 +103,16 @@ const Trans = ({ data = [] }) => {
                 <Td>
                   <Text>{ob.type.toUpperCase()}</Text>
                 </Td>
-                <Td d="flex" alignItems="center" cursor="pointer">
-                  <Text
-                    color="red.600"
-                    className="fa fa-eye"
-                    aria-hidden="true"
-                    mr="5px"
-                  />
-                  <Text color="red.600">View</Text>
+                <Td cursor="pointer" onClick={() => showInfo(ob)}>
+                  <Box d="flex" alignItems="center">
+                    <Text
+                      color="red.600"
+                      className="fa fa-eye"
+                      aria-hidden="true"
+                      mr="5px"
+                    />
+                    <Text color="red.600">View</Text>
+                  </Box>
                 </Td>
               </Tr>
             ))}

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
 import Home from "./views/home";
 import UnauthedRoute from "./route/UnauthedRoute";
 import AuthedRoute from "./route/AuthedRoute";
@@ -9,9 +9,11 @@ import { Box, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import AdminDash from "./views/admin";
 import Application from "./route/Application";
+import AdminRoute from "./route/AdminRoute";
 
 function App() {
   const { isAdmin } = useSelector((state) => state.user);
+  const history = useHistory();
 
   const admin = React.useMemo(() => {
     if (!isAdmin) return false;
@@ -29,7 +31,7 @@ function App() {
           // isAuth={isAuth}
           component={Register}
         />
-        {admin && <Route path="/admin" exact component={AdminDash} />}
+        <AdminRoute path="/admin" exact component={AdminDash} />
         <AuthedRoute component={Application} />
         <Route
           path={"*"}

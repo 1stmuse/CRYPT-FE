@@ -10,19 +10,20 @@ import Secured from "./Secured";
 import WeAre from "./WeAre";
 import Reviews from "./Reviews";
 import Footer from "./Footer";
+import colors from "../../utils/colors";
 
 const Home = ({ history }) => {
   return (
     <Box minH="150vh">
-      <Box position="relative" h="100vh" bgImg={bg} d="flex" px="28">
-        <Box
+      <Box position="relative" h="100vh" d="flex" px="28">
+        {/* <Box
           position="absolute"
           left="0"
           right="0"
           top="0"
           height="100vh"
           bg="rgba(0,0,0, 0.8)"
-        />
+        /> */}
         <UnauthHeader />
         <Box
           w="100%"
@@ -33,15 +34,22 @@ const Home = ({ history }) => {
           zIndex="100"
         >
           <Box id="top" w="50%" mt="20px">
-            <Text fontSize="5xl" color="white" textTransform="uppercase">
+            <Text
+              fontSize="5xl"
+              mt="4"
+              textTransform="uppercase"
+              color={colors.deepBlue}
+            >
               Don’t just buy Bitcoin, here you can loan IT.
             </Text>
-            <Text fontSize="15px" mt={5} color="white">
+            <Text fontSize="15px" mt={5} color={colors.deepBlue}>
               CryptBliz is the easiest place to buy, sell and earn
-              cryptocurrency. Sign up and start earning today.
+              cryptocurrency. Sign up and start earning today. We've got you
+              covered and secured.
             </Text>
             <Button
               type="primary"
+              // bg={colors.deepBlue}
               mt="55px"
               onClick={() => history.push("signup")}
             >

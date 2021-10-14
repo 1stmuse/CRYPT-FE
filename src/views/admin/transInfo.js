@@ -1,18 +1,40 @@
 import { Box, Link, Image, Text } from "@chakra-ui/react";
-import React from "react";
-import { useModal } from "../hooks/usemodal";
-import Button from "../components/Button";
-import colors from "../utils/colors";
+import React, { useState } from "react";
+import { useModal } from "../../hooks/usemodal";
+import Button from "../../components/Button";
+import colors from "../../utils/colors";
 import moment from "moment";
+import Alert from "../../utils/Alert";
 
-const TransactionInfo = ({ data, history }) => {
+const TransInfo = ({ data, socket }) => {
   // console.log(data, "infodata");
+  const [loading, setLoading] = useState(false);
   const { close } = useModal();
 
-  const repay = () => {
+  const resolve = () => {
+    setLoading(true);
+    socket.emit("resolve", data, (err, message) => {
+      if (err) {
+        Alert("error", "could not resolve transaction");
+      }
+      setLoading(false);
+    });
     close();
-    history.push("/repay", { data });
+    window.location.reload();
+    return;
   };
+
+  const accept = () => {
+    socket.emit("accept", data, (err, message) => {
+      if (err) {
+        Alert("error", message);
+      }
+      Alert("success", message);
+      window.location.reload();
+      close();
+    });
+  };
+
   const bg = (status) => {
     let style;
     switch (status.toLowerCase()) {
@@ -81,21 +103,30 @@ const TransactionInfo = ({ data, history }) => {
         >
           CLOSE
         </Button>
-        {data.status.toLowerCase() === "pending" &&
-        data.type.toLowerCase() === "loan" &&
-        data.accepted ? (
+        {data.type.toLowerCase() === "loan" && !data.accepted && (
           <Button
             _hover={{ backgroundColor: "blue" }}
             width="100px"
             bg={colors.deepBlue}
-            onClick={repay}
+            onClick={accept}
           >
-            REPAY
+            ACCEPT
           </Button>
-        ) : null}
+        )}
+        {data.status.toLowerCase() === "pending" && (
+          <Button
+            _hover={{ backgroundColor: "blue" }}
+            width="100px"
+            bg={colors.deepBlue}
+            onClick={resolve}
+            isLoading={loading}
+          >
+            RESOLVE
+          </Button>
+        )}
       </Box>
     </Box>
   );
 };
 
-export default TransactionInfo;
+export default TransInfo;

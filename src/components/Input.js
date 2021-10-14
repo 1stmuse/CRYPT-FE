@@ -7,18 +7,25 @@ import {
   Text,
   Icon,
 } from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useField } from "formik";
 
-const Input = ({ name, ...rest }) => {
+const Input = ({ name, type, ...rest }) => {
   const [field, meta] = useField(name);
+  const [showPass, setShowPass] = React.useState(false);
 
   return (
     <Box>
       <InputGroup>
-        <CInput {...rest} {...field} {...meta} />
+        <CInput
+          type={!showPass ? type : "text"}
+          {...field}
+          {...meta}
+          {...rest}
+        />
         {name === "password" && (
-          <InputRightAddon>
-            <Icon name="password" />
+          <InputRightAddon onClick={() => setShowPass(!showPass)}>
+            {showPass ? <ViewIcon /> : <ViewOffIcon />}
           </InputRightAddon>
         )}
       </InputGroup>

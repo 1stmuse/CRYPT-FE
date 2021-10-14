@@ -8,6 +8,7 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import { createUseStyles } from "react-jss";
 import { useDispatch } from "react-redux";
+import Alert from "../utils/Alert";
 import axios from "axios";
 
 const useStyles = createUseStyles({
@@ -22,8 +23,8 @@ const Login = ({ history }) => {
   const classes = useStyles();
   const [error, setError] = React.useState("");
   // const history = useHistory();
-  const submit = (values) => {
-    fetch("http://localhost:8000/api/user/login", {
+  const submit = (values, actions) => {
+    fetch("https://cryptblis.herokuapp.com/api/user/login", {
       headers: {
         "content-type": "application/json",
       },
@@ -41,20 +42,27 @@ const Login = ({ history }) => {
               isAdmin: res.data.user.isAdmin,
               token: res.data.token,
               id: res.data.user._id,
+              debt: res.data.user.debt,
             },
           });
+          localStorage.setItem("isAdmin", res.data.user.isAdmin);
           localStorage.setItem("token", res.data.token);
+          localStorage.setItem("id", res.data.user._id);
           if (res.data.user.isAdmin) {
             history.push("/admin");
             return;
+          } else {
+            history.push("dashboard");
           }
-          history.push("dashboard");
         } else {
           setError(res.message);
           setTimeout(() => setError(""), 1000);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        Alert("error", err.message);
+        actions.resetForm();
+      });
   };
   return (
     <Box
@@ -141,11 +149,11 @@ const Login = ({ history }) => {
           </Formik>
         </Box>
         <Box d="flex">
-          <Text color={colors.deepBlue} mr="10px">
+          <Text color={colors.brown} mr="10px">
             Don't have an account
           </Text>
           <Text
-            color={colors.primary}
+            color={colors.deepBlue}
             cursor="pointer"
             onClick={() => history.push("signup")}
           >

@@ -1,11 +1,13 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, useMediaQuery } from "@chakra-ui/react";
 import SideNav from "../sidenav";
 import Header from "../header";
-
 import colors from "../../utils/colors";
+import { useSelector } from "react-redux";
 
 const Layout = ({ children }) => {
+  const { open } = useSelector((state) => state.nav);
+  const [isMobile] = useMediaQuery(["(max-width: 1050px)"]);
   return (
     <Box
       bg={colors.ash}
@@ -17,6 +19,7 @@ const Layout = ({ children }) => {
       bottom="0"
       overflow="scroll"
     >
+      <SideNav show={open} />
       {/* <SideNav /> */}
       {/* <Box
         pos="fixed"
@@ -30,7 +33,7 @@ const Layout = ({ children }) => {
       > */}
       <Header />
       {/* </Box> */}
-      <Box h="100%" w="80%" pt="70px" mx="auto">
+      <Box h="100%" w={isMobile ? "90%" : "80%"} pt="70px" mx="auto">
         {children}
       </Box>
     </Box>

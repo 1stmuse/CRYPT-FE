@@ -1,10 +1,10 @@
 import { Box, Text, Table, Thead, Th, Tr, Tbody, Td } from "@chakra-ui/react";
 import React from "react";
 import colors from "../../utils/colors";
-import { useSelector } from "react-redux";
 import moment from "moment";
 import { createUseStyles } from "react-jss";
 import { useModal } from "../../hooks/usemodal";
+import { useHistory } from "react-router-dom";
 import TransactionInfo from "../../components/TransactionInfo";
 
 const useStyles = createUseStyles({
@@ -24,12 +24,13 @@ const useStyles = createUseStyles({
 const TransactionTable = ({ data = [] }) => {
   const classes = useStyles();
   const { show } = useModal();
+  const history = useHistory();
 
   const bg = (status) => {
     let style;
     switch (status.toLowerCase()) {
       case "pending":
-        style = "yellow";
+        style = "orange";
         break;
       case "failed":
         style = "red";
@@ -46,7 +47,7 @@ const TransactionTable = ({ data = [] }) => {
 
   const showInfo = (data) => {
     show({
-      component: <TransactionInfo data={data} />,
+      component: <TransactionInfo data={data} history={history} />,
     });
   };
 
@@ -79,19 +80,16 @@ const TransactionTable = ({ data = [] }) => {
                 <Td>
                   <Text>{ob.type}</Text>
                 </Td>
-                <Td
-                  d="flex"
-                  alignItems="center"
-                  cursor="pointer"
-                  onClick={() => showInfo(ob)}
-                >
-                  <Text
-                    color="red.600"
-                    className="fa fa-eye"
-                    aria-hidden="true"
-                    mr="5px"
-                  />
-                  <Text color="red.600">View</Text>
+                <Td cursor="pointer" onClick={() => showInfo(ob)}>
+                  <Box d="flex" alignItems="center">
+                    <Text
+                      color="red.600"
+                      className="fa fa-eye"
+                      aria-hidden="true"
+                      mr="5px"
+                    />
+                    <Text color="red.600">View</Text>
+                  </Box>
                 </Td>
               </Tr>
             ))}

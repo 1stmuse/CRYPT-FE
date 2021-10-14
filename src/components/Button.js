@@ -7,10 +7,10 @@ const Button = ({ clasname, children, type, ...rest }) => {
   switch (type) {
     case "primary":
       style = {
-        background: colors.primary,
+        background: colors.deepBlue,
         color: "#fff",
         borderRadius: "8px",
-        _hover: { background: colors.primary_light },
+        _hover: { background: "blueviolet" },
       };
       break;
     case "secondary":

@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import { createUseStyles } from "react-jss";
 import colors from "../../utils/colors";
@@ -22,12 +22,22 @@ const useStyles = createUseStyles({
 
 const Dashboard = () => {
   const classes = useStyles();
-  const [active, setActive] = React.useState(0);
+  const [isMobile, isTab] = useMediaQuery([
+    "(max-width: 850px)",
+    "(max-width: 1050px)",
+  ]);
   const [data, setData] = React.useState([]);
-  const { token, id } = useSelector((state) => state.user);
+  // const { debt } = useSelector((state) => state.user);
+  const [debt, setDebt] = React.useState(0);
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
+  console.log(debt, "debt balaance");
+
+  const failedTF = data.filter((ob) => ob.status === "failed");
+  const successTF = data.filter((ob) => ob.status === "settled");
 
   const getData = () => {
-    fetch(`http://localhost:8000/api/transactions/${id}`, {
+    fetch(`https://cryptblis.herokuapp.com/api/transactions/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -37,42 +47,78 @@ const Dashboard = () => {
       .catch((err) => console.log(err));
   };
 
+  const getDebtBalance = () => {
+    fetch(`https://cryptblis.herokuapp.com/api/user/debt`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setDebt(data.data.debt))
+      .catch((err) => console.log(err));
+  };
+
   React.useEffect(() => {
     getData();
+    getDebtBalance();
   }, []);
 
   return (
     <Box width="100%" pb="20">
-      <Box mt="10" d="flex" justifyContent="space-between">
-        <Box mr="12">
+      <Box
+        mt="10"
+        d="flex"
+        flexDir={isMobile ? "column" : "row"}
+        justifyContent="space-between"
+      >
+        <Box mr="12" order={isMobile && "2"} width={isMobile ? "100%" : "50%"}>
           <Text fontSize="2xl" color={colors.deepBlue}>
             Quick Stats
           </Text>
           <Box
             d="flex"
             alignItems="center"
-            justifyContent="flex-start"
+            flexWrap="wrap"
+            // justifyContent="flex-start"
             mt="5px"
+            w={isMobile ? "100%" : "500px"}
           >
-            <StatCard text="Total Transactions" amount="28,345" />
-            <StatCard
-              text="Succesfull Transactions"
-              amount="120"
-              color="#f35162"
-            />
-          </Box>
+            <Box mb="3" w={isMobile && "50%"}>
+              <StatCard text="Total Transactions" amount={data.length} />
+            </Box>
+            <Box mb="3" w={isMobile && "50%"}>
+              <StatCard
+                text="Succesfull Transactions"
+                amount={successTF.length}
+                color={colors.primary}
+              />
+            </Box>
+            {/* </Box>
           <Box
             d="flex"
             alignItems="center"
             justifyContent="flex-start"
             mt="5px"
-          >
-            <StatCard text="Failed Transactions" amount="0" icon={inc} />
-            <StatCard text="Debt Owed" amount="46" icon={dec} />
+          > */}
+            <Box mb="3" w={isMobile && "50%"}>
+              <StatCard
+                text="Failed Transactions"
+                amount={failedTF.length}
+                icon={inc}
+                color="red"
+              />
+            </Box>
+            <Box mb="3" w={isMobile && "50%"}>
+              <StatCard text="Debt Owed" amount={debt} icon={dec} />
+            </Box>
           </Box>
         </Box>
         <Box
-          h="250px"
+          // h="250px"
+          order={isMobile && "1"}
+          px="5"
+          py="10"
+          mb={isMobile && "5"}
           borderRadius="15px"
           alignSelf="flex-end"
           flexGrow="1"
@@ -80,8 +126,8 @@ const Dashboard = () => {
           d="flex"
           alignItems="center"
         >
-          <Box w="70%" ml="12">
-            <Text fontSize="3xl" color="white">
+          <Box>
+            <Text fontSize={isTab ? "2xl" : "3xl"} color="white">
               Welcome to CRYPTBLIS
             </Text>
             <Text color="white" mt="10px" fontSize="15px">
