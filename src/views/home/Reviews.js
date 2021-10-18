@@ -1,4 +1,4 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import colors from "../../utils/colors";
 import { createUseStyles } from "react-jss";
@@ -59,11 +59,15 @@ const Profile = ({ img, name }) => {
 };
 
 const Reviews = () => {
+  const [isTab, isMobile] = useMediaQuery([
+    "(max-width: 1000px)",
+    "(max-width:800px)",
+  ]);
   const classes = useStyles();
   return (
     <Box className={classes.main} minH="100vh">
-      <Box w="80%">
-        <Text textAlign="center" fontSize="4xl">
+      <Box w="80%" mt={isMobile && "5"}>
+        <Text textAlign="center" fontSize={isMobile ? "2xl" : "4xl"}>
           Customer Reviews
         </Text>
         <Text mt={4} textAlign="center" color={colors.brown}>

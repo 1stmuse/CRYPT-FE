@@ -1,4 +1,4 @@
-import { Box, Text, Link } from "@chakra-ui/react";
+import { Box, Text, Link, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import colors from "../../utils/colors";
 import { createUseStyles } from "react-jss";
@@ -7,43 +7,35 @@ const useStyles = createUseStyles({
   main: {
     display: "flex",
     // backgroundColor: "#222425",
+    width: "100%",
     backgroundColor: "white",
-    padding: "15px 55px",
+    // padding: "15px 55px",
   },
 });
 
 const Footer = () => {
   const classes = useStyles();
+  const [isTab, isMobile] = useMediaQuery([
+    "(max-width: 1000px)",
+    "(max-width:800px)",
+  ]);
   return (
     <Box
       className={classes.main}
+      py="15px"
+      px={isMobile ? "10px" : "55px"}
       minH="40vh"
       borderTop={`1px solid ${colors.brown}`}
     >
-      {/* <Box>
-        <Box>
-          <Text>Contact Info</Text>
-          <Box>
-            <Box>
-              <Link href="#top" className="fa fa-phone" aria-hidden="true" />
-              <Text>+234 9087 875 6789</Text>
-            </Box>
-            <Box>
-              <Text className="fa fa-envelope" aria-hidden="true" />
-              <Text>info@cryptblis.com</Text>
-            </Box>
-            <Box>
-              <Text className="fa fa-map-marker" aria-hidden="true" />
-              <Text>Nigeria</Text>
-            </Box>
-          </Box>
-        </Box>
-      </Box> */}
-      <Box>
+      <Box width="100%">
         <Box>
           <Box d="flex" alignItems="center">
-            <Text fontSize="7xl" mr={10} color={colors.deepBlue}>
-              CRYPTBLIS
+            <Text
+              fontSize={isMobile ? "2xl" : "5xl"}
+              mr={10}
+              color={colors.deepBlue}
+            >
+              CRYPTWAVILOAN
             </Text>
             <Box
               d="flex"
@@ -56,9 +48,10 @@ const Footer = () => {
               <Text className="fa fa-instagram fa-2x" aria-hidden="true" />
             </Box>
           </Box>
-          <Box>
-            <Text color={colors.deepBlue}>
-              Made with ❤ in Nigeria © 2021 CryptBlis, ApS. All rights reserved.
+          <Box mt={isMobile && "5"}>
+            <Text textAlign="left" color={colors.deepBlue}>
+              Made with ❤ in Nigeria © 2021 Cryptwaviloan, ApS. All rights
+              reserved.
             </Text>
           </Box>
         </Box>

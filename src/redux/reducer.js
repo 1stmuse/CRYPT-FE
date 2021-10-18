@@ -12,6 +12,7 @@ const initialState = {
 
 const navState = {
   open: false,
+  smOpen: false,
 };
 
 export const navReducer = (state = navState, action) => {
@@ -20,6 +21,12 @@ export const navReducer = (state = navState, action) => {
       return {
         ...state,
         open: !state.open,
+      };
+
+    case "SM_TOGGLE_NAV":
+      return {
+        ...state,
+        smOpen: !state.smOpen,
       };
 
     default:

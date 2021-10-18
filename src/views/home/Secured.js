@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import colors from "../../utils/colors";
 import { createUseStyles } from "react-jss";
 
@@ -30,12 +30,16 @@ const useStyles = createUseStyles({
 
 const Secured = () => {
   const classes = useStyles();
+  const [isTab, isMobile] = useMediaQuery([
+    "(max-width: 1000px)",
+    "(max-width:800px)",
+  ]);
   return (
     <Box className={classes.main} h="100vh" background={colors.primary}>
-      <Text fontSize="5xl" color={colors.deepBlue}>
+      <Text fontSize={isMobile ? "3xl" : "5xl"} color={colors.deepBlue}>
         100% secure transactions
       </Text>
-      <Box w="50%" my="5">
+      <Box w={isMobile ? "80%" : "50%"} my="5">
         <Text textAlign="center" color="white" fontSize="1xl">
           We buy Bitcoins at the very best market prices because we wanna make
           you(our customer) rich. We got Velocity in our DNA. You will testify

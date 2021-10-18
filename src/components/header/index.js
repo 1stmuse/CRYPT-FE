@@ -21,7 +21,6 @@ const useStyles = createUseStyles({
 const Header = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [sideNavOpen, setSideNavOpen] = React.useState(false);
   const [isMobile] = useMediaQuery(["(max-width: 850px)"]);
   const dispatch = useDispatch();
 
@@ -65,7 +64,11 @@ const Header = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Text onClick={() => dispatch({ type: "TOGGLE_NAV" })}>OPEN</Text>
+          <Text
+            className="fa fa-bars"
+            color="white"
+            onClick={() => dispatch({ type: "TOGGLE_NAV" })}
+          ></Text>
           <Box>
             <Text
               fontStyle="italic"
@@ -73,7 +76,7 @@ const Header = () => {
               fontSize={22}
               color={colors.deepBlue}
             >
-              CRYPTBLIS
+              CRYPTWAVILOAN
             </Text>
           </Box>
         </Box>
@@ -86,7 +89,7 @@ const Header = () => {
               fontSize={22}
               color={colors.deepBlue}
             >
-              CRYPTBLIS
+              CRYPTWAWILOAN
             </Text>
           </Box>
           <Box

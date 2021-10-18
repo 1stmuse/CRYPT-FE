@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import { createUseStyles } from "react-jss";
 import { useHistory } from "react-router-dom";
@@ -16,6 +16,7 @@ const useStyles = createUseStyles({
 const UnauthHeader = () => {
   const classes = useStyles();
   const history = useHistory();
+  const [isMobile] = useMediaQuery(["(max-width: 890px)"]);
   const [scrollPosition, setScrollPosition] = React.useState(0);
   const handleScroll = () => {
     const position = window.pageYOffset;
@@ -25,7 +26,7 @@ const UnauthHeader = () => {
   const headerTextColor = {
     color: "white",
     fontWeight: "bold",
-    fontSize: "22px",
+    fontSize: isMobile ? "11px" : "22px",
   };
 
   React.useEffect(() => {
@@ -38,8 +39,13 @@ const UnauthHeader = () => {
 
   return (
     <Box className={scrollPosition > 2 ? "header" : "headerDefault"} px={20}>
-      <Text fontStyle="italic" fontWeight="bold" color="white" fontSize={22}>
-        CRYPTBLIS
+      <Text
+        fontStyle="italic"
+        fontWeight="bold"
+        color="white"
+        fontSize={isMobile ? 11 : 22}
+      >
+        CRYPTWAVILOAN
       </Text>
       <Box
         d="flex"

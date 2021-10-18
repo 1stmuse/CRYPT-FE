@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import colors from "../../utils/colors";
 import { createUseStyles } from "react-jss";
@@ -35,10 +35,14 @@ const useStyles = createUseStyles({
 
 const WeAre = () => {
   const classes = useStyles();
+  const [isTab, isMobile] = useMediaQuery([
+    "(max-width: 1000px)",
+    "(max-width:800px)",
+  ]);
   return (
     <Box className={classes.main} minH="100vh">
-      <Box w="80%">
-        <Text textAlign="center" fontSize="5xl">
+      <Box w="80%" mt={isMobile && "5"}>
+        <Text textAlign="center" fontSize={isMobile ? "3xl" : "5xl"}>
           Who we are?
         </Text>
         <Text mt={4} textAlign="center" color={colors.brown}>

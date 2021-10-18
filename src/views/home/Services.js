@@ -1,4 +1,4 @@
-import { Box, Grid, Image, Text } from "@chakra-ui/react";
+import { Box, Grid, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import pay from "../../assets/pay-online.png";
 import Button from "../../components/Button";
@@ -25,16 +25,27 @@ const styles = createUseStyles({
 });
 
 const Services = () => {
+  const [isTab, isMobile] = useMediaQuery([
+    "(max-width: 1000px)",
+    "(max-width:800px)",
+  ]);
   const history = useHistory();
   const classes = styles();
   return (
-    <Box minH="130vh" px="36">
-      <Box d="flex" h="70vh" alignItems="center" mb="32">
-        <Box w="50%">
+    <Box px={isTab ? "10px" : "36"}>
+      <Box
+        d="flex"
+        // h="70vh"
+        minH="300px"
+        flexDir={isMobile ? "column" : "row"}
+        alignItems="center"
+        mb={isMobile ? "20" : "32"}
+      >
+        <Box w={isMobile ? "100%" : "50%"}>
           <Image src={pay} />
         </Box>
-        <Box w="50%" px={5}>
-          <Text fontSize="4xl">
+        <Box w={isMobile ? "100%" : "50%"} px={5}>
+          <Text fontSize={isMobile ? "2xl" : "4xl"}>
             Crafted For Secured, and Reliable Transactions.
           </Text>
           <Box mt={3}>
@@ -61,7 +72,14 @@ const Services = () => {
           </Box>
         </Box>
       </Box>
-      <Box d="flex" flexWrap="wrap" px={5} justifyContent="space-around">
+      <Box
+        minH="200px"
+        d="flex"
+        flexWrap="wrap"
+        px={5}
+        mt={isMobile && "10"}
+        justifyContent="space-around"
+      >
         <Bounce delay={100}>
           <Box className={classes.gridItem}>
             <Laptop height="50px" />
