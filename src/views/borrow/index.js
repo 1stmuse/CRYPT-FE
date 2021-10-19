@@ -42,7 +42,6 @@ const Borrow = () => {
     setSocket(newSock);
   };
   useEffect(() => {
-    // console.log("leaked");
     socketInit();
   }, []);
 

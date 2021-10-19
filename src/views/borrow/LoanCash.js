@@ -48,7 +48,6 @@ const LoanCash = ({ socket }) => {
         }
       })
       .catch((err) => Alert("error", "check your internet settings"));
-    // console.log(value);
   }, 1000);
 
   const upLoad = async (files, fieldValue) => {
@@ -148,7 +147,7 @@ const LoanCash = ({ socket }) => {
                     <Box flexGrow="1">
                       <Input
                         type="text"
-                        // width={isMobile && "250px"}
+                
                         value={values.amount}
                         color={colors.deepBlue}
                         name="amount"
@@ -280,7 +279,7 @@ const LoanCash = ({ socket }) => {
                         justifyContent="center"
                         p="2"
                         borderRadius="5px"
-                        // ml="2"
+                    
                       >
                         <Delete
                           cursor="pointer"

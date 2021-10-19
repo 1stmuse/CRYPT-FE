@@ -3,7 +3,6 @@ import React from "react";
 import { createUseStyles } from "react-jss";
 import { useHistory } from "react-router-dom";
 import "./styles.css";
-import colors from "../../../utils/colors";
 
 const useStyles = createUseStyles({
   nav: {

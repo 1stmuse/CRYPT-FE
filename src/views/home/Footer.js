@@ -23,6 +23,7 @@ const Footer = () => {
     <Box
       className={classes.main}
       py="15px"
+      id="contact"
       px={isMobile ? "10px" : "55px"}
       minH="40vh"
       borderTop={`1px solid ${colors.brown}`}

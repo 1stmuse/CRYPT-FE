@@ -1,9 +1,9 @@
 import "./styles.css";
-import { Box, Image, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Image, Text, useMediaQuery, Link } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import UnauthHeader from "../../components/header/UnauthHeader";
-import bg from "../../assets/bctBg.jpg";
+// import bg from "../../assets/bctBg.jpg";
 import img from "../../assets/btc-vallet.png";
 import Button from "../../components/Button";
 import Services from "./Services";
@@ -47,14 +47,6 @@ const Home = ({ history }) => {
   return (
     <Box minH="150vh">
       <Box h="100vh" d="flex" px={isTab ? "10px" : "28px"}>
-        {/* <Box
-          position="absolute"
-          left="0"
-          right="0"
-          top="0"
-          height="100vh"
-          bg="rgba(0,0,0, 0.8)"
-        /> */}
         {smMobile ? (
           <Box
             zIndex="banner"
@@ -96,12 +88,16 @@ const Home = ({ history }) => {
               alignItems="center"
               justifyContent="center"
             >
-              <Box className={classes.nav}>
-                <Text style={headerTextColor}>Contact</Text>
-              </Box>
-              <Box className={classes.nav}>
-                <Text style={headerTextColor}>Services</Text>
-              </Box>
+              <Link href="#contact">
+                <Box className={classes.nav}>
+                  <Text style={headerTextColor}>Contact</Text>
+                </Box>
+              </Link>
+              <Link href="#services">
+                <Box className={classes.nav}>
+                  <Text style={headerTextColor}>Services</Text>
+                </Box>
+              </Link>
               <Box
                 className={classes.nav}
                 onClick={() => goTo("login")}

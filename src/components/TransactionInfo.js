@@ -6,7 +6,6 @@ import colors from "../utils/colors";
 import moment from "moment";
 
 const TransactionInfo = ({ data, history }) => {
-  // console.log(data, "infodata");
   const { close } = useModal();
 
   const repay = () => {

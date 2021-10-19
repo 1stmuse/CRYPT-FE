@@ -32,7 +32,7 @@ const Services = () => {
   const history = useHistory();
   const classes = styles();
   return (
-    <Box px={isTab ? "10px" : "36"}>
+    <Box px={isTab ? "10px" : "36"} id="services">
       <Box
         d="flex"
         // h="70vh"

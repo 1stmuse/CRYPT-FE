@@ -13,8 +13,6 @@ const useStyles = createUseStyles({
     alignItems: "center",
     height: "100%",
     transition: "0.4s",
-    // paddingBottom: "5px",
-    // borderBottom: "1px solid yellow",
   },
 });
 
@@ -35,18 +33,10 @@ const Header = () => {
     history.push(route);
   };
 
-  // if (sideNavOpen) {
-  //   return <SideNav show={sideNavOpen} />;
-  // }
-
   return (
     <Box
       d="flex"
-      // justifyContent="space-between"
       alignItems="center"
-      // border="1px solid green"
-      // height="80px"
-      // boxShadow="0px 3px 0px 0px rgb(235 237 238)"
       pos="fixed"
       left="0"
       right="0"
@@ -55,7 +45,6 @@ const Header = () => {
       height="70px"
       bg="white"
       zIndex="100"
-      // border="1px solid red"
     >
       {isMobile ? (
         <Box

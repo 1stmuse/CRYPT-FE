@@ -42,7 +42,6 @@ const RepayCash = () => {
   const id = localStorage.getItem("id");
   const [socket, setSocket] = useState(null);
 
-  // console.log(data);
   const upLoad = async (files, fieldValue) => {
     const data = new FormData();
     const file = files[0];
@@ -110,7 +109,6 @@ const RepayCash = () => {
     setSocket(newSock);
   };
   useEffect(() => {
-    // console.log("leaked");
     socketInit();
   }, []);
 
@@ -254,7 +252,6 @@ const RepayCash = () => {
                         justifyContent="center"
                         p="2"
                         borderRadius="5px"
-                        // ml="2"
                       >
                         <Delete
                           cursor="pointer"

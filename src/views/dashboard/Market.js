@@ -35,9 +35,6 @@ const Market = () => {
       <Text fontSize="2xl" color={colors.deepBlue}>
         Market
       </Text>
-      {/* <a href="https://nomics.com">
-        Crypto Market Cap & Pricing Data Provided By Nomics
-      </a> */}
       <Box mt="5">
         <Table variant="simple" bg="white">
           <Thead>
@@ -66,21 +63,6 @@ const Market = () => {
                 <Td> ${Math.trunc(ob.ath).toLocaleString()} </Td>
               </Tr>
             ))}
-            {/* <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>yard</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr> */}
           </Tbody>
         </Table>
       </Box>
