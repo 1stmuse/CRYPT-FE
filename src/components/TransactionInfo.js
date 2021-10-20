@@ -1,4 +1,4 @@
-import { Box, Link, Image, Text } from "@chakra-ui/react";
+import { Box, Link, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import { useModal } from "../hooks/usemodal";
 import Button from "../components/Button";
@@ -7,6 +7,7 @@ import moment from "moment";
 
 const TransactionInfo = ({ data, history }) => {
   const { close } = useModal();
+  const [isMobile] = useMediaQuery(["(max-width: 850px)"]);
 
   const repay = () => {
     close();
@@ -31,12 +32,21 @@ const TransactionInfo = ({ data, history }) => {
     return style;
   };
   return (
-    <Box bg="white" minW="400px" borderRadius="15px" px="5" py="5">
+    <Box
+      bg="white"
+      minW="300px"
+      // w={isMobile && "300px"}
+      borderRadius="15px"
+      px="5"
+      py="5"
+    >
       <Box d="flex" justifyContent="space-between">
         <Box mr="5" flexGrow="1">
           <Box d="flex" justifyContent="space-between" alignItems="center">
-            <Text>Date</Text>
-            <Text>{moment(data.createdAt).format("D MMM YYYY")} </Text>
+            <Text fontSize={isMobile && "15px"}>Date</Text>
+            <Text fontSize={isMobile && "15px"}>
+              {moment(data.createdAt).format("D MMM YYYY")}{" "}
+            </Text>
           </Box>
           <Box
             d="flex"
@@ -44,8 +54,8 @@ const TransactionInfo = ({ data, history }) => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Text>TYPE</Text>
-            <Text> {data.type} </Text>
+            <Text fontSize={isMobile && "15px"}>TYPE</Text>
+            <Text fontSize={isMobile && "15px"}> {data.type} </Text>
           </Box>
           <Box
             d="flex"
@@ -53,10 +63,11 @@ const TransactionInfo = ({ data, history }) => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Text>Status</Text>
+            <Text fontSize={isMobile && "15px"}>Status</Text>
             <Text
               p="5px"
               fontWeight="bold"
+              fontSize={isMobile && "15px"}
               color="white"
               borderRadius="7px"
               bg={bg(data.status)}

@@ -35,7 +35,7 @@ const Market = () => {
       <Text fontSize="2xl" color={colors.deepBlue}>
         Market
       </Text>
-      <Box mt="5">
+      <Box mt="5" overflowX="scroll">
         <Table variant="simple" bg="white">
           <Thead>
             <Tr>

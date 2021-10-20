@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import bg from "../assets/bctBg.jpg";
 import { Formik } from "formik";
@@ -18,6 +18,7 @@ const useStyles = createUseStyles({
 });
 
 const Register = () => {
+  const [isMobile] = useMediaQuery(["(max-width: 850px)"]);
   const classes = useStyles();
   const history = useHistory();
   const [error, setError] = React.useState("");
@@ -75,6 +76,7 @@ const Register = () => {
       bottom="0"
       overflow="scroll"
       alignItems="center"
+      px={isMobile && "5"}
     >
       <Box
         position="absolute"

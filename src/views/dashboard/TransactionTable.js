@@ -19,6 +19,9 @@ const useStyles = createUseStyles({
     color: "white",
     fontWeight: "bold",
   },
+  td: {
+    minWidth: "180px",
+  },
 });
 
 const TransactionTable = ({ data = [] }) => {
@@ -56,14 +59,14 @@ const TransactionTable = ({ data = [] }) => {
       <Text fontSize="2xl" color={colors.deepBlue}>
         Top Transactions
       </Text>
-      <Box minH="200px" bg="white">
-        <Table variant="simple" bg="white">
+      <Box minH="200px" bg="white" overflowX="scroll">
+        <Table variant="simple" size="lg" bg="white">
           <Thead>
             <Tr>
-              <Th>Date</Th>
-              <Th>Status</Th>
-              <Th>Type</Th>
-              <Th></Th>
+              <Th className={classes.td}>Date</Th>
+              <Th className={classes.td}>Status</Th>
+              <Th className={classes.td}>Type</Th>
+              <Th className={classes.td}></Th>
             </Tr>
           </Thead>
           <Tbody>

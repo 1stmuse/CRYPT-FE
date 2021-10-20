@@ -19,13 +19,20 @@ const useStyles = createUseStyles({
 });
 
 const StatCard = ({ text, amount, icon, color }) => {
-  // const [isMobile] = useMediaQuery(["(max-width: 800px)"]);
+  const [isMobile] = useMediaQuery(["(max-width: 800px)"]);
   const classes = useStyles();
   return (
-    <Box className={classes.stat} w="200px" mb="5">
+    <Box
+      className={classes.stat}
+      height="100px"
+      w={isMobile ? "150px" : "200px"}
+      mb="5"
+    >
       <Text mb="10%">{text} </Text>
       <Box className="stat-numb">
-        <Text color={color}> {amount} </Text>
+        <Text fontSize={isMobile && "10px"} color={color}>
+          {amount}
+        </Text>
         {icon && (
           <Text>
             <img src={icon} alt="icon" />

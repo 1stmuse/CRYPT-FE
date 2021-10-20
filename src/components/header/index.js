@@ -54,15 +54,19 @@ const Header = () => {
           alignItems="center"
         >
           <Text
+            // border="1px solid red"
+            p="2"
             className="fa fa-bars"
-            color="white"
+            color={colors.deepBlue}
             onClick={() => dispatch({ type: "TOGGLE_NAV" })}
-          ></Text>
+          >
+            {/* text */}
+          </Text>
           <Box>
             <Text
               fontStyle="italic"
               fontWeight="bold"
-              fontSize={22}
+              fontSize={18}
               color={colors.deepBlue}
             >
               CRYPTWAVILOAN

@@ -83,10 +83,10 @@ const Dashboard = () => {
             mt="5px"
             w={isMobile ? "100%" : "500px"}
           >
-            <Box mb="3" w={isMobile && "50%"}>
+            <Box mb="3" mr={isMobile && "10"} w={isMobile && "40%"}>
               <StatCard text="Total Transactions" amount={data.length} />
             </Box>
-            <Box mb="3" w={isMobile && "50%"}>
+            <Box mb="3" w={isMobile && "40%"}>
               <StatCard
                 text="Succesfull Transactions"
                 amount={successTF.length}
@@ -100,7 +100,7 @@ const Dashboard = () => {
             justifyContent="flex-start"
             mt="5px"
           > */}
-            <Box mb="3" w={isMobile && "50%"}>
+            <Box mb="3" mr={isMobile && "10"} w={isMobile && "40%"}>
               <StatCard
                 text="Failed Transactions"
                 amount={failedTF.length}
@@ -108,7 +108,7 @@ const Dashboard = () => {
                 color="red"
               />
             </Box>
-            <Box mb="3" w={isMobile && "50%"}>
+            <Box mb="3" w={isMobile && "40%"}>
               <StatCard text="Debt Owed" amount={debt} icon={dec} />
             </Box>
           </Box>
