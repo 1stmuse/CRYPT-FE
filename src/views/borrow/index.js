@@ -13,7 +13,7 @@ const Borrow = () => {
   const [socket, setSocket] = useState(null);
 
   const socketInit = () => {
-    const newSock = io("https://cryptblis.herokuapp.com", {
+    const newSock = io("http://localhost:8000", {
       query: {
         id: token,
       },

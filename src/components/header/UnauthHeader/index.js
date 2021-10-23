@@ -1,4 +1,4 @@
-import { Box, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Text, useMediaQuery, Link } from "@chakra-ui/react";
 import React from "react";
 import { createUseStyles } from "react-jss";
 import { useHistory } from "react-router-dom";
@@ -42,7 +42,7 @@ const UnauthHeader = () => {
         fontStyle="italic"
         fontWeight="bold"
         color="white"
-        fontSize={isMobile ? 11 : 22}
+        fontSize={isMobile ? 18 : 22}
       >
         CRYPTWAVILOAN
       </Text>
@@ -53,12 +53,26 @@ const UnauthHeader = () => {
         minW="50%"
         maxW="60%"
       >
-        <Box className={classes.nav}>
-          <Text style={headerTextColor}>Contact</Text>
-        </Box>
-        <Box className={classes.nav}>
-          <Text style={headerTextColor}>Services</Text>
-        </Box>
+        <Link
+          href="#contact"
+          _hover={{
+            textDecor: "none",
+          }}
+        >
+          <Box className={classes.nav}>
+            <Text style={headerTextColor}>Contact</Text>
+          </Box>
+        </Link>
+        <Link
+          href="#services"
+          _hover={{
+            textDecor: "none",
+          }}
+        >
+          <Box className={classes.nav}>
+            <Text style={headerTextColor}>Services</Text>
+          </Box>
+        </Link>
         <Box
           className={classes.nav}
           onClick={() => history.push("login")}

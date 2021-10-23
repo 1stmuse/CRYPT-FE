@@ -14,6 +14,8 @@ import Footer from "./Footer";
 import colors from "../../utils/colors";
 
 import { createUseStyles } from "react-jss";
+import Assets from "./Assets";
+import Borrow from "./Borrow";
 
 const useStyles = createUseStyles({
   nav: {
@@ -46,7 +48,11 @@ const Home = ({ history }) => {
 
   return (
     <Box minH="150vh">
-      <Box h="100vh" d="flex" px={isTab ? "10px" : "28px"}>
+      <Box
+        h={isMobile ? "60vh" : "100vh"}
+        d="flex"
+        px={isTab ? "10px" : "28px"}
+      >
         {smMobile ? (
           <Box
             zIndex="banner"
@@ -70,7 +76,7 @@ const Home = ({ history }) => {
                 fontStyle="italic"
                 fontWeight="bold"
                 color="white"
-                fontSize={isMobile ? 11 : 22}
+                fontSize={isMobile ? 18 : 22}
               >
                 CRYPTWAVILOAN
               </Text>
@@ -79,6 +85,7 @@ const Home = ({ history }) => {
                 color="white"
                 className="fa fa-bars"
                 aria-hidden="true"
+                fontSize="18px"
               ></Text>
             </Box>
 
@@ -120,6 +127,7 @@ const Home = ({ history }) => {
           alignItems="center"
           justifyContent="space-between"
           zIndex="100"
+          mt={isMobile && "10"}
         >
           <Box
             id="top"
@@ -156,6 +164,8 @@ const Home = ({ history }) => {
       </Box>
       <Services />
       <Secured />
+      <Assets />
+      <Borrow />
       <WeAre />
       <Reviews />
       <Footer />

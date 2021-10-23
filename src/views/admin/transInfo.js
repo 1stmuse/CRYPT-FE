@@ -103,7 +103,7 @@ const TransInfo = ({ data, socket }) => {
         >
           CLOSE
         </Button>
-        {data.type.toLowerCase() === "loan" && !data.accepted && (
+        {data.type.toLowerCase().includes("loan") && !data.accepted && (
           <Button
             _hover={{ backgroundColor: "blue" }}
             width="100px"

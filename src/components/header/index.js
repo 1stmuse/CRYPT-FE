@@ -56,6 +56,7 @@ const Header = () => {
           <Text
             // border="1px solid red"
             p="2"
+            fontSize="18px"
             className="fa fa-bars"
             color={colors.deepBlue}
             onClick={() => dispatch({ type: "TOGGLE_NAV" })}

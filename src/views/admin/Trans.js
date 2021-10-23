@@ -29,7 +29,7 @@ const Trans = ({ data = [] }) => {
   const token = localStorage.getItem("token");
 
   const socketInit = () => {
-    const newSock = io("https://cryptblis.herokuapp.com", {
+    const newSock = io("http://localhost:8000", {
       query: {
         id: token,
       },
@@ -79,7 +79,7 @@ const Trans = ({ data = [] }) => {
 
   return (
     <Box>
-      <Box bg="white" w="100%">
+      <Box bg="white" w="100%" overflow="scroll" maxH="100vh">
         <Table variant="simple" bg="white" w="100%">
           <Thead>
             <Tr>

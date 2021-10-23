@@ -51,8 +51,7 @@ const Footer = () => {
           </Box>
           <Box mt={isMobile && "5"}>
             <Text textAlign="left" color={colors.deepBlue}>
-              Made with ❤ in Nigeria © 2021 Cryptwaviloan, ApS. All rights
-              reserved.
+              © 2021 Cryptwaviloan, ApS. All rights reserved.
             </Text>
           </Box>
         </Box>

@@ -40,7 +40,7 @@ const WeAre = () => {
     "(max-width:800px)",
   ]);
   return (
-    <Box className={classes.main} minH="100vh">
+    <Box className={classes.main}>
       <Box w="80%" mt={isMobile && "5"}>
         <Text textAlign="center" fontSize={isMobile ? "3xl" : "5xl"}>
           Who we are?

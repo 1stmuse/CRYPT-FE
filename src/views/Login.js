@@ -25,7 +25,7 @@ const Login = ({ history }) => {
   const [error, setError] = React.useState("");
   // const history = useHistory();
   const submit = (values, actions) => {
-    fetch("https://cryptblis.herokuapp.com/api/user/login", {
+    fetch("/api/user/login", {
       headers: {
         "content-type": "application/json",
       },
@@ -138,7 +138,7 @@ const Login = ({ history }) => {
                 </Box>
                 <Box mb="5">
                   <Button
-                    isSubmitting={isSubmitting}
+                    isLoading={isSubmitting}
                     onClick={handleSubmit}
                     type="primary"
                     width="100%"

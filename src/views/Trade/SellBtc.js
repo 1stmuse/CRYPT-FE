@@ -32,6 +32,8 @@ const SellBtc = ({ socket, adminInfo }) => {
   const [isMobile] = useMediaQuery(["(max-width: 800px)"]);
   const classes = useStyles();
   const [type, setType] = React.useState("USD");
+  const [coinType, setCoinType] = React.useState("bitcoin");
+  const [value, setValue] = React.useState("");
   const token = localStorage.getItem("token");
   const id = localStorage.getItem("id");
   const [loading, setLoading] = React.useState(false);
@@ -39,18 +41,19 @@ const SellBtc = ({ socket, adminInfo }) => {
 
   const debounce = useDebouncedCallback((value) => {
     const val = parseInt(value);
-    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${type}
+    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinType}&vs_currencies=USD
     `)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.bitcoin.usd);
-        if (type === "USD") {
-          setBtcValue(val / data.bitcoin.usd);
-        } else {
-          setBtcValue(val / data.bitcoin.ngn);
-        }
+        console.log(data);
+
+        // console.log(data.bitcoin.usd);
+        setBtcValue(val / data[`${coinType}`].usd);
       })
-      .catch((err) => Alert("error", "check your internet settings"));
+      .catch((err) => {
+        console.log(err, "erro from coinbase");
+        Alert("error", "check your internet settings");
+      });
     // console.log(value);
   }, 1000);
 
@@ -75,17 +78,40 @@ const SellBtc = ({ socket, adminInfo }) => {
     }
   };
 
+  const getCoinPrice = () => {
+    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinType}&vs_currencies=USD
+    `)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        // console.log(data.bitcoin.usd);
+        setBtcValue(parseInt(value) / data[`${coinType}`].usd);
+      })
+      .catch((err) => {
+        console.log(err, "erro from coinbase");
+        Alert("error", "check your internet settings");
+      });
+  };
+
+  // console.log(value);
+
+  React.useEffect(() => {
+    if (value === "") return;
+    getCoinPrice();
+  }, [coinType]);
+
   const submit = (values, actions) => {
     const payload = {
       image: values.image,
       btc_amount: btcValue,
       cash_amount: values.amount,
       userId: id,
-      type: "Sell BTC",
+      type: `Sell ${coinType}`,
       currency: type,
     };
 
-    fetch("https://cryptblis.herokuapp.com/api/transactions", {
+    fetch("api/transactions", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -96,10 +122,11 @@ const SellBtc = ({ socket, adminInfo }) => {
       .then((res) => res.json())
       .then((data) => {
         if (!data.error) {
-          socket.emit("Sell-BTC", {
+          socket.emit("Sell-crypto", {
             ...payload,
             account_name: values.bank,
             account_number: values.account,
+            crypto_type: coinType.toUpperCase(),
           });
         }
         Alert("success", "Transaction initiated");
@@ -136,6 +163,21 @@ const SellBtc = ({ socket, adminInfo }) => {
           <Box>
             <Box d="flex" flexDir={isMobile ? "column" : "row"}>
               <Box mr={!isMobile && "16"}>
+                <Box mb="4" width="150px">
+                  <Select
+                    // placeholder="Select transaction type"
+                    onChange={(val) => {
+                      setCoinType(val.currentTarget.value);
+                      // setFieldValue("amount", "");
+                    }}
+                    defaultValue={coinType}
+                  >
+                    <option value="bitcoin">Bitcoin</option>
+                    <option value="ethereum">Ethereum</option>
+                    <option value="dogecoin">Dodgecoin</option>
+                    <option value="litecoin">Litecoin</option>
+                  </Select>
+                </Box>
                 <Box>
                   <Box>
                     <Text className={classes.labels}>cash value</Text>
@@ -161,6 +203,7 @@ const SellBtc = ({ socket, adminInfo }) => {
                           name="amount"
                           onChange={(e) => {
                             setFieldValue("amount", e.target.value);
+                            setValue(e.target.value);
                             debounce(e.target.value);
                           }}
                         />

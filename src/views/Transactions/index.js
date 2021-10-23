@@ -79,7 +79,7 @@ const Transactions = ({ history }) => {
   });
 
   const getData = () => {
-    fetch(`https://cryptblis.herokuapp.com/api/transactions/${id}`, {
+    fetch(`api/transactions/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -145,44 +145,46 @@ const Transactions = ({ history }) => {
             <Text>No Transactions to show !!</Text>
           </Box>
         ) : (
-          <Table variant="simple" bg="white">
-            <Thead>
-              <Tr>
-                <Th>Date</Th>
-                <Th>Status</Th>
-                <Th>Type</Th>
-                <Th></Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {filteredData.map((ob, ind) => (
-                <Tr key={ind}>
-                  <Td>
-                    <Text>{moment(ob.createdAt).format("D MMM YYYY")}</Text>
-                  </Td>
-                  <Td>
-                    <Text className={classes.status} bg={bg(ob.status)}>
-                      {ob.status}
-                    </Text>
-                  </Td>
-                  <Td>
-                    <Text>{ob.type}</Text>
-                  </Td>
-                  <Td cursor="pointer" onClick={() => showInfo(ob)}>
-                    <Box d="flex" alignItems="center">
-                      <Text
-                        color="red.600"
-                        className="fa fa-eye"
-                        aria-hidden="true"
-                        mr="5px"
-                      />
-                      <Text color="red.600">View</Text>
-                    </Box>
-                  </Td>
+          <Box overflowX="scroll">
+            <Table variant="simple" bg="white">
+              <Thead>
+                <Tr>
+                  <Th>Date</Th>
+                  <Th>Status</Th>
+                  <Th>Type</Th>
+                  <Th></Th>
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
+              </Thead>
+              <Tbody>
+                {filteredData.map((ob, ind) => (
+                  <Tr key={ind}>
+                    <Td>
+                      <Text>{moment(ob.createdAt).format("D MMM YYYY")}</Text>
+                    </Td>
+                    <Td>
+                      <Text className={classes.status} bg={bg(ob.status)}>
+                        {ob.status}
+                      </Text>
+                    </Td>
+                    <Td>
+                      <Text>{ob.type}</Text>
+                    </Td>
+                    <Td cursor="pointer" onClick={() => showInfo(ob)}>
+                      <Box d="flex" alignItems="center">
+                        <Text
+                          color="red.600"
+                          className="fa fa-eye"
+                          aria-hidden="true"
+                          mr="5px"
+                        />
+                        <Text color="red.600">View</Text>
+                      </Box>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </Box>
         )}
       </Box>
     </Box>

@@ -37,7 +37,7 @@ const Dashboard = () => {
   const successTF = data.filter((ob) => ob.status === "settled");
 
   const getData = () => {
-    fetch(`https://cryptblis.herokuapp.com/api/transactions/${id}`, {
+    fetch(`api/transactions/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -48,7 +48,7 @@ const Dashboard = () => {
   };
 
   const getDebtBalance = () => {
-    fetch(`https://cryptblis.herokuapp.com/api/user/debt`, {
+    fetch(`api/user/debt`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -104,17 +104,17 @@ const Dashboard = () => {
               <StatCard
                 text="Failed Transactions"
                 amount={failedTF.length}
-                icon={inc}
                 color="red"
               />
             </Box>
             <Box mb="3" w={isMobile && "40%"}>
-              <StatCard text="Debt Owed" amount={debt} icon={dec} />
+              <StatCard text="Debt Owed" amount={debt} color="red" />
             </Box>
           </Box>
         </Box>
         <Box
-          // h="250px"
+          h="250px"
+          // border="1px solid red"
           order={isMobile && "1"}
           px="5"
           py="10"

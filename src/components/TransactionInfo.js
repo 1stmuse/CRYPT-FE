@@ -92,7 +92,7 @@ const TransactionInfo = ({ data, history }) => {
           CLOSE
         </Button>
         {data.status.toLowerCase() === "pending" &&
-        data.type.toLowerCase() === "loan" &&
+        data.type.toLowerCase().includes("loan") &&
         data.accepted ? (
           <Button
             _hover={{ backgroundColor: "blue" }}

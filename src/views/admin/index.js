@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import colors from "../../utils/colors";
 import { createUseStyles } from "react-jss";
@@ -18,6 +18,7 @@ const useStyles = createUseStyles({
 });
 
 const AdminDash = () => {
+  const [isMobile] = useMediaQuery(["(max-width: 800px)"]);
   const classes = useStyles();
   const [active, setActive] = useState(0);
   const [data, setData] = useState([]);
@@ -30,7 +31,7 @@ const AdminDash = () => {
       bank_number: values.number,
       btc_address: values.address,
     };
-    fetch("https://cryptblis.herokuapp.com/api/admin/info", {
+    fetch("api/admin/info", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -52,7 +53,7 @@ const AdminDash = () => {
   };
 
   const getTransactions = () => {
-    fetch(`https://cryptblis.herokuapp.com/api/transactions/`, {
+    fetch(`api/transactions/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -63,7 +64,7 @@ const AdminDash = () => {
   };
 
   const getUsers = () => {
-    fetch("https://cryptblis.herokuapp.com/api/users", {
+    fetch("api/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -110,7 +111,12 @@ const AdminDash = () => {
           <StatCard text="Total Users" amount={users.length} />
           <StatCard text="Total Transactions" amount={data.length} />
         </Box>
-        <Box d="flex" width="40%" justifyContent="space-around" mt="10">
+        <Box
+          d="flex"
+          width={isMobile ? "100%" : "40%"}
+          justifyContent="space-around"
+          mt="10"
+        >
           <Text onClick={() => setActive(0)} className={classes.tab}>
             Transactions
           </Text>

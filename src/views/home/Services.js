@@ -39,7 +39,7 @@ const Services = () => {
         minH="300px"
         flexDir={isMobile ? "column" : "row"}
         alignItems="center"
-        mb={isMobile ? "20" : "32"}
+        mb="20"
       >
         <Box w={isMobile ? "100%" : "50%"}>
           <Image src={pay} />
@@ -77,7 +77,7 @@ const Services = () => {
         d="flex"
         flexWrap="wrap"
         px={5}
-        mt={isMobile && "10"}
+        // mt={isMobile && "10"}
         justifyContent="space-around"
       >
         <Bounce delay={100}>

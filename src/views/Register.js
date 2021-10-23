@@ -176,7 +176,12 @@ const Register = () => {
                   />
                 </Box>
                 <Box mb="5">
-                  <Button onClick={handleSubmit} type="primary" width="100%">
+                  <Button
+                    onClick={handleSubmit}
+                    isLoading={isSubmitting}
+                    type="primary"
+                    width="100%"
+                  >
                     Create Account
                   </Button>
                 </Box>

@@ -34,6 +34,8 @@ const LoanCash = ({ socket }) => {
   const [type, setType] = React.useState("USD");
   const [loading, setLoading] = React.useState(false);
   const [btcValue, setBtcValue] = useState(0);
+  const [coinType, setCoinType] = React.useState("bitcoin");
+  const [value, setValue] = React.useState("");
 
   const debounce = useDebouncedCallback((value) => {
     const val = parseInt(value);
@@ -41,13 +43,15 @@ const LoanCash = ({ socket }) => {
     `)
       .then((res) => res.json())
       .then((data) => {
-        if (type === "USD") {
-          setBtcValue(val / data.bitcoin.usd);
-        } else {
-          setBtcValue(val / data.bitcoin.ngn);
-        }
+        // console.log(data);
+
+        // console.log(data.bitcoin.usd);
+        setBtcValue(val / data[`${coinType}`].usd);
       })
-      .catch((err) => Alert("error", "check your internet settings"));
+      .catch((err) => {
+        // console.log(err, "erro from coinbase");
+        Alert("error", "check your internet settings");
+      });
   }, 1000);
 
   const upLoad = async (files, fieldValue) => {
@@ -71,17 +75,41 @@ const LoanCash = ({ socket }) => {
     }
   };
 
+  const getCoinPrice = () => {
+    fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinType}&vs_currencies=USD
+    `)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        // console.log(data.bitcoin.usd);
+        setBtcValue(parseInt(value) / data[`${coinType}`].usd);
+      })
+      .catch((err) => {
+        console.log(err, "erro from coinbase");
+        Alert("error", "check your internet settings");
+      });
+  };
+
+  // console.log(value);
+
+  React.useEffect(() => {
+    if (value === "") return;
+    getCoinPrice();
+  }, [coinType]);
+
   const submit = (values, actions) => {
     const payload = {
       image: values.image,
       btc_amount: btcValue,
       cash_amount: values.amount,
       userId: id,
-      type: "Loan",
+      type: `Loan ${coinType}`,
       currency: type,
+      crypto_type: coinType.toUpperCase(),
     };
 
-    fetch("https://cryptblis.herokuapp.com/api/transactions", {
+    fetch("api/transactions", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -142,25 +170,42 @@ const LoanCash = ({ socket }) => {
                       defaultValue="USD"
                     >
                       <option value="USD">USD</option>
-                      <option value="NGN">NGN</option>
                     </Select>
                     <Box flexGrow="1">
                       <Input
                         type="text"
-                
                         value={values.amount}
                         color={colors.deepBlue}
                         name="amount"
                         onChange={(e) => {
                           setFieldValue("amount", e.target.value);
+                          setValue(e.target.value);
                           debounce(e.target.value);
                         }}
                       />
                     </Box>
                   </Box>
                 </Box>
+                <Box my={isMobile && "4"}>
+                  <Text className={classes.labels}>Collateral Crypto</Text>
+                  <Box d="flex">
+                    <Select
+                      // placeholder="Select transaction type"
+                      onChange={(val) => {
+                        setCoinType(val.currentTarget.value);
+                        // setFieldValue("amount", "");
+                      }}
+                      defaultValue={coinType}
+                    >
+                      <option value="bitcoin">Bitcoin</option>
+                      <option value="ethereum">Ethereum</option>
+                      <option value="dogecoin">Dodgecoin</option>
+                      <option value="litecoin">Litecoin</option>
+                    </Select>
+                  </Box>
+                </Box>
                 <Box mt="1.5">
-                  <Text className={classes.labels}>Collateral BTC</Text>
+                  <Text className={classes.labels}>Crypto Equivalent</Text>
                   <Text
                     py="1.5"
                     pl="1.5"
@@ -173,7 +218,9 @@ const LoanCash = ({ socket }) => {
                 </Box>
 
                 <Box mt="5" w="60%">
-                  <Text className={classes.labels}>CRYPTBLIS BTC address</Text>
+                  <Text className={classes.labels}>
+                    CRYPTBLIS Crypto address
+                  </Text>
                   <Text className={classes.labels}>097gr45444555</Text>
                 </Box>
                 <Box mt="5">
@@ -279,7 +326,6 @@ const LoanCash = ({ socket }) => {
                         justifyContent="center"
                         p="2"
                         borderRadius="5px"
-                    
                       >
                         <Delete
                           cursor="pointer"

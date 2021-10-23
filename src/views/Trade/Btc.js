@@ -13,7 +13,7 @@ const Btc = () => {
   const [adminInfo, setAdminInfo] = useState({});
 
   const socketInit = () => {
-    const newSock = io("https://cryptblis.herokuapp.com", {
+    const newSock = io("http://localhost:8000", {
       query: {
         id: token,
       },
@@ -43,14 +43,15 @@ const Btc = () => {
   };
 
   const getAdminInfo = () => {
-    fetch("https://cryptblis.herokuapp.com/api/admin/info", {
+    fetch("api/admin/info", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
-      .then((data) => setAdminInfo(data.data.info));
+      .then((data) => setAdminInfo(data.data.info))
+      .catch((err) => Alert("error", "a problem occured"));
   };
 
   useEffect(() => {
@@ -66,8 +67,8 @@ const Btc = () => {
           onChange={(val) => setType(val.currentTarget.value)}
           defaultValue="buy"
         >
-          <option value="buy">Buy BTC</option>
-          <option value="sell">Sell BTC</option>
+          <option value="buy">Buy Crypto</option>
+          <option value="sell">Sell Crypto</option>
         </Select>
       </Box>
       {type === "buy" ? (

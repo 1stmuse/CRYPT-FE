@@ -33,11 +33,6 @@ const StatCard = ({ text, amount, icon, color }) => {
         <Text fontSize={isMobile && "10px"} color={color}>
           {amount}
         </Text>
-        {icon && (
-          <Text>
-            <img src={icon} alt="icon" />
-          </Text>
-        )}
       </Box>
     </Box>
   );

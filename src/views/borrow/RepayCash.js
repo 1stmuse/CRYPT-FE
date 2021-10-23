@@ -85,7 +85,7 @@ const RepayCash = () => {
   };
 
   const socketInit = () => {
-    const newSock = io("https://cryptblis.herokuapp.com", {
+    const newSock = io("http://localhost:8000", {
       query: {
         id: token,
       },
@@ -110,6 +110,10 @@ const RepayCash = () => {
   };
   useEffect(() => {
     socketInit();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   return (
@@ -140,7 +144,9 @@ const RepayCash = () => {
             <Text> {data.cash_amount} </Text>
           </Box>
           <Box className={classes.flex}>
-            <Text minW={smMobile ? "110px" : "150px"}>Deposited BTC:</Text>
+            <Text minW={smMobile ? "110px" : "150px"}>
+              Deposited {data.crypto_type.toUpperCase()}:
+            </Text>
             <Text> {data.btc_amount} </Text>
           </Box>
         </Box>
@@ -162,7 +168,9 @@ const RepayCash = () => {
           <Box>
             <Box d="flex" mt="5" flexDir={isMobile ? "column" : "row"}>
               <Box mr="10">
-                <Text className={classes.labels}>Your BTC address</Text>
+                <Text className={classes.labels}>
+                  Your {data.crypto_type} address
+                </Text>
                 <Input
                   type="text"
                   value={values.btc}
