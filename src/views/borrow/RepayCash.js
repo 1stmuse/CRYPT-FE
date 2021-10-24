@@ -41,6 +41,10 @@ const RepayCash = () => {
   const token = localStorage.getItem("token");
   const id = localStorage.getItem("id");
   const [socket, setSocket] = useState(null);
+  const [adminInfo, setAdminInfo] = useState({
+    bank_name: "",
+    bank_number: "",
+  });
 
   const upLoad = async (files, fieldValue) => {
     const data = new FormData();
@@ -108,12 +112,22 @@ const RepayCash = () => {
 
     setSocket(newSock);
   };
+
+  const getAdminInfo = () => {
+    fetch("api/admin/info", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setAdminInfo(data.data.info))
+      .catch((err) => Alert("error", "a problem occured"));
+  };
+
   useEffect(() => {
     socketInit();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    getAdminInfo();
   }, []);
 
   return (
@@ -178,11 +192,11 @@ const RepayCash = () => {
                   name="btc"
                 />
                 <Box mt="5">
-                  <Text>CRYPTBLIS account details</Text>
+                  <Text>CRYPTWAVI account details</Text>
                   <Box>
-                    <Text>Access Bank</Text>
-                    <Text>Olarenwaju Qudos</Text>
-                    <Text>0226384647489</Text>
+                    <Text>{adminInfo.bank_name}</Text>
+
+                    <Text>{adminInfo.bank_number}</Text>
                   </Box>
                 </Box>
               </Box>
@@ -286,8 +300,8 @@ const RepayCash = () => {
               <Text>NOTE:</Text>
               <Text className={classes.labels}>
                 Clicking next implies that you have tranfered the money into
-                CRYTBLIS account and you are ready to upload prove of payment,
-                after which CRYTBLIS will send your deposited BTC to your
+                CRYPTWAVI account and you are ready to upload prove of payment,
+                after which CRYPTWAVI will send your deposited CRYPTO to your
                 address
               </Text>
             </Box>

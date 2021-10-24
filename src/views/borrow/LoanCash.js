@@ -26,7 +26,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const LoanCash = ({ socket }) => {
+const LoanCash = ({ socket, adminInfo }) => {
   const classes = useStyles();
   const [isMobile] = useMediaQuery(["(max-width: 800px)"]);
   const token = localStorage.getItem("token");
@@ -36,6 +36,29 @@ const LoanCash = ({ socket }) => {
   const [btcValue, setBtcValue] = useState(0);
   const [coinType, setCoinType] = React.useState("bitcoin");
   const [value, setValue] = React.useState("");
+
+  const chosenAddress = () => {
+    let add = "";
+
+    switch (coinType) {
+      case "bitcoin":
+        add = "btc_address";
+        break;
+      case "ethereum":
+        add = "ethereum_address";
+        break;
+      case "dogecoin":
+        add = "dogecoin_address";
+        break;
+      case "litecoin":
+        add = "litecoin_address";
+        break;
+      default:
+        add = "btc_address";
+        break;
+    }
+    return add;
+  };
 
   const debounce = useDebouncedCallback((value) => {
     const val = parseInt(value);
@@ -219,9 +242,11 @@ const LoanCash = ({ socket }) => {
 
                 <Box mt="5" w="60%">
                   <Text className={classes.labels}>
-                    CRYPTBLIS Crypto address
+                    CRYPTWAVI {coinType} address
                   </Text>
-                  <Text className={classes.labels}>097gr45444555</Text>
+                  <Text className={classes.labels}>
+                    {adminInfo[chosenAddress()]}
+                  </Text>
                 </Box>
                 <Box mt="5">
                   <Text className={classes.labels}>Your account details</Text>
@@ -351,9 +376,9 @@ const LoanCash = ({ socket }) => {
             <Box mt={4} w={isMobile ? "85%" : "50%"}>
               <Text>NOTE:</Text>
               <Text className={classes.labels}>
-                Clicking next implies that you have tranfered the stated BTC
-                collateral into CRYTBLIS BTC address and you are waiting
-                confirmation and payment from CRYPTBLIS
+                Clicking next implies that you have tranfered the stated CRYPTO
+                collateral into CRYPTWAVI CRYPTO address and you are waiting
+                confirmation and payment from CRYPTWAVI
               </Text>
             </Box>
           </Box>

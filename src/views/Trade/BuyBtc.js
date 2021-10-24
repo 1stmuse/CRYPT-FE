@@ -232,7 +232,7 @@ const BuyBtc = ({ socket, adminInfo }) => {
                   />
                 </Box>
                 <Box mt="5">
-                  <Text>CRYPTBLIS account details</Text>
+                  <Text>CRYPTWAVI account details</Text>
                   <Box>
                     <Text>{adminInfo.bank_name}</Text>
                     <Text>{adminInfo.bank_number}</Text>
@@ -339,7 +339,7 @@ const BuyBtc = ({ socket, adminInfo }) => {
               <Text>NOTE:</Text>
               <Text className={classes.labels}>
                 Clicking next implies that you have tranfered the money into
-                CRYTBLIS account and you are ready to upload prove of payment
+                CRYPTWAVI account and you are ready to upload prove of payment
               </Text>
             </Box>
           </Box>

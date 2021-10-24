@@ -10,7 +10,14 @@ const Btc = () => {
   // const { token } = useSelector((state) => state.user);
   const token = localStorage.getItem("token");
   const [socket, setSocket] = useState(null);
-  const [adminInfo, setAdminInfo] = useState({});
+  const [adminInfo, setAdminInfo] = useState({
+    bank_name: "",
+    bank_number: "",
+    btc_address: "",
+    ethereum_address: "",
+    litecoin_address: "",
+    dogecoin_address: "",
+  });
 
   const socketInit = () => {
     const newSock = io("http://localhost:8000", {

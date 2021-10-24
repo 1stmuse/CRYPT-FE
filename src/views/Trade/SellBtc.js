@@ -57,6 +57,29 @@ const SellBtc = ({ socket, adminInfo }) => {
     // console.log(value);
   }, 1000);
 
+  const chosenAddress = () => {
+    let add = "";
+
+    switch (coinType) {
+      case "bitcoin":
+        add = "btc_address";
+        break;
+      case "ethereum":
+        add = "ethereum_address";
+        break;
+      case "dogecoin":
+        add = "dogecoin_address";
+        break;
+      case "litecoin":
+        add = "litecoin_address";
+        break;
+      default:
+        add = "btc_address";
+        break;
+    }
+    return add;
+  };
+
   const upLoad = async (files, fieldValue) => {
     const data = new FormData();
     const file = files[0];
@@ -211,7 +234,7 @@ const SellBtc = ({ socket, adminInfo }) => {
                     </Box>
                   </Box>
                   <Box mt="1.5">
-                    <Text className={classes.labels}>BTC uquivalent</Text>
+                    <Text className={classes.labels}>Crypto equivalent</Text>
                     <Text
                       py="1.5"
                       pl="1.5"
@@ -223,9 +246,11 @@ const SellBtc = ({ socket, adminInfo }) => {
                   </Box>
                 </Box>
                 <Box mt="5" w="60%">
-                  <Text className={classes.labels}>CRYPTBLIS BTC address</Text>
                   <Text className={classes.labels}>
-                    {adminInfo.btc_address}
+                    CRYPTWAVI {coinType} address
+                  </Text>
+                  <Text className={classes.labels}>
+                    {adminInfo[chosenAddress()]}
                   </Text>
                 </Box>
                 <Box mt="5">
@@ -359,9 +384,9 @@ const SellBtc = ({ socket, adminInfo }) => {
             <Box mt={4} w={isMobile ? "85%" : "50%"}>
               <Text>NOTE:</Text>
               <Text className={classes.labels}>
-                Clicking next implies that you have tranfered the stated BTC
-                ammount into CRYTBLIS BTC address and you are ready to upload
-                prove of transfer
+                Clicking next implies that you have tranfered the stated CRYPTO
+                ammount into CRYPTWAVI CRYPTO address and you are ready to
+                upload prove of transfer
               </Text>
             </Box>
           </Box>

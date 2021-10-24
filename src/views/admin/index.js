@@ -9,6 +9,7 @@ import Button from "../../components/Button";
 import Trans from "./Trans";
 import Users from "./Users";
 import * as yup from "yup";
+import Alert from "../../utils/Alert";
 
 const useStyles = createUseStyles({
   tab: {
@@ -24,12 +25,23 @@ const AdminDash = () => {
   const [data, setData] = useState([]);
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem("token");
+  const [adminInfo, setAdminInfo] = useState({
+    bank_name: "",
+    bank_number: "",
+    btc_address: "",
+    ethereum_address: "",
+    litecoin_address: "",
+    dogecoin_address: "",
+  });
 
   const addInfo = (values, actions) => {
     const payload = {
       bank_name: values.name,
       bank_number: values.number,
-      btc_address: values.address,
+      btc_address: values.btc_address,
+      ethereum_address: values.eth_address,
+      dogecoin_address: values.doge_address,
+      litecoin_address: values.lt_address,
     };
     fetch("api/admin/info", {
       headers: {
@@ -76,9 +88,27 @@ const AdminDash = () => {
       .catch((err) => console.log(err));
   };
 
+  const getAdminInfo = () => {
+    fetch("api/admin/info", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.data.info);
+        if (data.data.info) {
+          setAdminInfo(data.data.info);
+        }
+      })
+      .catch((err) => Alert("error", "a problem occured"));
+  };
+
   useEffect(() => {
     getTransactions();
     getUsers();
+    getAdminInfo();
   }, []);
 
   return (
@@ -143,39 +173,73 @@ const AdminDash = () => {
               mt="5"
               borderRadius="15px"
             >
-              <Box>
+              <Box w="100%">
                 <Formik
                   initialValues={{
-                    address: "",
-                    name: "",
-                    number: "",
+                    btc_address: adminInfo.btc_address || "",
+                    eth_address: adminInfo.ethereum_address || "",
+                    lt_address: adminInfo.litecoin_address || "",
+                    doge_address: adminInfo.dogecoin_address || "",
+                    name: adminInfo.bank_name || "",
+                    number: adminInfo.bank_number || "",
                   }}
                   validationSchema={yup.object({
-                    address: yup.string().required("input BTC address"),
+                    btc_address: yup.string().required("input BTC address"),
+                    eth_address: yup.string().required("input Eth address"),
+                    lt_address: yup.string().required("input Litecoin address"),
+                    doge_address: yup.string().required("input Doge address"),
                     name: yup.string().required("input bank account name"),
                     number: yup.string().required("input bank account number"),
                   })}
                   onSubmit={addInfo}
                 >
-                  {({ values, handleSubmit }) => (
+                  {({ values, handleSubmit, isSubmitting }) => (
                     <Box>
-                      <Box>
-                        <Text>Add BTC address</Text>
-                        <Input name="address" value={values.address} />
+                      <Box d="flex" justifyContent="space-between" mb="5">
+                        <Box>
+                          <Text>Bitcoin address</Text>
+                          <Input
+                            name="btc_address"
+                            value={values.btc_address}
+                          />
+                        </Box>
+                        <Box>
+                          <Text>Ethereum address</Text>
+                          <Input
+                            name="eth_address"
+                            value={values.eth_address}
+                          />
+                        </Box>
                       </Box>
-                      <Box>
-                        <Text>Bank name</Text>
-                        <Input name="name" value={values.name} />
+                      <Box d="flex" justifyContent="space-between" mb="5">
+                        <Box>
+                          <Text>Dogecoin address</Text>
+                          <Input
+                            name="doge_address"
+                            value={values.doge_address}
+                          />
+                        </Box>
+                        <Box>
+                          <Text>Litecoin address</Text>
+                          <Input name="lt_address" value={values.lt_address} />
+                        </Box>
                       </Box>
-                      <Box>
-                        <Text>Account number</Text>
-                        <Input name="number" value={values.number} />
+                      <Box d="flex" justifyContent="space-between" mb="5">
+                        <Box>
+                          <Text>Bank name</Text>
+                          <Input name="name" value={values.name} />
+                        </Box>
+                        <Box>
+                          <Text>Account number</Text>
+                          <Input name="number" value={values.number} />
+                        </Box>
                       </Box>
                       <Box mt="10px">
                         <Button
                           onClick={handleSubmit}
                           type="primary"
                           width="80px"
+                          isLoading={isSubmitting}
                         >
                           ADD
                         </Button>

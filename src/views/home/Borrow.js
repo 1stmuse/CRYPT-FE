@@ -1,7 +1,9 @@
 import { Box, Text, Image, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import lend from "../../assets/lend.jpg";
+import { useHistory } from "react-router-dom";
 import { createUseStyles } from "react-jss";
+import Button from "../../components/Button";
 import colors from "../../utils/colors";
 
 const useStyles = createUseStyles({
@@ -28,6 +30,7 @@ const useStyles = createUseStyles({
 
 const Borrow = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [isMobile] = useMediaQuery(["(max-width: 800px)"]);
   return (
     <Box
@@ -81,6 +84,16 @@ const Borrow = () => {
               </Box>
             </Box>
           </Box>
+        </Box>
+        <Box>
+          <Button
+            type="primary"
+            // bg={colors.deepBlue}
+            mt="55px"
+            onClick={() => history.push("signup")}
+          >
+            START BORROWING
+          </Button>
         </Box>
       </Box>
     </Box>

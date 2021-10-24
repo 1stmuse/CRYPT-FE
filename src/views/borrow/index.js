@@ -8,6 +8,14 @@ import LoanCash from "./LoanCash";
 
 const Borrow = () => {
   const [isMobile] = useMediaQuery(["(max-width: 800px)"]);
+  const [adminInfo, setAdminInfo] = useState({
+    bank_name: "",
+    bank_number: "",
+    btc_address: "",
+    ethereum_address: "",
+    litecoin_address: "",
+    dogecoin_address: "",
+  });
 
   const token = localStorage.getItem("token");
   const [socket, setSocket] = useState(null);
@@ -41,8 +49,22 @@ const Borrow = () => {
 
     setSocket(newSock);
   };
+
+  const getAdminInfo = () => {
+    fetch("api/admin/info", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setAdminInfo(data.data.info))
+      .catch((err) => Alert("error", "a problem occured"));
+  };
+
   useEffect(() => {
     socketInit();
+    getAdminInfo();
   }, []);
 
   return (
@@ -61,13 +83,13 @@ const Borrow = () => {
           w={isMobile ? "100%" : "70%"}
           color={colors.white}
         >
-          Need cash for a while ? CRYPTBLIS got you covered, just tell us the
+          Need cash for a while ? CRYPTWAVI got you covered, just tell us the
           amount and deposit BTC as your collateral, fast, easy and reliable
           always
         </Text>
       </Box>
       <Box bg="white" borderRadius="15px" py="5" mt="5" px="5">
-        <LoanCash socket={socket} />
+        <LoanCash socket={socket} adminInfo={adminInfo} />
       </Box>
     </Box>
   );
