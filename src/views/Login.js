@@ -25,7 +25,7 @@ const Login = ({ history }) => {
   const [error, setError] = React.useState("");
   // const history = useHistory();
   const submit = (values, actions) => {
-    fetch("/api/user/login", {
+    fetch("https://cryptwavi.herokuapp.com/api/user/login", {
       headers: {
         "content-type": "application/json",
       },
@@ -61,6 +61,7 @@ const Login = ({ history }) => {
         }
       })
       .catch((err) => {
+        console.log(err);
         Alert("error", err.message);
         actions.resetForm();
       });

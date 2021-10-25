@@ -29,7 +29,7 @@ const Trans = ({ data = [] }) => {
   const token = localStorage.getItem("token");
 
   const socketInit = () => {
-    const newSock = io("http://localhost:8000", {
+    const newSock = io("https://cryptwavi.herokuapp.com", {
       query: {
         id: token,
       },

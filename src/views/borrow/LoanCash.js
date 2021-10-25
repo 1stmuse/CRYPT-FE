@@ -132,7 +132,7 @@ const LoanCash = ({ socket, adminInfo }) => {
       crypto_type: coinType.toUpperCase(),
     };
 
-    fetch("api/transactions", {
+    fetch("https://cryptwavi.herokuapp.com/api/transactions", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,

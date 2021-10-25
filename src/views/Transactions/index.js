@@ -79,7 +79,7 @@ const Transactions = ({ history }) => {
   });
 
   const getData = () => {
-    fetch(`api/transactions/${id}`, {
+    fetch(`https://cryptwavi.herokuapp.com/api/transactions/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

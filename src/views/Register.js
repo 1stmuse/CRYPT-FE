@@ -36,7 +36,7 @@ const Register = () => {
       email: values.email,
     };
     // console.log(payload);
-    fetch("https://cryptblis.herokuapp.com/api/user/register", {
+    fetch("https://cryptwavi.herokuapp.com/api/user/register", {
       headers: {
         "content-type": "application/json",
       },

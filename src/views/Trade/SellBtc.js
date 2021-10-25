@@ -134,7 +134,7 @@ const SellBtc = ({ socket, adminInfo }) => {
       currency: type,
     };
 
-    fetch("api/transactions", {
+    fetch("https://cryptwavi.herokuapp.com/api/transactions", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,

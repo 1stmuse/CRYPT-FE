@@ -2,8 +2,6 @@ import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import { createUseStyles } from "react-jss";
 import colors from "../../utils/colors";
-import inc from "../../assets/increase.svg";
-import dec from "../../assets/decrease.svg";
 import StatCard from "../../components/statCards";
 import welcome from "../../assets/welcome.svg";
 import Market from "./Market";
@@ -37,7 +35,7 @@ const Dashboard = () => {
   const successTF = data.filter((ob) => ob.status === "settled");
 
   const getData = () => {
-    fetch(`api/transactions/${id}`, {
+    fetch(`https://cryptwavi.herokuapp.com/api/transactions/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -48,7 +46,7 @@ const Dashboard = () => {
   };
 
   const getDebtBalance = () => {
-    fetch(`api/user/debt`, {
+    fetch(`https://cryptwavi.herokuapp.com/api/user/debt`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

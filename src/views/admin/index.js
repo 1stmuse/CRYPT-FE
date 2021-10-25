@@ -43,7 +43,7 @@ const AdminDash = () => {
       dogecoin_address: values.doge_address,
       litecoin_address: values.lt_address,
     };
-    fetch("api/admin/info", {
+    fetch("https://cryptwavi.herokuapp.com/api/admin/info", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ const AdminDash = () => {
   };
 
   const getTransactions = () => {
-    fetch(`api/transactions/`, {
+    fetch(`https://cryptwavi.herokuapp.com/api/transactions/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -76,7 +76,7 @@ const AdminDash = () => {
   };
 
   const getUsers = () => {
-    fetch("api/users", {
+    fetch("https://cryptwavi.herokuapp.com/api/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -89,7 +89,7 @@ const AdminDash = () => {
   };
 
   const getAdminInfo = () => {
-    fetch("api/admin/info", {
+    fetch("https://cryptwavi.herokuapp.com/api/admin/info", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,

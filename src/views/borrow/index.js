@@ -21,7 +21,7 @@ const Borrow = () => {
   const [socket, setSocket] = useState(null);
 
   const socketInit = () => {
-    const newSock = io("http://localhost:8000", {
+    const newSock = io("https://cryptwavi.herokuapp.com", {
       query: {
         id: token,
       },
@@ -51,7 +51,7 @@ const Borrow = () => {
   };
 
   const getAdminInfo = () => {
-    fetch("api/admin/info", {
+    fetch("https://cryptwavi.herokuapp.com/api/admin/info", {
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
