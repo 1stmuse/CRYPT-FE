@@ -19,7 +19,7 @@ const Market = () => {
 
   const getData = () => {
     fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Ccardano%2Cripple%2Ctether&order=market_cap_desc&per_page=20&page=1&sparkline=false&price_change_percentage=24h`
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h"
     )
       .then((res) => res.json())
       .then((data) => setData(data))
@@ -42,6 +42,7 @@ const Market = () => {
               <Th>Asset</Th>
               <Th>Price</Th>
               <Th>24h Change</Th>
+              <Th>24h Low</Th>
               <Th>Highest</Th>
             </Tr>
           </Thead>
@@ -59,6 +60,10 @@ const Market = () => {
                   }
                 >
                   {ob["price_change_percentage_24h"]}%
+                </Td>
+                <Td color="red">
+                  {" "}
+                  ${Math.trunc(ob.low_24h).toLocaleString()}{" "}
                 </Td>
                 <Td> ${Math.trunc(ob.ath).toLocaleString()} </Td>
               </Tr>

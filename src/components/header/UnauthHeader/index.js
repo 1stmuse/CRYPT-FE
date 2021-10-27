@@ -1,7 +1,8 @@
-import { Box, Text, useMediaQuery, Link } from "@chakra-ui/react";
+import { Box, Text, useMediaQuery, Link, Image } from "@chakra-ui/react";
 import React from "react";
 import { createUseStyles } from "react-jss";
 import { useHistory } from "react-router-dom";
+import logo from "../../../assets/crylogo.png";
 import "./styles.css";
 
 const useStyles = createUseStyles({
@@ -25,7 +26,7 @@ const UnauthHeader = () => {
   const headerTextColor = {
     color: "white",
     fontWeight: "bold",
-    fontSize: isMobile ? "11px" : "22px",
+    fontSize: isMobile ? "11px" : "18px",
   };
 
   React.useEffect(() => {
@@ -37,20 +38,28 @@ const UnauthHeader = () => {
   }, []);
 
   return (
-    <Box className={scrollPosition > 2 ? "header" : "headerDefault"} px={20}>
-      <Text
-        fontStyle="italic"
-        fontWeight="bold"
-        color="white"
-        fontSize={isMobile ? 18 : 22}
-      >
-        CRYPTWAVILOAN
-      </Text>
+    <Box
+      className={scrollPosition > 2 ? "header" : "headerDefault"}
+      px={20}
+      overflow="hidden"
+    >
+      <Box d="flex" alignItems="center">
+        <Image src={logo} w="100" h="100" />
+        <Text
+          // fontStyle="italic"
+          // fontWeight="bold"
+          fontFamily="Audiowide, cursive"
+          color="white"
+          fontSize={isMobile ? 18 : 22}
+        >
+          CRYPTWAVILOAN
+        </Text>
+      </Box>
       <Box
         d="flex"
         justifyContent="space-between"
         // border="1px solid red"
-        minW="50%"
+        minW="30%"
         maxW="60%"
       >
         <Link

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import UnauthHeader from "../../components/header/UnauthHeader";
 // import bg from "../../assets/bctBg.jpg";
-import img from "../../assets/btc-vallet.png";
+import img from "../../assets/brain.gif";
 import Button from "../../components/Button";
 import Services from "./Services";
 import Secured from "./Secured";
@@ -12,6 +12,7 @@ import WeAre from "./WeAre";
 import Reviews from "./Reviews";
 import Footer from "./Footer";
 import colors from "../../utils/colors";
+import logo from "../../assets/crylogo.png";
 
 import { createUseStyles } from "react-jss";
 import Assets from "./Assets";
@@ -38,7 +39,7 @@ const Home = ({ history }) => {
   const headerTextColor = {
     color: "white",
     fontWeight: "bold",
-    fontSize: "22px",
+    fontSize: "18px",
   };
 
   const goTo = (route) => {
@@ -62,7 +63,7 @@ const Home = ({ history }) => {
             right="0"
             pos="fixed"
             height={smOpen ? "100vh" : "100px"}
-            pl={10}
+            pl={2}
             pr={5}
             overflow="hidden"
           >
@@ -72,14 +73,28 @@ const Home = ({ history }) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Text
-                fontStyle="italic"
-                fontWeight="bold"
-                color="white"
-                fontSize={isMobile ? 18 : 22}
-              >
-                CRYPTWAVILOAN
-              </Text>
+              <Box d="flex" alignItems="center">
+                <Box
+                  w="50px"
+                  h="50px"
+                  d="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  // border="1px solid green"
+                >
+                  <Image src={logo} w="100%" h="100%" />
+                </Box>
+                <Text
+                  fontStyle="italic"
+                  fontWeight="bold"
+                  fontFamily="Audiowide, cursive"
+                  color="white"
+                  fontSize={14}
+                >
+                  CRYPTWAVILOAN
+                </Text>
+              </Box>
+
               <Text
                 onClick={() => dispatch({ type: "SM_TOGGLE_NAV" })}
                 color="white"
@@ -157,8 +172,8 @@ const Home = ({ history }) => {
               GET STARTED
             </Button>
           </Box>
-          <Box display={isMobile && "none"} mt="28" mr="50px">
-            <Image src={img} className="image" />
+          <Box width="40%" display={isMobile && "none"} mt="28" mr="50px">
+            <Image w="100%" h="100%" src={img} />
           </Box>
         </Box>
       </Box>

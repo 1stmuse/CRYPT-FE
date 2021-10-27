@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import colors from "../../utils/colors";
 import { createUseStyles } from "react-jss";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import logo from "../../assets/crylogo.png";
 
 const useStyles = createUseStyles({
   tab: {
@@ -45,6 +46,7 @@ const Header = () => {
       height="70px"
       bg="white"
       zIndex="100"
+      overflow="hidden"
     >
       {isMobile ? (
         <Box
@@ -63,20 +65,22 @@ const Header = () => {
           >
             {/* text */}
           </Text>
-          <Box>
-            <Text
+          {/* <Box d="flex" alignItems="center" justifyContent="flex-end"> */}
+          <Image src={logo} height="100" width="100" />
+          {/* <Text
               fontStyle="italic"
               fontWeight="bold"
               fontSize={18}
               color={colors.deepBlue}
             >
               CRYPTWAVILOAN
-            </Text>
-          </Box>
+            </Text> */}
+          {/* </Box> */}
         </Box>
       ) : (
         <>
-          <Box pl="5">
+          <Box pl="5" d="flex" alignItems="center">
+            <Image src={logo} height="100" width="100" />
             <Text
               fontStyle="italic"
               fontWeight="bold"

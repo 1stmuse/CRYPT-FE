@@ -1,6 +1,6 @@
 import { Box, Text, Image, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
-import lend from "../../assets/lend.jpg";
+import lend from "../../assets/hand.gif";
 import { useHistory } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 import Button from "../../components/Button";
