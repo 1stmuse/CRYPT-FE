@@ -43,6 +43,7 @@ const Header = () => {
       right="0"
       top="0"
       px={isMobile ? "10" : "28"}
+      pr={isMobile && "2"}
       height="70px"
       bg="white"
       zIndex="100"
@@ -80,11 +81,14 @@ const Header = () => {
       ) : (
         <>
           <Box pl="5" d="flex" alignItems="center">
-            <Image src={logo} height="100" width="100" />
+            <Box>
+              <Image src={logo} height="100" width="100" />
+            </Box>
             <Text
               fontStyle="italic"
               fontWeight="bold"
-              fontSize={22}
+              fontFamily="Audiowide, cursive"
+              fontSize={20}
               color={colors.deepBlue}
             >
               CRYPTWAWILOAN
