@@ -22,9 +22,9 @@ const Trade = () => {
           w={isMobile ? "100%" : "70%"}
           color={colors.white}
         >
-          Here at CRYTBLIS your transactions are Fast, Secured and Reliable,
-          Sell or Buy BTC to and from CRYTBLIS with ease and just about 3 steps,
-          get started now
+          Here at CRYPTWAVILOAN your transactions are Fast, Secured and
+          Reliable, Sell or Buy BTC to and from CRYPTWAVILOAN with ease and just
+          about 3 steps, get started now
         </Text>
       </Box>
       <Box bg="white" borderRadius="15px" py="5" mt="5">

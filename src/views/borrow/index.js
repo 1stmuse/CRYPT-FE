@@ -83,8 +83,8 @@ const Borrow = () => {
           w={isMobile ? "100%" : "70%"}
           color={colors.white}
         >
-          Need cash for a while ? CRYPTWAVI got you covered, just tell us the
-          amount and deposit BTC as your collateral, fast, easy and reliable
+          Need cash for a while ? CRYPTWAVILOAN got you covered, just tell us
+          the amount and deposit BTC as your collateral, fast, easy and reliable
           always
         </Text>
       </Box>

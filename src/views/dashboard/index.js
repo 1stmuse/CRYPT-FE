@@ -70,7 +70,7 @@ const Dashboard = () => {
         justifyContent="space-between"
       >
         <Box mr="12" order={isMobile && "2"} width={isMobile ? "100%" : "50%"}>
-          <Text fontSize="2xl" color={colors.deepBlue}>
+          <Text fontSize="2xl" color={colors.white}>
             Quick Stats
           </Text>
           <Box
@@ -126,10 +126,10 @@ const Dashboard = () => {
         >
           <Box>
             <Text fontSize={isTab ? "2xl" : "3xl"} color="white">
-              Welcome to CRYPTBLIS
+              Welcome to CRYPTWAVILOAN
             </Text>
             <Text color="white" mt="10px" fontSize="15px">
-              Here are CRYPTBLIS you are allowed to buy and sell BTC seamlessly
+              Here are CRYPTWAVILOAN you are allowed to buy and sell BTC seamlessly
               in just about 2 basic steps and also borrow cash for whenever you
               need it
             </Text>

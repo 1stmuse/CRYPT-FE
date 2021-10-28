@@ -30,7 +30,7 @@ const Repay = () => {
           color={colors.white}
         >
           Repay your existing loans to enable you qualify for another loan,
-          CRYTBLIS is all about making our customers happy all the time.
+          CRYPTWAVILOAN is all about making our customers happy all the time.
         </Text>
       </Box>
       <Box

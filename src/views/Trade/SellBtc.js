@@ -247,7 +247,7 @@ const SellBtc = ({ socket, adminInfo }) => {
                 </Box>
                 <Box mt="5" w="60%">
                   <Text className={classes.labels}>
-                    CRYPTWAVI {coinType} address
+                    CRYPTWAVILOAN {coinType} address
                   </Text>
                   <Text className={classes.labels}>
                     {adminInfo[chosenAddress()]}
@@ -385,7 +385,7 @@ const SellBtc = ({ socket, adminInfo }) => {
               <Text>NOTE:</Text>
               <Text className={classes.labels}>
                 Clicking next implies that you have tranfered the stated CRYPTO
-                ammount into CRYPTWAVI CRYPTO address and you are ready to
+                ammount into CRYPTWAVILOAN CRYPTO address and you are ready to
                 upload prove of transfer
               </Text>
             </Box>

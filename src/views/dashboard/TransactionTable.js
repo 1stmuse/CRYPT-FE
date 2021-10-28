@@ -56,7 +56,7 @@ const TransactionTable = ({ data = [] }) => {
 
   return (
     <Box mt="12">
-      <Text fontSize="2xl" color={colors.deepBlue}>
+      <Text fontSize="2xl" color={colors.white}>
         Top Transactions
       </Text>
       <Box minH="200px" bg="white" overflowX="scroll">

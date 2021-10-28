@@ -32,7 +32,7 @@ const Market = () => {
 
   return (
     <Box mt="12">
-      <Text fontSize="2xl" color={colors.deepBlue}>
+      <Text fontSize="2xl" color={colors.white}>
         Market
       </Text>
       <Box mt="5" overflowX="scroll">

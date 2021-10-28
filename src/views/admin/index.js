@@ -133,7 +133,7 @@ const AdminDash = () => {
         px="16"
       >
         <Text fontSize="2xl" clor={colors.deepBlue}>
-          CRYPTBLIS ADMIN
+          CRYPTWAVILOAN ADMIN
         </Text>
       </Box>
       <Box mt="28" w="80%" mx="auto">

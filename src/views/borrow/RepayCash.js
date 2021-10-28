@@ -192,7 +192,7 @@ const RepayCash = () => {
                   name="btc"
                 />
                 <Box mt="5">
-                  <Text>CRYPTWAVI account details</Text>
+                  <Text>CRYPTWAVILOAN account details</Text>
                   <Box>
                     <Text>{adminInfo.bank_name}</Text>
 
@@ -301,8 +301,8 @@ const RepayCash = () => {
               <Text className={classes.labels}>
                 Clicking next implies that you have tranfered the money into
                 CRYPTWAVI account and you are ready to upload prove of payment,
-                after which CRYPTWAVI will send your deposited CRYPTO to your
-                address
+                after which CRYPTWAVILOAN will send your deposited CRYPTO to
+                your address
               </Text>
             </Box>
           </Box>

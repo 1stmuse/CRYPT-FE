@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
   const [isMobile] = useMediaQuery(["(max-width: 1050px)"]);
   return (
     <Box
-      bg={colors.ash}
+      bg={"#000"}
       pos="fixed"
       left="0"
       right="0"

@@ -66,7 +66,7 @@ const Register = () => {
     <Box
       bgImg={bg}
       minH="100vh"
-      pos="relative"
+      // pos="relative"
       d="flex"
       justifyContent="center"
       pos="fixed"
