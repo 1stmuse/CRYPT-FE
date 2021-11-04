@@ -85,13 +85,13 @@ const Header = () => {
               <Image src={logo} height="100" width="100" />
             </Box>
             <Text
-              fontStyle="italic"
+              // fontStyle="italic"
               fontWeight="bold"
-              fontFamily="Audiowide, cursive"
+              // fontFamily="Bodoni Moda, serif"
               fontSize={20}
               color={colors.deepBlue}
             >
-              CRYPTWAWILOAN
+              CRYPTWAVI
             </Text>
           </Box>
           <Box

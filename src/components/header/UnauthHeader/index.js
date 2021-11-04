@@ -46,13 +46,13 @@ const UnauthHeader = () => {
       <Box d="flex" alignItems="center">
         <Image src={logo} w="100" h="100" />
         <Text
-          // fontStyle="italic"
+          fontStyle="italic"
           // fontWeight="bold"
-          fontFamily="Audiowide, cursive"
+          fontFamily="Baskervville, serif"
           color="white"
           fontSize={isMobile ? 18 : 22}
         >
-          CRYPTWAVILOAN
+          CRYPTWAVI
         </Text>
       </Box>
       <Box

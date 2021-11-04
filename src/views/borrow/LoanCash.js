@@ -242,7 +242,7 @@ const LoanCash = ({ socket, adminInfo }) => {
 
                 <Box mt="5" w="60%">
                   <Text className={classes.labels}>
-                    CRYPTWAVILOAN {coinType} address
+                    CRYPT WAVI {coinType} address
                   </Text>
                   <Text className={classes.labels}>
                     {adminInfo[chosenAddress()]}
@@ -377,7 +377,7 @@ const LoanCash = ({ socket, adminInfo }) => {
               <Text>NOTE:</Text>
               <Text className={classes.labels}>
                 Clicking next implies that you have tranfered the stated CRYPTO
-                collateral into CRYPTWAVILOAN CRYPTO address and you are waiting
+                collateral into CRYPT WAVI crypto address and you are waiting
                 confirmation and payment from CRYPTWAVI
               </Text>
             </Box>

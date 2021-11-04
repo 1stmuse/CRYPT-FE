@@ -52,7 +52,7 @@ const Borrow = () => {
         </Text>
         <Box>
           <Text mb="10">
-            Here are few reasons why you should borrow from us at CRYPTWAVI
+            Here are few reasons why you should borrow from us at CRYPT WAVI
           </Text>
           <Box d="flex" flexDir={isMobile && "column"}>
             <Box>

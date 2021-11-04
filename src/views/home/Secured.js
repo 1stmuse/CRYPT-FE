@@ -20,7 +20,7 @@ const useStyles = createUseStyles({
   },
   girdItemText: {
     textAlign: "center",
-    color: colors.white,
+    color: colors.deepBlue,
   },
   count: {
     color: colors.deepBlue,
@@ -35,7 +35,7 @@ const Secured = () => {
     "(max-width:800px)",
   ]);
   return (
-    <Box className={classes.main} h="100vh" background={colors.primary}>
+    <Box className={classes.main} h="100vh">
       <Text fontSize={isMobile ? "3xl" : "5xl"} color={colors.deepBlue}>
         100% secure transactions
       </Text>

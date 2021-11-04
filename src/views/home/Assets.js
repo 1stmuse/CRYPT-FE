@@ -39,7 +39,7 @@ const Assets = () => {
               The Ultimate Security for Your Digital Assets
             </Text>
             <Text mt="10" fontSize="18px" mb="5">
-              The Cryptwaviloan platform is equipped with a top-quality security
+              The Crypt wavi platform is equipped with a top-quality security
               infrastructure designed to ensure maximum protection of assets at
               all times.
             </Text>

@@ -1,3 +1,6 @@
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import React from "react";
 import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
 import Home from "./views/home";
@@ -10,6 +13,8 @@ import { useSelector } from "react-redux";
 import AdminDash from "./views/admin";
 import Application from "./route/Application";
 import AdminRoute from "./route/AdminRoute";
+import "./App.css";
+import About from "./views/home/About";
 
 function App() {
   const { isAdmin } = useSelector((state) => state.user);
@@ -23,6 +28,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
+        <UnauthedRoute path="/about" exact component={About} />
         <UnauthedRoute path="/" exact component={Home} />
         <UnauthedRoute path="/login" exact component={Login} />
         <UnauthedRoute

@@ -50,7 +50,7 @@ const Services = () => {
           </Text>
           <Box mt={3}>
             <Text color={colors.brown}>
-              CRYPTWAVILOAN provides a Bitcoin marketplace where people sell
+              CRYPT WAVI provides a Bitcoin marketplace where people sell
               Bitcoin easily and safely with notable simple UI, friendly online
               customer support 24/7 and lowest fee compared with major players
               on the market.

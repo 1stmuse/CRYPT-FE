@@ -46,7 +46,7 @@ const WeAre = () => {
           Who we are?
         </Text>
         <Text mt={4} textAlign="center" color={colors.brown}>
-          CRYPTWAVILOAN provides a Bitcoin marketplace where people sell Bitcoin
+          CRYPT WAVI provides a Bitcoin marketplace where people sell Bitcoin
           easily and safely with notable simple UI, friendly online customer
           support 24/7 and lowest fee compared with major players on the market.
           Our team is comprised mostly by banking professionals with extensive
@@ -102,7 +102,7 @@ const WeAre = () => {
                 <Box>
                   <Text className={classes.girdItemText}>
                     Leading experts in crypto currencies such as Elon Musk
-                    recommends CRYPTWAVILOAN.
+                    recommends CRYPT WAVI.
                   </Text>
                 </Box>
               </Box>
