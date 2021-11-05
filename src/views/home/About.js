@@ -1,111 +1,151 @@
 import React from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Image, Link, useMediaQuery } from "@chakra-ui/react";
+import bg from "../../assets/nexo-about.jpg";
+import colors from "../../utils/colors";
+import { createUseStyles } from "react-jss";
+
+const useStyles = createUseStyles({
+  log: {
+    width: "150px",
+    height: "70px",
+    margin: "20px 20px",
+  },
+});
 
 const About = () => {
+  const classes = useStyles();
+  const [isTab, isMobile, smMobile] = useMediaQuery([
+    "(max-width: 1000px)",
+    "(max-width:800px)",
+    "(max-width: 650px)",
+  ]);
   return (
     <Box>
       <Box
-        minH="200px"
+        // minH="200px"
         border="1px solid transparent"
         id="story"
         className="relative o-nav-pull"
         block-name="story"
       >
-        <img
-          className="o-cover mb-48 rounded-md object-cover"
-          src="https://nexo.io/media/pages/about-us/539f82a140-1631610879/nexo-about.jpg"
-          alt=""
-        />
-        <Box className="o-container relative my-32 sm:my-128 sm:px-96 text-center">
-          <Text className="text-32 md:text-46 lg:text-58 leading-115 font-serif font-bold text-indigo-500">
-            Disrupting the financial system, <br class="o-br desktop" /> one bit
-            at a time
-          </Text>
+        <Box
+          h="75vh"
+          bgImg={bg}
+          // bgSize="contain"
+          bgPos="center"
+          bgRepeat="no-repeat"
+          d="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box>
+            <Text fontSize="5xl" fontWeight="bold" color="#1e4dd8">
+              Disrupting the financial system, <br class="o-br desktop" /> one
+              bit at a time
+            </Text>
+          </Box>
         </Box>
       </Box>
-      <section class="o-container mt-32 mb-80 sm:mt-80 sm:mb-160">
-        <div class="o-row items-start justify-center">
-          <div class="o-col s-text2 md:w-1/2 m-clip mb-24 md:m-0 text-22 md:text-28 lg:text-36 leading-150 text-gray-800">
-            <p>
-              Wavi is the future of cryptocurrency lending and aims to bring
-              professional financial services to the world of digital assets.
-            </p>
-          </div>
-          <div class="o-col s-text2 md:w-1/2 m-clip text-20 leading-150 text-gray-500">
-            <p>
-              Wavi leverages the team's years of FinTech experience and the
-              power of blockchain technology to empower millions of people to
-              leverage the value of their cryptocurrencies and build a stable
-              financial foundation.
-            </p>
-            <p>
-              Wavi currently manages assets for 15k+ customers across 200
-              countries.
-            </p>{" "}
-          </div>
-        </div>
-      </section>
-      <section
-        id="stats"
-        class="o-container my-96 md:my-160"
-        block-name="legacy-stats"
+
+      <Box
+        d="flex"
+        px="10"
+        flexDir={isMobile ? "column" : "row"}
+        justifyContent="space-around"
+        className="o-row items-start justify-center"
+        minH="200px"
+        mt="10"
+        // alignItems="center"
       >
-        <div class="o-row justify-between lg:flex-no-wrap -mb-40">
-          <div class="o-col w-1/2 sm:w-1/3 lg:w-auto mb-40">
-            <div class="text-36 md:text-46 leading-115 font-serif font-bold text-indigo-500">
+        <Box
+          d="flex"
+          alignItems="center"
+          justifyContent="center"
+          w={isMobile ? "100%" : "40%"}
+          mb={isMobile && "10"}
+        >
+          <Text fontSize="3xl" w="100%">
+            Wavi is the future of cryptocurrency lending and aims to bring
+            professional financial services to the world of digital assets.
+          </Text>
+        </Box>
+        <Box w={isMobile ? "100%" : "50%"}>
+          <Text fontSize="18px" color="#4a5056" w="80%">
+            Wavi leverages the team's years of FinTech experience and the power
+            of blockchain technology to empower millions of people to leverage
+            the value of their cryptocurrencies and build a stable financial
+            foundation.
+          </Text>
+          <Text fontSize="18px" mt="5" w="80%" color="#4a5056">
+            Wavi currently manages assets for 15k+ customers across 200
+            countries.
+          </Text>{" "}
+        </Box>
+      </Box>
+
+      <Box id="stats" block-name="legacy-stats" my="20">
+        <Box d="flex" justifyContent="space-around" flexWrap="wrap">
+          <Box className="o-col w-1/2 sm:w-1/3 lg:w-auto mb-40">
+            <Box color="#1e4dd8" fontWeight="bold" fontSize="4xl">
               15K+
-            </div>
-            <div class="text-14 md:text-18 leading-115 md:leading-135 font-medium text-gray-600">
+            </Box>
+            <Box className="text-14 md:text-18 leading-115 md:leading-135 font-medium text-gray-600">
               Wavi users
               <br />
               worldwide{" "}
-            </div>
-          </div>
-          <div class="o-col w-1/2 sm:w-1/3 lg:w-auto mb-40">
-            <div class="text-36 md:text-46 leading-115 font-serif font-bold text-indigo-500">
+            </Box>
+          </Box>
+          <Box className="o-col w-1/2 sm:w-1/3 lg:w-auto mb-40">
+            <Box color="#1e4dd8" fontWeight="bold" fontSize="4xl">
               40+
-            </div>
-            <div class="text-14 md:text-18 leading-115 md:leading-135 font-medium text-gray-600">
+            </Box>
+            <Box className="text-14 md:text-18 leading-115 md:leading-135 font-medium text-gray-600">
               Fiat currencies
               <br />
               available{" "}
-            </div>
-          </div>
-          <div class="o-col w-1/2 sm:w-1/3 lg:w-auto mb-40">
-            <div class="text-36 md:text-46 leading-115 font-serif font-bold text-indigo-500">
+            </Box>
+          </Box>
+          <Box className="o-col w-1/2 sm:w-1/3 lg:w-auto mb-40">
+            <Box color="#1e4dd8" fontWeight="bold" fontSize="4xl">
               200+
-            </div>
-            <div class="text-14 md:text-18 leading-115 md:leading-135 font-medium text-gray-600">
+            </Box>
+            <Box className="text-14 md:text-18 leading-115 md:leading-135 font-medium text-gray-600">
               Available in 200+
               <br />
               countries
-            </div>
-          </div>
-          <div class="o-col w-1/2 sm:w-1/3 lg:w-auto mb-40">
-            <div class="text-36 md:text-46 leading-115 font-serif font-bold text-indigo-500">
+            </Box>
+          </Box>
+          <Box className="o-col w-1/2 sm:w-1/3 lg:w-auto mb-40">
+            <Box color="#1e4dd8" fontWeight="bold" fontSize="4xl">
               200K+{" "}
-            </div>
-            <div class="text-14 md:text-18 leading-115 md:leading-135 font-medium text-gray-600">
+            </Box>
+            <Box className="text-14 md:text-18 leading-115 md:leading-135 font-medium text-gray-600">
               Social media
               <br />
               community{" "}
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="o-container my-160" block-name="box-items">
-        <header class="s-lg-br mb-80 text-center">
-          <h2 class="mb-16 text-28 md:text-42 leading-115 font-medium text-gray-800">
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      <Box block-name="box-items">
+        <Box textAlign="center" mb="50">
+          <Text fontSize="4xl" fontWeight="medium">
             Mission, Vision & Values{" "}
-          </h2>
-          <h3 class="text-20 md:text-24 leading-135 text-gray-500">
+          </Text>
+          <Text className="text-20 md:text-24 leading-135 text-gray-500">
             A service made with our clients in mind{" "}
-          </h3>
-        </header>
-        <div class="o-row -mb-48 md:m-0">
-          <div class="o-col flex flex-col w-full md:w-1/3 mb-48 md:-my-16">
-            <div class="hidden flex-grow md:flex items-start w-1/2 my-16 rounded-sm  text-64 text-blue-500">
-              <i class="o-icon o-icon--duotone">
+          </Text>
+        </Box>
+        <Box
+          mb="10"
+          d="flex"
+          justifyContent="space-around"
+          px="10"
+          flexDir={isMobile ? "column" : "row"}
+        >
+          <Box w={isMobile ? "100%" : "28%"}>
+            <Box mb="10">
+              <i className="o-icon o-icon--duotone">
                 <svg
                   width="48"
                   height="48"
@@ -124,26 +164,29 @@ const About = () => {
                     fill="#1E4DD8"
                   />
                 </svg>
-              </i>{" "}
-            </div>
-            <div class="md:my-16">
-              <small class="block mb-8 text-16 leading-135 font-medium text-indigo-500">
-                01.{" "}
-              </small>
-              <h4 class="mb-8 text-24 leading-135 font-serif font-medium text-gray-700">
+              </i>
+            </Box>
+            <Box className="md:my-16">
+              <Text color="indigo">01. </Text>
+              <Text my="2" fontSize="2xl">
                 Mission
-              </h4>
-              <p class="text-18 leading-150 text-gray-500">
+              </Text>
+              <Text className="text-18 leading-150 text-gray-500">
                 Wavi's mission is to develop innovative, convenient and
                 sustainable solutions to improve credit markets using blockchain
                 technology. Wavi is a pioneer of a new digital financial system
                 that eliminates inefficiencies in the credit market.
-              </p>
-            </div>
-          </div>
-          <div class="o-col flex flex-col w-full md:w-1/3 mb-48 md:-my-16">
-            <div class="hidden flex-grow md:flex items-end w-1/2 my-16 rounded-sm md:order-2 text-64 text-blue-500">
-              <i class="o-icon o-icon--duotone">
+              </Text>
+            </Box>
+          </Box>
+          <Box
+            d="flex"
+            flexDir={isMobile ? "column" : "column"}
+            w={isMobile ? "100%" : "28%"}
+            mb={isMobile && "10"}
+          >
+            <Box mb={isMobile && "10"} mt="10">
+              <i className="o-icon o-icon--duotone">
                 <svg
                   width="48"
                   height="48"
@@ -165,27 +208,25 @@ const About = () => {
                   />
                 </svg>
               </i>{" "}
-            </div>
-            <div class="md:my-16">
-              <small class="block mb-8 text-16 leading-135 font-medium text-indigo-500">
-                02.{" "}
-              </small>
-              <h4 class="mb-8 text-24 leading-135 font-serif font-medium text-gray-700">
+            </Box>
+            <Box className="md:my-16">
+              <Text color="indigo">02. </Text>
+              <Text my="2" fontSize="2xl">
                 Vision{" "}
-              </h4>
-              <p class="text-18 leading-150 text-gray-500">
+              </Text>
+              <Text className="text-18 leading-150 text-gray-500">
                 We see a future for finance where all assets are tokenized on
                 the blockchain and people have efficient ways to transfer or
                 manage their funds without having to go through a credit check.
                 At Wavi, we are always looking ahead. That's why we have
                 designed our products to be seamless, secure, and instantaneous
                 - we are the future of financial stability and wealth creation.
-              </p>
-            </div>
-          </div>
-          <div class="o-col flex flex-col w-full md:w-1/3 mb-48 md:-my-16">
-            <div class="hidden flex-grow md:flex items-start w-1/2 my-16 rounded-sm  text-64 text-blue-500">
-              <i class="o-icon o-icon--duotone">
+              </Text>
+            </Box>
+          </Box>
+          <Box w={isMobile ? "100%" : "28%"}>
+            <Box mb="10">
+              <i className="o-icon o-icon--duotone">
                 <svg
                   width="48"
                   height="48"
@@ -203,25 +244,233 @@ const About = () => {
                   <path d="M40.5 5L32 15H46L40.5 5Z" fill="#9EB3EE" />
                 </svg>
               </i>{" "}
-            </div>
-            <div class="md:my-16">
-              <small class="block mb-8 text-16 leading-135 font-medium text-indigo-500">
-                03.
-              </small>
-              <h4 class="mb-8 text-24 leading-135 font-serif font-medium text-gray-700">
+            </Box>
+            <Box className="md:my-16">
+              <Text color="indigo">03.</Text>
+              <Text my="2" fontSize="2xl">
                 Values
-              </h4>
-              <p class="text-18 leading-150 text-gray-500">
+              </Text>
+              <Text className="text-18 leading-150 text-gray-500">
                 Our company values efficiency, transparency, and inclusivity. We
                 demonstrate this through our fully automated products,
                 transparent processes, and our unabashed effort to create a
                 truly global service that offers everyone the opportunity to
                 build wealth.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+              </Text>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      <Box>
+        <Text textAlign="center" fontSize="3xl" fontWeight="bold" my="10">
+          Strategic Partners{" "}
+        </Text>
+        <Box d="flex" justifyContent="center" alignItems="center">
+          <Box
+            w="80%"
+            d="flex"
+            flexWrap="wrap"
+            justifyContent="space-around"
+            px="10"
+          >
+            <Link
+              class="inline-block the-logo-bitgo m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://www.bitgo.com/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="93"
+                src="https://nexo.io/media/pages/about-us/c776d5c480-1631610878/logo-bitgo.svg"
+                srcset="https://nexo.io/media/pages/about-us/c776d5c480-1631610878/logo-bitgo.svg 369w, https://nexo.io/media/pages/about-us/c776d5c480-1631610878/logo-bitgo.svg 369w"
+                // width="369"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-ledger m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://www.ledger.com/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="614"
+                src="https://nexo.io/media/pages/about-us/6d3c8dab50-1631610878/logo-ledger.svg"
+                srcset="https://nexo.io/media/pages/about-us/6d3c8dab50-1631610878/logo-ledger.svg 2499w, https://nexo.io/media/pages/about-us/6d3c8dab50-1631610878/logo-ledger.svg 2499w"
+                // width="2499"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-paxos m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://paxos.com/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="332"
+                src="https://nexo.io/media/pages/about-us/5fb4a624de-1631610878/logo-paxos.svg"
+                srcset="https://nexo.io/media/pages/about-us/5fb4a624de-1631610878/logo-paxos.svg 1080w, https://nexo.io/media/pages/about-us/5fb4a624de-1631610878/logo-paxos.svg 1080w"
+                // width="1080"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-blockchain m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://www.blockchain.com/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="541"
+                src="https://nexo.io/media/pages/about-us/ae9ff6c0c8-1631610878/logo-blockchain.svg"
+                srcset="https://nexo.io/media/pages/about-us/ae9ff6c0c8-1631610878/logo-blockchain.svg 3702w, https://nexo.io/media/pages/about-us/ae9ff6c0c8-1631610878/logo-blockchain.svg 3702w"
+                // width="3702"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-circle m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://www.circle.com/en/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="277"
+                src="https://nexo.io/media/pages/about-us/15dc9aa678-1631610878/logo-circle.svg"
+                srcset="https://nexo.io/media/pages/about-us/15dc9aa678-1631610878/logo-circle.svg 1080w, https://nexo.io/media/pages/about-us/15dc9aa678-1631610878/logo-circle.svg 1080w"
+                // width="1080"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-fireblocks m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://www.fireblocks.com/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="201"
+                src="https://nexo.io/media/pages/about-us/c6052bec2b-1631610878/logo-fireblocks.svg"
+                srcset="https://nexo.io/media/pages/about-us/c6052bec2b-1631610878/logo-fireblocks.svg 1324w, https://nexo.io/media/pages/about-us/c6052bec2b-1631610878/logo-fireblocks.svg 1324w"
+                // width="1324"
+              />
+            </Link>
+            <Link
+              class="inline-block the-bcb-group-horizontal-blue-rgb m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://bcbgroup.io"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="214"
+                src="https://nexo.io/media/pages/about-us/6aa50a4ba7-1631610878/bcb-group-horizontal-blue-rgb.svg"
+                srcset="https://nexo.io/media/pages/about-us/6aa50a4ba7-1631610878/bcb-group-horizontal-blue-rgb.svg 780w, https://nexo.io/media/pages/about-us/6aa50a4ba7-1631610878/bcb-group-horizontal-blue-rgb.svg 780w"
+                // width="780"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-terra m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://www.terra.money/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="274"
+                src="https://nexo.io/media/pages/about-us/fe9b90dc96-1631610879/logo-terra.svg"
+                srcset="https://nexo.io/media/pages/about-us/fe9b90dc96-1631610879/logo-terra.svg 962w, https://nexo.io/media/pages/about-us/fe9b90dc96-1631610879/logo-terra.svg 962w"
+                // width="962"
+              />
+            </Link>
+            <Link
+              class="inline-block the-brink_logo m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://brink.dev/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="147"
+                src="https://nexo.io/media/pages/about-us/3b59c4db9b-1631610878/brink-logo-400x.png"
+                srcset="https://nexo.io/media/pages/about-us/3b59c4db9b-1631610878/brink-logo-400x.png 400w, https://nexo.io/media/pages/about-us/3b59c4db9b-1631610878/brink_logo.png 1500w"
+                // width="400"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-nomics m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://nomics.com"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="257"
+                src="https://nexo.io/media/pages/about-us/2372eff929-1631610878/logo-nomics.svg"
+                srcset="https://nexo.io/media/pages/about-us/2372eff929-1631610878/logo-nomics.svg 1184w, https://nexo.io/media/pages/about-us/2372eff929-1631610878/logo-nomics.svg 1184w"
+                // width="1184"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-securitize m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://securitize.io/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="1120"
+                src="https://nexo.io/media/pages/about-us/74450bafd2-1631610878/logo-securitize.svg"
+                srcset="https://nexo.io/media/pages/about-us/74450bafd2-1631610878/logo-securitize.svg 7613w, https://nexo.io/media/pages/about-us/74450bafd2-1631610878/logo-securitize.svg 7613w"
+                // width="7613"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-brave m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://brave.com/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="277"
+                src="https://nexo.io/media/pages/about-us/41d58666f9-1631610878/logo-brave.svg"
+                srcset="https://nexo.io/media/pages/about-us/41d58666f9-1631610878/logo-brave.svg 886w, https://nexo.io/media/pages/about-us/41d58666f9-1631610878/logo-brave.svg 886w"
+                // width="886"
+              />
+            </Link>
+            <Link
+              class="inline-block the-logo-jumio m-16 md:mx-48 md:my-24 transition duration-2 ease-1 transform hover:scale-110 align-middle"
+              href="https://www.jumio.com/"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              <Image
+                className={classes.log}
+                alt=""
+                // height="45"
+                src="https://nexo.io/media/pages/about-us/52b8408b84-1631610878/logo-jumio.svg"
+                srcset="https://nexo.io/media/pages/about-us/52b8408b84-1631610878/logo-jumio.svg 119w, https://nexo.io/media/pages/about-us/52b8408b84-1631610878/logo-jumio.svg 119w"
+                // width="119"
+              />
+            </Link>
+          </Box>
+        </Box>
+      </Box>
     </Box>
   );
 };

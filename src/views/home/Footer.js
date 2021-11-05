@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import colors from "../../utils/colors";
+import Button from "../../components/Button";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
@@ -43,10 +44,10 @@ const Footer = () => {
           d="flex"
           justifyContent="space-around"
           flexWrap="wrap"
-          my="20"
+          mt="20"
           color="white"
         >
-          <Box minW="150px" mb="10">
+          <Box minW="150px" mb="5">
             <Box>
               <Text>Contact Info</Text>
               <Box>
@@ -166,10 +167,10 @@ const Footer = () => {
                     placeholder="Enter Email Address"
                   />
                 </Box>
-                <Box className="form-group">
-                  <button type="submit" className="btn btn-outline">
+                <Box className="form-group" color="white">
+                  <Button bg="white" color={colors.deepBlue}>
                     Subscribe
-                  </button>
+                  </Button>
                 </Box>
               </form>
             </Box>
@@ -178,12 +179,17 @@ const Footer = () => {
       </Box>
       <footer>
         <Box
-          className="sm:flex py-12 sm:py-0 border-t-1 border-b-1 sm:border-none border-color-100"
           color="white"
+          d="flex"
+          py="5"
+          pr="20"
+          // justifyContent="space-between"
+          // maxW="80%"
+          // border="1px solid red"
         >
-          <Box className="flex items-start md:items-center my-12 sm:my-0 sm:mr-48">
-            <span className="text-42 sm:text-52 ">
-              <i className="o-icon o-icon--misc">
+          <Box my="12" mr="10">
+            <span>
+              <i>
                 <svg
                   width="62"
                   height="42"
@@ -254,20 +260,21 @@ const Footer = () => {
                 </svg>
               </i>{" "}
             </span>
-            <p className="ml-16 text-14 leading-135 font-serif font-medium ">
+            <p>
               ISO/IEC 27001:2013 Certified Information{" "}
               <br className="o-br desktop" /> Security Management System{" "}
             </p>
           </Box>
           <Link
-            className="flex items-center my-12 sm:my-0 sm:mr-48"
             href="https://nexo.io/licenses-and-registrations"
             _hover={{
               color: "white",
             }}
+            my="12"
+            mr="10"
           >
-            <span className="text-42 sm:text-52 ">
-              <i className="o-icon o-icon--misc">
+            <span>
+              <i>
                 <svg
                   width="52"
                   height="42"
@@ -296,19 +303,20 @@ const Footer = () => {
                 </svg>
               </i>{" "}
             </span>
-            <p className="ml-16 text-14 leading-135 font-serif font-medium ">
+            <p>
               Licensed &amp; Regulated <br className="o-br desktop" /> Digital
               Assets Institution{" "}
             </p>
           </Link>
           <Link
-            className="flex items-center my-12 sm:my-0"
             href="https://real-time-attest.trustexplorer.io/nexo"
             target="_blank"
             rel="noopener noreferer"
             _hover={{
               color: "white",
             }}
+            my="12"
+            mr="10"
           >
             <span className="text-42 sm:text-52 ">
               <i className="o-icon o-icon--misc">
@@ -344,17 +352,17 @@ const Footer = () => {
                 </svg>
               </i>{" "}
             </span>
-            <p className="ml-16 text-14 leading-135 font-serif font-medium ">
+            <p>
               Audited by <br className="o-br desktop" /> Armanino{" "}
             </p>
           </Link>
         </Box>
         {/* </section> */}
-        <hr className="hidden sm:block my-80 border-color-50" />
-        <section className="o-container my-80 text-12 leading-135">
-          <Box className="s-footer-text" color="white">
+        <Box />
+        <Box mb="5">
+          <Box color="white">
             <p>
-              Nexo Financial LLC — NMLS ID 1898755 —{" "}
+              Wavi Financial LLC — NMLS ID 1898755 —{" "}
               <Link
                 href="https://nmlsconsumeraccess.org/"
                 target="_blank"
@@ -366,12 +374,12 @@ const Footer = () => {
             <p>
               For any inquiries please contact us at{" "}
               <Link href="mailto:&#115;&#x75;&#x70;&#x70;&#x6f;&#x72;&#x74;&#x40;&#110;&#x65;&#120;&#111;&#x2e;&#x69;&#x6f;">
-                support@nexo.io
+                support@wavi.com
               </Link>
             </p>
-            <p>Copyright © 2018-2021 Nexo. All rights reserved.</p>
+            <p>Copyright © 2018-2021 Wavi. All rights reserved.</p>
           </Box>
-        </section>
+        </Box>
       </footer>
       {/* <Box width="100%">
         <Box>

@@ -48,11 +48,11 @@ const Home = ({ history }) => {
   };
 
   return (
-    <Box minH="150vh">
+    <Box minH="150vh" overflowX="hidden">
       {isMobile ? (
         <Box
           zIndex="banner"
-          backgroundColor="#2d2b51"
+          backgroundColor="#10192a"
           // backgroundColor="transparent"
           transition="0.8s"
           left="0"
