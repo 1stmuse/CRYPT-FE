@@ -1,4 +1,4 @@
-import { Box, Grid, Image, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import pay from "../../assets/pay-online.png";
 import Button from "../../components/Button";

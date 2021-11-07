@@ -3,6 +3,7 @@ import { Box, Text, Image, Link, useMediaQuery } from "@chakra-ui/react";
 import bg from "../../assets/nexo-about.jpg";
 import colors from "../../utils/colors";
 import { createUseStyles } from "react-jss";
+import Unauth from "../../components/header/UnauthHeader/Unauth";
 
 const useStyles = createUseStyles({
   log: {
@@ -21,8 +22,10 @@ const About = () => {
   ]);
   return (
     <Box>
+      <Unauth />
       <Box
         // minH="200px"
+        mt="24"
         border="1px solid transparent"
         id="story"
         className="relative o-nav-pull"

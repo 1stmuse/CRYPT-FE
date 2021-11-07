@@ -59,10 +59,7 @@ const Profile = ({ img, name }) => {
 };
 
 const Reviews = () => {
-  const [isTab, isMobile] = useMediaQuery([
-    "(max-width: 1000px)",
-    "(max-width:800px)",
-  ]);
+  const [isMobile] = useMediaQuery(["(max-width:800px)"]);
   const classes = useStyles();
   return (
     <Box className={classes.main} minH="100vh">

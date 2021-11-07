@@ -24,16 +24,13 @@ const useStyles = createUseStyles({
   },
   count: {
     color: colors.deepBlue,
-    fontSize: "25px",
+    fontSize: "50px",
   },
 });
 
 const Secured = () => {
   const classes = useStyles();
-  const [isTab, isMobile] = useMediaQuery([
-    "(max-width: 1000px)",
-    "(max-width:800px)",
-  ]);
+  const [isMobile] = useMediaQuery(["(max-width:800px)"]);
   return (
     <Box className={classes.main} h="100vh">
       <Text fontSize={isMobile ? "3xl" : "5xl"} color={colors.deepBlue}>
@@ -49,7 +46,7 @@ const Secured = () => {
       <Box d="flex" flexWrap="wrap" px={5} justifyContent="space-around">
         <Box className={classes.gridItem}>
           {/* <Laptop height="50px" /> */}
-          <Text className={classes.count}>152</Text>
+          <Text className={classes.count}>15K+</Text>
           <Box>
             <Text className={classes.girdItemText}>Clients</Text>
           </Box>

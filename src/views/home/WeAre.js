@@ -35,10 +35,7 @@ const useStyles = createUseStyles({
 
 const WeAre = () => {
   const classes = useStyles();
-  const [isTab, isMobile] = useMediaQuery([
-    "(max-width: 1000px)",
-    "(max-width:800px)",
-  ]);
+  const [isMobile] = useMediaQuery(["(max-width:800px)"]);
   return (
     <Box className={classes.main}>
       <Box w="80%" mt={isMobile && "5"}>

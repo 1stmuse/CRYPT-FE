@@ -15,6 +15,9 @@ import Application from "./route/Application";
 import AdminRoute from "./route/AdminRoute";
 import "./App.css";
 import About from "./views/home/About";
+import Privacy from "./views/home/Privacy";
+import BorrowTerm from "./views/home/BorrowTerm";
+import Terms from "./views/home/Terms";
 
 function App() {
   const { isAdmin } = useSelector((state) => state.user);
@@ -28,6 +31,10 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
+        <UnauthedRoute path="/privacy" exact component={Privacy} />
+        <UnauthedRoute path="/term" exact component={Terms} />
+        <UnauthedRoute path="/borrow_term" exact component={BorrowTerm} />
+        <UnauthedRoute path="/privacy" exact component={Privacy} />
         <UnauthedRoute path="/about" exact component={About} />
         <UnauthedRoute path="/" exact component={Home} />
         <UnauthedRoute path="/login" exact component={Login} />

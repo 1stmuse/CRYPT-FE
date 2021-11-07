@@ -95,6 +95,7 @@ const Footer = () => {
                       textDecoration: "none",
                     }}
                     title="Services"
+                    href="#services"
                   >
                     Services
                   </Link>
@@ -108,6 +109,43 @@ const Footer = () => {
                     title="Contact us"
                   >
                     About us
+                  </Link>
+                </li>
+              </ul>
+            </Box>
+          </Box>
+          <Box minW="150px" mb="10">
+            <Box>
+              <Text>Legal</Text>
+              <ul>
+                <li>
+                  <Link
+                    _hover={{
+                      textDecoration: "none",
+                    }}
+                    href="/privacy"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    _hover={{
+                      textDecoration: "none",
+                    }}
+                    href="/term"
+                  >
+                    Terms and Conditions
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    _hover={{
+                      textDecoration: "none",
+                    }}
+                    href="/borrow_term"
+                  >
+                    Borrow Terms
                   </Link>
                 </li>
               </ul>
@@ -381,34 +419,6 @@ const Footer = () => {
           </Box>
         </Box>
       </footer>
-      {/* <Box width="100%">
-        <Box>
-          <Box d="flex" alignItems="center">
-            <Text
-              fontSize={isMobile ? "2xl" : "5xl"}
-              mr={10}
-              color={colors.deepBlue}
-            >
-              CRYPTWAVI
-            </Text>
-            <Box
-              d="flex"
-              color={colors.deepBlue}
-              width="200px"
-              justifyContent="space-around"
-            >
-              <Text className="fa fa-twitter fa-2x" aria-hidden="true" />
-              <Text className="fa fa-facebook fa-2x" aria-hidden="true" />
-              <Text className="fa fa-instagram fa-2x" aria-hidden="true" />
-            </Box>
-          </Box>
-          <Box mt={isMobile && "5"}>
-            <Text textAlign="left" color={colors.deepBlue}>
-              © 2021 Cryptwavi, ApS. All rights reserved.
-            </Text>
-          </Box>
-        </Box>
-      </Box> */}
     </Box>
   );
 };
