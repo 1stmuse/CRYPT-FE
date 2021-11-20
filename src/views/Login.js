@@ -9,7 +9,6 @@ import Input from "../components/Input";
 import { createUseStyles } from "react-jss";
 import { useDispatch } from "react-redux";
 import Alert from "../utils/Alert";
-import axios from "axios";
 
 const useStyles = createUseStyles({
   labels: {
@@ -57,6 +56,7 @@ const Login = ({ history }) => {
           }
         } else {
           setError(res.message);
+          actions.resetForm();
           setTimeout(() => setError(""), 1000);
         }
       })

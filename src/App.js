@@ -18,6 +18,7 @@ import About from "./views/home/About";
 import Privacy from "./views/home/Privacy";
 import BorrowTerm from "./views/home/BorrowTerm";
 import Terms from "./views/home/Terms";
+import Verify from "./views/Verify";
 
 function App() {
   const { isAdmin } = useSelector((state) => state.user);
@@ -38,6 +39,7 @@ function App() {
         <UnauthedRoute path="/about" exact component={About} />
         <UnauthedRoute path="/" exact component={Home} />
         <UnauthedRoute path="/login" exact component={Login} />
+        <UnauthedRoute path="/verify/:email" exact component={Verify} />
         <UnauthedRoute
           path="/signup"
           exact

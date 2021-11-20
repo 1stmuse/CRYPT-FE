@@ -46,7 +46,7 @@ const Register = () => {
       .then((data) => data.json())
       .then((res) => {
         if (!res.error) {
-          console.log(res);
+          Alert("success", res.message);
           actions.resetForm();
           history.push("login");
 

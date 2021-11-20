@@ -174,7 +174,7 @@ const Home = ({ history }) => {
               type="primary"
               // bg={colors.deepBlue}
               mt="55px"
-              onClick={() => history.push("signup")}
+              onClick={() => history.push("/signup")}
             >
               GET STARTED
             </Button>

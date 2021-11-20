@@ -339,7 +339,8 @@ const BuyBtc = ({ socket, adminInfo }) => {
               <Text>NOTE:</Text>
               <Text className={classes.labels}>
                 Clicking next implies that you have tranfered the money into
-                CRYPTWAVILOAN account and you are ready to upload prove of payment
+                CRYPTWAVILOAN account and you are ready to upload prove of
+                payment
               </Text>
             </Box>
           </Box>
