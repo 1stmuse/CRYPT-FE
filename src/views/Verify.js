@@ -11,7 +11,7 @@ const Verify = ({ history }) => {
 
   const verifyEmail = () => {
     setLoading(true);
-    fetch("http://localhost:8000/api/user/verify", {
+    fetch("https://cryptwavi.herokuapp.com/api/user/verify", {
       headers: {
         "content-type": "application/json",
       },
