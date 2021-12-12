@@ -6,7 +6,7 @@ import StatCard from "../../components/statCards";
 import welcome from "../../assets/welcome.svg";
 import Market from "./Market";
 import TransactionTable from "./TransactionTable";
-import { useSelector } from "react-redux";
+import { useModal } from "../../hooks/usemodal";
 
 const useStyles = createUseStyles({
   tab: {
@@ -20,6 +20,7 @@ const useStyles = createUseStyles({
 
 const Dashboard = () => {
   const classes = useStyles();
+  const { show } = useModal();
   const [isMobile, isTab] = useMediaQuery([
     "(max-width: 850px)",
     "(max-width: 1050px)",
@@ -62,6 +63,7 @@ const Dashboard = () => {
   }, []);
 
   return (
+    // <TwoFactor />
     <Box width="100%" pb="20">
       <Box
         mt="10"

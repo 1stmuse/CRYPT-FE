@@ -8,10 +8,8 @@ import {
   Tbody,
   Td,
   Image,
-  Link,
 } from "@chakra-ui/react";
 import React from "react";
-import { observerMode } from "react-reveal/globals";
 import colors from "../../utils/colors";
 
 const Market = () => {

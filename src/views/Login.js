@@ -51,13 +51,15 @@ const Login = ({ history }) => {
           if (res.data.user.isAdmin) {
             history.push("/admin");
             return;
+          } else if (!res.data.user.auth) {
+            history.push("/twofactor");
           } else {
             history.push("dashboard");
           }
         } else {
           setError(res.message);
           actions.resetForm();
-          setTimeout(() => setError(""), 1000);
+          setTimeout(() => setError(""), 3000);
         }
       })
       .catch((err) => {
